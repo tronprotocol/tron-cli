@@ -4,18 +4,39 @@ import os
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
-def print_logo():
+"""
+Printing Messages
+"""
+def logo():
     print(' _________  ____  _  __    _______   ____')
     print('/_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/')
     print(' / / / , _/ /_/ /    /___/ /__/ /___/ /  ')
     print('/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
     print('-----------------------------------------')
 
+def progress_msg(content):
+    print('[ TRON-CLI ]: ' + content + '...')
+
+def success_msg(content):
+    print('✓ : ' + content)
+
+def warnning_msg(content):
+    print('⚠ : ' + content)
+
+def error_msg(content):
+    print('✖ : ' + content)
+
+def msg(content):
+    print('    ' + content)
+
+"""
+Download
+"""
 async def download(file_name, url_string):
     with open(file_name, 'wb') as f:
         # remove warnings
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-        
+
         resp = requests.get(url_string + '/' + file_name, verify=False)
         f.write(resp.content)
 

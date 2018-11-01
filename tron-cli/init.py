@@ -2,7 +2,7 @@ import os
 import shutil
 
 from constants import *
-from utils import download
+from utils import download, success_msg, warnning_msg, msg
 
 class Init(object):
     """handler for init dirs and fetch code"""
@@ -16,22 +16,20 @@ class Init(object):
 
     def create_dirs(self):
         path = self.root_path
-        print('[TRON-CLI]: Creating foldres...')
         try:
             os.mkdir(path + self.nodes_dir)
             os.mkdir(path + self.nodes_dir + self.fullnode_dir)
             os.mkdir(path + self.nodes_dir + self.soliditynode_dir)
         except OSError as err:
-            print('✖: OSError: ', err)
+            warnning_msg('OSError -' + str(err))
         else:
-            print('✓: Folders are created under the root:')
-            print('    ' + path + '/ ')
-            print('    ' + self.nodes_dir)
-            print('     |---' + self.fullnode_dir)
-            print('     |---' + self.soliditynode_dir)
+            success_msg('Folders are created:')
+            msg(path + '/ ')
+            msg('└──' + self.nodes_dir)
+            msg('    |---' + self.fullnode_dir)
+            msg('    └──--' + self.soliditynode_dir)
 
     async def fetch_jars(self, version):
-        # https://github.com/tronprotocol/java-tron/releases/download/Odyssey-v3.1.3/java-tron.jar
         """
         get release url
         """
@@ -43,17 +41,16 @@ class Init(object):
         """
         download
         """
-        print('[TRON-CLI]: Download release builds...')
         await download(self.fullnode_jar, url)
-        print('✓: .jar file of Fullnode is successfully downloaded')
+        success_msg('.jar file of Fullnode is successfully downloaded')
         await download(self.soliditynode_jar, url)
-        print('✓: .jar file of Soliditynode is successfully downloaded')
+        success_msg('.jar file of Soliditynode is successfully downloaded')
 
     async def move_jars(self):
         shutil.move(self.root_path + '/' + self.fullnode_jar, 
             self.root_path + self.nodes_dir + self.fullnode_dir + '/full.jar')
         shutil.move(self.root_path + '/' + self.soliditynode_jar, 
             self.root_path + self.nodes_dir + self.soliditynode_dir + '/solidity.jar')
-        print('✓: initialization finished')
+        success_msg('initialization finished')
 
 

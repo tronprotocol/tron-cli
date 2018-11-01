@@ -6,7 +6,7 @@
 import asyncio
 import cbox
 
-from utils import print_logo
+from utils import logo, progress_msg
 from init import Init
 
 
@@ -15,7 +15,9 @@ def init(version: str):
     """init dirs and fetch code.
     """
     InitHandler = Init()
+    progress_msg('Creating foldres')
     InitHandler.create_dirs()
+    progress_msg('Download release builds')
     asyncio.run(InitHandler.fetch_jars('3.1.3'))
     asyncio.run(InitHandler.move_jars())
 
@@ -24,20 +26,20 @@ def init(version: str):
 def config():
     """customize config files.
     """
-    print_logo()
+    logo()
 
 
 @cbox.cmd
 def run():
     """run nodes.
     """
-    print_logo()
+    logo()
 
 
 @cbox.cmd
 def quick():
-    print_logo()
-    print('quick start')
+    logo()
+    init('lastest')
 
 
 if __name__ == '__main__':
