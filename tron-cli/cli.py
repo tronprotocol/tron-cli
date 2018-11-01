@@ -15,21 +15,21 @@ from config import Config
 def init(version: str):
     """init dirs and fetch code.
     """
-    InitHandler = Init()
+    init_handler = Init()
     progress_msg('Creating folders')
-    InitHandler.create_dirs()
+    init_handler.create_dirs()
     progress_msg('Downloading release builds')
-    asyncio.run(InitHandler.fetch_jars('3.1.3'))
-    asyncio.run(InitHandler.move_jars())
+    asyncio.run(init_handler.fetch_jars('3.1.3'))
+    asyncio.run(init_handler.move_jars())
 
 
 @cbox.cmd
 def config():
     """customize config files.
     """
-    ConfigHandler = Config()
+    config_handler = Config()
     progress_msg('Setting up config files')
-    ConfigHandler.init()
+    config_handler.init()
 
 
 @cbox.cmd
