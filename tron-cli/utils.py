@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import psutil
 import os
+import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 def print_logo():
     print(' _________  ____  _  __    _______   ____')
@@ -9,12 +11,13 @@ def print_logo():
     print('/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
     print('-----------------------------------------')
 
-# def print_logo_bg():
-#     print('  _____   ____     ___    _   _            ____   _       ___ ')
-#     print(' |_   _| |  _ \   / _ \  | \ | |          / ___| | |     |_ _|')
-#     print('   | |   | |_) | | | | | |  \| |  _____  | |     | |      | | ')
-#     print('   | |   |  _ <  | |_| | | |\  | |_____| | |___  | |___   | | ')
-#     print('   |_|   |_| \_\  \___/  |_| \_|          \____| |_____| |___|')
+async def download(file_name, url_string):
+    with open(file_name, 'wb') as f:
+        # remove warnings
+        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+        
+        resp = requests.get(url_string + '/' + file_name, verify=False)
+        f.write(resp.content)
 
 def test():
     # dir_path = os.path.dirname(os.path.realpath(__file__))

@@ -3,16 +3,21 @@
 # /_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/
 #  / / / , _/ /_/ /    /___/ /__/ /___/ /  
 # /_/ /_/|_|\____/_/|_/    \___/____/___/
-from utils import print_logo
-
+import asyncio
 import cbox
+
+from utils import print_logo
+from init import Init
 
 
 @cbox.cmd
-def init():
+def init(version: str):
     """init dirs and fetch code.
     """
-    print_logo()
+    InitHandler = Init()
+    InitHandler.create_dirs()
+    asyncio.run(InitHandler.fetch_jars('3.1.3'))
+    asyncio.run(InitHandler.move_jars())
 
 
 @cbox.cmd
@@ -31,6 +36,7 @@ def run():
 
 @cbox.cmd
 def quick():
+    print_logo()
     print('quick start')
 
 
