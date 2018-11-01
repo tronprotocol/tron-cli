@@ -8,6 +8,7 @@ import cbox
 
 from utils import logo, progress_msg
 from init import Init
+from config import Config
 
 
 @cbox.cmd
@@ -15,9 +16,9 @@ def init(version: str):
     """init dirs and fetch code.
     """
     InitHandler = Init()
-    progress_msg('Creating foldres')
+    progress_msg('Creating folders')
     InitHandler.create_dirs()
-    progress_msg('Download release builds')
+    progress_msg('Downloading release builds')
     asyncio.run(InitHandler.fetch_jars('3.1.3'))
     asyncio.run(InitHandler.move_jars())
 
@@ -26,7 +27,9 @@ def init(version: str):
 def config():
     """customize config files.
     """
-    logo()
+    ConfigHandler = Config()
+    progress_msg('Setting up config files')
+    ConfigHandler.init()
 
 
 @cbox.cmd
