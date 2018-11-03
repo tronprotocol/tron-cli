@@ -41,8 +41,10 @@ class Init(object):
         """
         download
         """
+        msg('download fullnode jar might take a while')
         await download(self.fullnode_jar, url)
         success_msg('.jar file of Fullnode is successfully downloaded')
+        msg('download solidity jar might take a while')
         await download(self.soliditynode_jar, url)
         success_msg('.jar file of Soliditynode is successfully downloaded')
 
