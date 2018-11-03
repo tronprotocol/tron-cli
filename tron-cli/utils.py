@@ -68,23 +68,29 @@ def test():
         ''))
 
 class Phrase(object):
-    def json2properties_file(self, json_file_path, target_file_path):
+    def load_json_file(self, json_file_path):
+        f = open(json_file_path)
+        _json_props = json.load(f)
+        # print(json_props[' net'])
+        f.close()
+        return _json_props
+        
+        
+    def store_json2properties_to_file(self, json_props, target_file_path):
         """
         convert json to properties and store in target file
         """
-        with open(json_file_path) as f:
-            json_props = json.load(f)
         _properties = self.json2properties(json_props)
         _properties_str_formatted = self.properties2str(_properties)
         f = open(target_file_path, 'w')
         f.write(_properties_str_formatted)
+        f.close()
 
     def properties2str(self, properties_props):
         """
         convert properties to string, and change format
         """
         _formatted_str = str(properties_props)
-        print(_formatted_str)
         _formatted_str = re.sub("}, '", "},\n\n'", _formatted_str)
         _formatted_str = re.sub("':", ":", _formatted_str)
         _formatted_str = re.sub("' ", "", _formatted_str)

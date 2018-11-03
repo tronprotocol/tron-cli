@@ -1,28 +1,33 @@
 # import os
-# import javaproperties
 import json
-from utils import Phrase
+
+# from init import Init
+from utils import Phrase, success_msg, warnning_msg, msg
+from json_store import raw_config
 
 class Config(object):
     """handler for setup config files"""
     def __init__(self):
-        self.fullnode_dir = '/tron_nodes'
         self.config = None
 
-    def init(self):
+    @classmethod
+    def init(cls):
+        """
+        Load raw json config
+        load - change - dump
+        make path and dirs constant
+        """
+        # init = Init()
+        # cls.fullnode_path = init.root_path + init.nodes_dir + init.fullnode_dir + '/raw.json'
+        # print(cls.fullnode_path)
+        # print(raw_config_json)
         phrase = Phrase()
-        properties_str = phrase.json2properties_file('/Users/weiyu/Code/TRON/tron-cli/tron-cli/raw.json', 
-            '/Users/weiyu/Code/TRON/tron-cli/temp/tron_nodes/fullnode/full.conf')
-        
+        cls.config = raw_config
+        # json_props = phrase.load_json_file(cls.fullnode_path)
+        # print(cls.config[' net'])
+        success_msg('config initialized')
+        # properties_str = phrase.json2properties_file('/Users/weiyu/Code/TRON/tron-cli/tron-cli/raw.json', 
+        #     '/Users/weiyu/Code/TRON/tron-cli/temp/tron_nodes/fullnode/full.conf')
 
-    # def generate_conf_properties(self, filename, modified_properties):
-    #     with open('/Users/weiyu/Code/TRON/tron-cli/tron-cli/raw.conf', 'r') as fp:
-    #         properties = javaproperties.load(fp)
-    #         print(properties)
-
-    #     with open(filename, 'w') as fp:
-    #         properties.update(modified_properties)
-    #         print(properties)
-    #         javaproperties.dump(properties, fp)
 
 
