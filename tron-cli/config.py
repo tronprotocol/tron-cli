@@ -14,20 +14,18 @@ class Config(object):
     def init(cls):
         """
         Load raw json config
-        load - change - dump
-        make path and dirs constant
         """
-        # init = Init()
-        # cls.fullnode_path = init.root_path + init.nodes_dir + init.fullnode_dir + '/raw.json'
-        # print(cls.fullnode_path)
-        # print(raw_config_json)
         phrase = Phrase()
         cls.config = raw_config
-        # json_props = phrase.load_json_file(cls.fullnode_path)
-        # print(cls.config[' net'])
         success_msg('config initialized')
-        # properties_str = phrase.json2properties_file('/Users/weiyu/Code/TRON/tron-cli/tron-cli/raw.json', 
-        #     '/Users/weiyu/Code/TRON/tron-cli/temp/tron_nodes/fullnode/full.conf')
 
+    @classmethod
+    def export(cls, target_file_path):
+        """
+        Export properties config file
+        """
+        phrase = Phrase()
+        phrase.store_json2properties_to_file(cls.config, target_file_path)
+        success_msg('config file exported to: ' + target_file_path)
 
 

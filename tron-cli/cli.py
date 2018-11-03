@@ -19,7 +19,7 @@ def init(version: str):
     progress_msg('Creating folders')
     init_handler.create_dirs()
     progress_msg('Downloading release builds')
-    asyncio.run(init_handler.fetch_jars('3.1.3'))
+    asyncio.run(init_handler.fetch_jars(version))
     asyncio.run(init_handler.move_jars())
 
 
@@ -27,9 +27,14 @@ def init(version: str):
 def config():
     """customize config files.
     """
+    """
+    load - change - dump
+    make path and dirs constant
+    """
     config_handler = Config()
     progress_msg('Setting up config files')
     config_handler.init()
+    config_handler.export('/Users/weiyu/Code/TRON/tron-cli/temp/tron_nodes/fullnode/full.conf')
 
 
 @cbox.cmd
