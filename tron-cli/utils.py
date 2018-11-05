@@ -10,11 +10,13 @@ import re
 Printing Messages
 """
 def logo():
+    print('*****************************************')
+    print('*        welcome to use tron-cli        *')
+    print('*****************************************')
     print(' _________  ____  _  __    _______   ____')
     print('/_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/')
     print(' / / / , _/ /_/ /    /___/ /__/ /___/ /  ')
     print('/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
-    print('-----------------------------------------')
 
 def progress_msg(content):
     print('[ TRON-CLI ]: ' + content + '...')
@@ -71,7 +73,6 @@ class Phrase(object):
     def load_json_file(self, json_file_path):
         f = open(json_file_path)
         _json_props = json.load(f)
-        # print(json_props[' net'])
         f.close()
         return _json_props
         

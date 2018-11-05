@@ -13,7 +13,9 @@ __Coming Soon__
 ## Dev List
 
 [ ] init, config, and run a single private testnet full node
+
 [ ] init, config, and run a single private testnet solidity node
+
 [ ] quick start a single private testnet full and solidity nodes
 
 [ ] quick start a multi private testnet full and solidity nodes
