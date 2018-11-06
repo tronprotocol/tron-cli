@@ -6,6 +6,8 @@
 import os
 import asyncio
 import cbox
+# from subprocess import call
+import subprocess as sub
 
 from utils import logo, progress_msg
 from init import Init
@@ -13,6 +15,7 @@ from config import Config
 from constants import *
 
 ROOT_PATH = ''
+
 
 @cbox.cmd
 def init(version: str):
@@ -30,21 +33,21 @@ def init(version: str):
 def config():
     """customize config files.
     """
-    """
-    load - change - dump
-    make path and dirs constant
-    """
     config_handler = Config(ROOT_PATH)
     progress_msg('Setting up config files')
-    config_handler.init()
-    config_handler.export()
+    asyncio.run(config_handler.init())
+    asyncio.run(config_handler.export())
 
 
 @cbox.cmd
 def run():
     """run nodes.
     """
-    logo()
+    progress_msg('Starting node(s)')
+    pro = sub.Popen(["java", "-jar", ROOT_PATH + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR, 
+            "-c", ROOT_PATH + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG, 
+            "--witness"])
+    # print('os.getpgid(pro.pid): ', os.getpgid(pro.pid))
 
 
 @cbox.cmd
@@ -52,6 +55,7 @@ def quick():
     logo()
     init('lastest')
     config()
+    run()
 
 
 if __name__ == '__main__':
