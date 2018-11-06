@@ -6,12 +6,11 @@
 import os
 import asyncio
 import cbox
-# from subprocess import call
-import subprocess as sub
 
 from utils import logo, progress_msg
 from init import Init
 from config import Config
+from worker import Worker
 from constants import *
 
 ROOT_PATH = ''
@@ -44,10 +43,8 @@ def run():
     """run nodes.
     """
     progress_msg('Starting node(s)')
-    pro = sub.Popen(["java", "-jar", ROOT_PATH + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR, 
-            "-c", ROOT_PATH + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG, 
-            "--witness"])
-    # print('os.getpgid(pro.pid): ', os.getpgid(pro.pid))
+    worker = Worker(ROOT_PATH)
+    asyncio.run(worker.run())
 
 
 @cbox.cmd
