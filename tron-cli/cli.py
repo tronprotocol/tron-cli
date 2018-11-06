@@ -46,6 +46,14 @@ def run():
     worker = Worker(ROOT_PATH)
     asyncio.run(worker.run())
 
+@cbox.cmd
+def stop(pid: str):
+    """stop nodes.
+    """
+    worker = Worker(ROOT_PATH)
+    progress_msg('Shutting down node(s)')
+    asyncio.run(worker.stop(pid))
+
 
 @cbox.cmd
 def quick():
@@ -57,5 +65,5 @@ def quick():
 
 if __name__ == '__main__':
     ROOT_PATH = os.getcwd()
-    cbox.main([init, config, run, quick])
+    cbox.main([init, config, run, stop, quick])
 

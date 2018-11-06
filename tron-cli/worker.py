@@ -17,14 +17,22 @@ class Worker(object):
 
     async def start(self):
         """
-        cmd to inherit the shell process, instead of having the shell launch a child process
+        start a node and return its pid
+        execute cmd to inherit the shell process, instead of having the shell launch a child process
         """
         cmd = "java -jar " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR + \
             " -c " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG + " --witness"
 
         _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
-        # _process = subprocess.Popen(["java", "-jar", self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR, 
-        #     "-c", self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG, 
-        #     "--witness"])
         return _process.pid
+
+    async def stop(self, pid):
+        try:
+            subprocess.Popen(["kill", "-15", pid])
+        except OSError as err:
+            warnning_msg('OSError -' + str(err))
+        else:
+            success_msg('process: ' + pid + 'shut down')
+
+        
