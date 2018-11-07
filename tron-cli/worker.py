@@ -20,11 +20,15 @@ class Worker(object):
         start a node and return its pid
         execute cmd to inherit the shell process, instead of having the shell launch a child process
         """
+        os.chdir(self.root_path + NODES_DIR + FULL_NODE_DIR)
+
         cmd = "java -jar " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR + \
             " -c " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG + " --witness" + \
             " -d " + self.root_path + NODES_DIR + FULL_NODE_DIR + "/data"
 
         _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
+
+        os.chdir(self.root_path + NODES_DIR)
 
         return _process.pid
 

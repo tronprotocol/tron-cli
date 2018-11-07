@@ -30,15 +30,11 @@ python ../tron-cli/cli.py quick
 
 [X] quick start
 
-[ ] run - move 'run' to its handler, and async the call 
+[X] run - move 'run' to its handler, and async the call 
 
-[ ] stop - add sub cmd and its handler to stop all nodes (kill -15)
+[X] stop - add sub cmd and its handler to stop all nodes (kill -15)
 
-[ ] config - change log and data store location
-
-[ ] Doc - add more instruction in readme file
-
-[ ] pack to pip
+[X] run - change log and data store location
 
 [ ] config - add custom method to fire up private/shasta testnet
 
@@ -47,6 +43,10 @@ python ../tron-cli/cli.py quick
 [ ] config - add custom method to fire up solidity node
 
 [ ] run - add option to run solidity node
+
+[ ] Doc - add more instruction in readme file
+
+[ ] pack to pip
 
 [ ] run - monitor running nodes
 
