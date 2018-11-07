@@ -22,7 +22,7 @@ class Worker(object):
         """
         cmd = "java -jar " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR + \
             " -c " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG + " --witness" + \
-            " -d " + self.root_path + NODES_DIR + FULL_NODE_DIR + '/data'
+            " -d " + self.root_path + NODES_DIR + FULL_NODE_DIR + "/data"
 
         _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
@@ -34,6 +34,6 @@ class Worker(object):
         except OSError as err:
             warnning_msg('OSError -' + str(err))
         else:
-            success_msg('process: ' + pid + 'shut down')
+            success_msg('process: ' + pid + ' is shutting down')
 
         
