@@ -21,7 +21,8 @@ class Worker(object):
         execute cmd to inherit the shell process, instead of having the shell launch a child process
         """
         cmd = "java -jar " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR + \
-            " -c " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG + " --witness"
+            " -c " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG + " --witness" + \
+            " -d " + self.root_path + NODES_DIR + FULL_NODE_DIR + '/data'
 
         _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
