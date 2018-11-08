@@ -10,3 +10,5 @@ FULL_NODE_JAR = '/full.jar'
 SOLIDITY_NODE_JAR = '/solidity.jar'
 FULL_CONFIG = '/full.conf'
 SOL_CONFIG = '/sol.conf'
+
+LOCAL_HOST = '127.0.0.1:'

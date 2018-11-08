@@ -37,6 +37,7 @@ def config():
     asyncio.run(config_handler.init())
     asyncio.run(config_handler.set_http_port(8500, 'full'))
     asyncio.run(config_handler.set_http_port(8511, 'sol'))
+    asyncio.run(config_handler.set_grpc_port(51111, 'full'))
     asyncio.run(config_handler.export())
 
 

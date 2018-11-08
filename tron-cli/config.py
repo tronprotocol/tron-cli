@@ -46,3 +46,11 @@ class Config(object):
             warnning_msg('wrong node_type')
 
 
+    async def set_grpc_port(self, port_num, node_type):
+        if node_type == 'full':
+            self.full_config[' node'][' rpc'][' port'] = port_num
+            self.sol_config[' node'][' trustNode'] = LOCAL_HOST + str(port_num)
+        elif node_type == 'sol':
+            self.sol_config[' node'][' rpc'][' port'] = port_num
+        else:
+            warnning_msg('wrong node_type')
