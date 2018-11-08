@@ -35,6 +35,8 @@ def config():
     config_handler = Config(ROOT_PATH)
     progress_msg('Setting up config files')
     asyncio.run(config_handler.init())
+    asyncio.run(config_handler.set_http_port(8500, 'full'))
+    asyncio.run(config_handler.set_http_port(8511, 'sol'))
     asyncio.run(config_handler.export())
 
 
@@ -45,6 +47,7 @@ def run():
     progress_msg('Starting node(s)')
     worker = Worker(ROOT_PATH)
     asyncio.run(worker.run())
+
 
 @cbox.cmd
 def stop(pid: str):
