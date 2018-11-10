@@ -23,8 +23,8 @@ class Init(object):
             success_msg('Folders are created:')
             msg(path + '/ ')
             msg('└──' + NODES_DIR)
-            msg('    |---' + FULL_NODE_DIR)
-            msg('    └──--' + SOLIDITY_NODE_DIR)
+            msg('    ├──' + FULL_NODE_DIR)
+            msg('    └──' + SOLIDITY_NODE_DIR)
 
     async def fetch_jars(self, version):
         """

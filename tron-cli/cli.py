@@ -43,12 +43,12 @@ def config(full_http_port: int, sol_http_port: int, full_grpc_port: int, sol_grp
 
 
 @cbox.cmd
-def run():
+def run(node_type: str):
     """run nodes.
     """
     progress_msg('Starting node(s)')
     worker = Worker(ROOT_PATH)
-    asyncio.run(worker.run())
+    asyncio.run(worker.run(node_type))
 
 
 @cbox.cmd
@@ -63,9 +63,10 @@ def stop(pid: str):
 @cbox.cmd
 def quick():
     logo()
-    # init('lastest')
+    init('lastest')
     config(8500, 8600, 50051, 50001)
-    # run()
+    run('full')
+    run('sol')
 
 
 if __name__ == '__main__':
