@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="tron-cli",
+    name="troncli",
     version="0.0.1",
     author="Weiyu X",
     author_email="weiyu@tron.network",
@@ -15,7 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: GLGP License",
-        "Operating System :: Unix Like OS :: Linux :: Darwin(Mac OS)",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
     ],
 )

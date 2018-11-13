@@ -36,17 +36,17 @@ python ../tron-cli/cli.py quick
 
 [X] run - change log and data store location
 
-[ ] config - add custom method to fire up private/shasta testnet
+[X] config - add custom method to fire up private/shasta testnet
 
-[ ] config - add custom method to change port number
+[X] config - add custom method to change port number
 
-[ ] config - add custom method to fire up solidity node
+[X] config - add custom method to fire up solidity node
 
-[ ] run - add option to run solidity node
+[X] run - add option to run solidity node
+
+[X] pack to pip
 
 [ ] Doc - add more instruction in readme file
-
-[ ] pack to pip
 
 [ ] run - monitor running nodes
 
@@ -55,3 +55,7 @@ python ../tron-cli/cli.py quick
 [ ] run - multiple (full) nodes
 
 [ ] dump - fetch a dump
+
+[ ] CLI UI imporve
+
+[ ] init - add option to build from source code
