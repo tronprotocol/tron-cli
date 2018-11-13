@@ -54,3 +54,65 @@ class Config(object):
             self.sol_config[' node'][' rpc'][' port'] = port_num
         else:
             warnning_msg('wrong node_type')
+
+
+    async def set_net_type(self, net_type):
+        # P2P verison
+        if net_type == 'main':
+            self.full_config[' node'][' p2p'][' version'] = MAINNET_P2P_VERSION
+            self.sol_config[' node'][' p2p'][' version'] = MAINNET_P2P_VERSION
+        if net_type == 'private':
+            self.full_config[' node'][' p2p'][' version'] = PRIVATENET_P2P_VERSION
+            self.sol_config[' node'][' p2p'][' version'] = PRIVATENET_P2P_VERSION
+        # committee
+        if net_type == 'main':
+            self.full_config[' committee'][' allowCreationOfContracts'] = MAINNET_ALLOW_CREATION_OF_CONTRACTS
+            self.sol_config[' committee'][' allowCreationOfContracts'] = MAINNET_ALLOW_CREATION_OF_CONTRACTS
+        if net_type == 'private':
+            self.full_config[' committee'][' allowCreationOfContracts'] = PRIVATENET_ALLOW_CREATION_OF_CONTRACTS
+            self.sol_config[' committee'][' allowCreationOfContracts'] = PRIVATENET_ALLOW_CREATION_OF_CONTRACTS
+        # vm
+        if net_type == 'main':
+            self.full_config[' vm'][' supportConstant'] = 'false'
+            self.sol_config[' vm'][' supportConstant'] = 'false'
+        if net_type == 'private':
+            self.full_config[' vm'][' supportConstant'] = 'true'
+            self.sol_config[' vm'][' supportConstant'] = 'true'
+        # block
+        if net_type == 'main':
+            self.full_config[' block'][' needSyncCheck'] = 'true'
+            self.sol_config[' block'][' needSyncCheck'] = 'true'
+        if net_type == 'private':
+            self.full_config[' block'][' needSyncCheck'] = 'false'
+            self.sol_config[' block'][' needSyncCheck'] = 'false'
+        # localwitness
+        if net_type == 'main':
+            self.full_config[' localwitness'] = []
+            self.sol_config[' localwitness'] = []
+        if net_type == 'private':
+            self.full_config[' localwitness'] = ['da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0']
+            self.sol_config[' localwitness'] = ['da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0']
+        # genesis.block
+        if net_type == 'main':
+            pass
+        #     self.full_config[' genesis.block'][' witnesses'] = 
+        #     self.sol_config[' genesis.block'][' witnesses'] = 
+        if net_type == 'private':
+            self.full_config[' genesis.block'][' witnesses'] = [{
+                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY', 
+                ' url': 'http://tronstudio.com',
+                ' voteCount': 10000}]
+            self.sol_config[' genesis.block'][' witnesses'] = [{
+                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY', 
+                ' url': 'http://tronstudio.com',
+                ' voteCount': 10000}]
+
+
+
+
+
+
+
+
+
+

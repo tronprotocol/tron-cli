@@ -29,12 +29,13 @@ def init(version: str):
 
 
 @cbox.cmd
-def config(full_http_port: int, sol_http_port: int, full_grpc_port: int, sol_grpc_port: int):
+def config(net_type: str, full_http_port: int, sol_http_port: int, full_grpc_port: int, sol_grpc_port: int):
     """customize config files.
     """
     config_handler = Config(ROOT_PATH)
     progress_msg('Setting up config files')
     asyncio.run(config_handler.init())
+    asyncio.run(config_handler.set_net_type(net_type))
     asyncio.run(config_handler.set_http_port(full_http_port, 'full'))
     asyncio.run(config_handler.set_http_port(sol_http_port, 'sol'))
     asyncio.run(config_handler.set_grpc_port(full_grpc_port, 'full'))
@@ -64,9 +65,9 @@ def stop(pid: str):
 def quick():
     logo()
     init('lastest')
-    config(8500, 8600, 50051, 50001)
+    config('private', 8500, 8600, 50051, 50001)
     run('full')
-    run('sol')
+    # run('sol')
 
 
 if __name__ == '__main__':
