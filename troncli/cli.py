@@ -7,11 +7,7 @@ import os
 import asyncio
 import cbox
 
-from utils import logo, progress_msg
-from init import Init
-from config import Config
-from worker import Worker
-from constants import *
+from troncli import utils, init, config, worker
 
 ROOT_PATH = ''
 
@@ -20,10 +16,10 @@ ROOT_PATH = ''
 def init(version: str):
     """init dirs and fetch code.
     """
-    init_handler = Init(ROOT_PATH)
-    progress_msg('Creating folders')
+    init_handler = init.Init(ROOT_PATH)
+    utils.progress_msg('Creating folders')
     init_handler.create_dirs()
-    progress_msg('Downloading release builds')
+    utils.progress_msg('Downloading release builds')
     asyncio.run(init_handler.fetch_jars(version))
     asyncio.run(init_handler.move_jars())
 
@@ -32,8 +28,8 @@ def init(version: str):
 def config(net_type: str, full_http_port: int, sol_http_port: int, full_grpc_port: int, sol_grpc_port: int):
     """customize config files.
     """
-    config_handler = Config(ROOT_PATH)
-    progress_msg('Setting up config files')
+    config_handler = config.Config(ROOT_PATH)
+    utils.progress_msg('Setting up config files')
     asyncio.run(config_handler.init())
     asyncio.run(config_handler.set_net_type(net_type))
     asyncio.run(config_handler.set_http_port(full_http_port, 'full'))
@@ -47,8 +43,8 @@ def config(net_type: str, full_http_port: int, sol_http_port: int, full_grpc_por
 def run(node_type: str):
     """run nodes.
     """
-    progress_msg('Starting node(s)')
-    worker = Worker(ROOT_PATH)
+    utils.progress_msg('Starting node(s)')
+    worker = worker.Worker(ROOT_PATH)
     asyncio.run(worker.run(node_type))
 
 
@@ -56,21 +52,25 @@ def run(node_type: str):
 def stop(pid: str):
     """stop nodes.
     """
-    worker = Worker(ROOT_PATH)
-    progress_msg('Shutting down node(s)')
+    worker = worker.Worker(ROOT_PATH)
+    utils.progress_msg('Shutting down node(s)')
     asyncio.run(worker.stop(pid))
 
 
 @cbox.cmd
 def quick():
-    logo()
+    utils.logo()
     init('lastest')
     config('private', 8500, 8600, 50051, 50001)
     run('full')
-    # run('sol')
+    run('sol')
 
 
-if __name__ == '__main__':
+def main():
     ROOT_PATH = os.getcwd()
     cbox.main([init, config, run, stop, quick])
+    
+
+if __name__ == '__main__':
+    main()
 

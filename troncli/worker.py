@@ -1,8 +1,8 @@
 import os
 import subprocess
 
-from constants import *
-from utils import download, success_msg, warnning_msg, msg
+from troncli import utils
+from troncli.constants import *
 
 class Worker(object):
     """handler for manage multiple nodes in multiple processes"""
@@ -13,7 +13,7 @@ class Worker(object):
     async def run(self, node_type):
         # self.processes['fullnode'] = self.start()
         pid = await self.start(node_type)
-        success_msg('node running at pid:' + str(pid))
+        utils.success_msg('node running at pid:' + str(pid))
 
     async def start(self, node_type):
         """
@@ -41,7 +41,7 @@ class Worker(object):
 
             os.chdir(self.root_path + NODES_DIR)
         else:
-            warnning_msg('wrong node type')
+            utils.warnning_msg('wrong node type')
 
         return _process.pid
 
@@ -49,8 +49,8 @@ class Worker(object):
         try:
             subprocess.Popen(["kill", "-15", pid])
         except OSError as err:
-            warnning_msg('OSError -' + str(err))
+            utils.warnning_msg('OSError -' + str(err))
         else:
-            success_msg('process: ' + pid + ' is shutting down')
+            utils.success_msg('process: ' + pid + ' is shutting down')
 
         

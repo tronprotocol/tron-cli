@@ -2,10 +2,8 @@
 import json
 import copy
 
-# from init import Init
-from utils import Phrase, success_msg, warnning_msg, msg
-from json_store import raw_config
-from constants import *
+from troncli import utils, json_store
+from troncli.constants import *
 
 class Config(object):
     """handler for setup config files"""
@@ -18,23 +16,23 @@ class Config(object):
         """
         Load raw json config
         """
-        phrase = Phrase()
-        self.full_config = copy.deepcopy(raw_config)
-        self.sol_config = copy.deepcopy(raw_config)
-        success_msg('config initialized')
+        phrase = utils.Phrase()
+        self.full_config = copy.deepcopy(json_store.raw_config)
+        self.sol_config = copy.deepcopy(json_store.raw_config)
+        utils.success_msg('config initialized')
 
     async def export(self):
         """
         Export properties config file
         """
-        phrase = Phrase()
+        phrase = utils.Phrase()
         _target_file_path_full = self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG
         phrase.store_json2properties_to_file(self.full_config, _target_file_path_full)
-        success_msg('fullnode config file exported to: ' + _target_file_path_full)
+        utils.success_msg('fullnode config file exported to: ' + _target_file_path_full)
 
         _target_file_path_sol = self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOL_CONFIG
         phrase.store_json2properties_to_file(self.sol_config, _target_file_path_sol)
-        success_msg('soliditynode config file exported to: ' + _target_file_path_sol)
+        utils.success_msg('soliditynode config file exported to: ' + _target_file_path_sol)
 
 
     async def set_http_port(self, port_num, node_type):
@@ -43,7 +41,7 @@ class Config(object):
         elif node_type == 'sol':
             self.sol_config[' node'][' http'][' solidityPort'] = port_num
         else:
-            warnning_msg('wrong node_type')
+            utils.warnning_msg('wrong node_type')
 
 
     async def set_grpc_port(self, port_num, node_type):
@@ -53,7 +51,7 @@ class Config(object):
         elif node_type == 'sol':
             self.sol_config[' node'][' rpc'][' port'] = port_num
         else:
-            warnning_msg('wrong node_type')
+            utils.warnning_msg('wrong node_type')
 
 
     async def set_net_type(self, net_type):
