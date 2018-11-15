@@ -12,8 +12,15 @@ from troncli import utils, h_init, h_config, h_worker
 
 @cbox.cmd
 def init(version: str):
-    """init dirs and fetch code.
+    """Init dirs and fetch code.
+    >> 
+    Settings: 
+        --version
+    >>
     """
+    # Example:
+    #     tron-cli init --version latest
+
     init_handler = h_init.Init()
     utils.progress_msg('Creating folders')
     init_handler.create_dirs()
@@ -23,32 +30,49 @@ def init(version: str):
 
 
 @cbox.cmd
-def config(net_type: str, full_http_port: int, sol_http_port: int, full_grpc_port: int, sol_grpc_port: int):
-    """customize config files.
+def config(nettype: str, fullhttpport: int, solhttpport: int, fullgrpcport: int, solgrpcport: int):
+    """Create customize config files.
+    >> 
+    Settings: 
+        --nettype
+        --fullhttpport
+        --solhttpport
+        --fullgrpcport
+        --solgrpcport
     """
+    # >>
+    # Example:
+    #     tron-cli config --nettype 'private' --fullhttpport 8500 --solhttpport 8600 --fullgrpcport 50051 --solgrpcport 5001
+
     config_handler = h_config.Config()
     utils.progress_msg('Setting up config files')
     asyncio.run(config_handler.init())
-    asyncio.run(config_handler.set_net_type(net_type))
-    asyncio.run(config_handler.set_http_port(full_http_port, 'full'))
-    asyncio.run(config_handler.set_http_port(sol_http_port, 'sol'))
-    asyncio.run(config_handler.set_grpc_port(full_grpc_port, 'full'))
-    asyncio.run(config_handler.set_grpc_port(sol_grpc_port, 'sol'))
+    asyncio.run(config_handler.set_net_type(nettype))
+    asyncio.run(config_handler.set_http_port(fullhttpport, 'full'))
+    asyncio.run(config_handler.set_http_port(solhttpport, 'sol'))
+    asyncio.run(config_handler.set_grpc_port(fullgrpcport, 'full'))
+    asyncio.run(config_handler.set_grpc_port(solgrpcport, 'sol'))
     asyncio.run(config_handler.export())
 
 
 @cbox.cmd
-def run(node_type: str):
-    """run nodes.
+def run(nodetype: str):
+    """Run node.
+    >> 
+    Settings: 
+        --nodetype
     """
     utils.progress_msg('Starting node(s)')
     worker = h_worker.Worker()
-    asyncio.run(worker.run(node_type))
+    asyncio.run(worker.run(nodetype))
 
 
 @cbox.cmd
 def stop(pid: str):
-    """stop nodes.
+    """Stop node.
+    >> 
+    Settings: 
+        --pid
     """
     worker = h_worker.Worker()
     utils.progress_msg('Shutting down node(s)')
@@ -57,6 +81,11 @@ def stop(pid: str):
 
 @cbox.cmd
 def quick():
+    """Quick start. (run a full private node by one command)
+    >>
+    Example:
+        tron-cli quick
+    """
     utils.logo()
     init('lastest')
     config('private', 8500, 8600, 50051, 50001)
