@@ -9,16 +9,12 @@ import cbox
 
 from troncli import utils, h_init, h_config, h_worker
 
-ROOT_PATH = ''
-
 
 @cbox.cmd
 def init(version: str):
     """init dirs and fetch code.
     """
-    asyncio.run(get_root())
-    print('ROOT_PATH: ', ROOT_PATH)
-    init_handler = h_init.Init(ROOT_PATH)
+    init_handler = h_init.Init()
     utils.progress_msg('Creating folders')
     init_handler.create_dirs()
     utils.progress_msg('Downloading release builds')
@@ -30,7 +26,7 @@ def init(version: str):
 def config(net_type: str, full_http_port: int, sol_http_port: int, full_grpc_port: int, sol_grpc_port: int):
     """customize config files.
     """
-    config_handler = h_config.Config(ROOT_PATH)
+    config_handler = h_config.Config()
     utils.progress_msg('Setting up config files')
     asyncio.run(config_handler.init())
     asyncio.run(config_handler.set_net_type(net_type))
@@ -46,7 +42,7 @@ def run(node_type: str):
     """run nodes.
     """
     utils.progress_msg('Starting node(s)')
-    worker = h_worker.Worker(ROOT_PATH)
+    worker = h_worker.Worker()
     asyncio.run(worker.run(node_type))
 
 
@@ -54,7 +50,7 @@ def run(node_type: str):
 def stop(pid: str):
     """stop nodes.
     """
-    worker = h_worker.Worker(ROOT_PATH)
+    worker = h_worker.Worker()
     utils.progress_msg('Shutting down node(s)')
     asyncio.run(worker.stop(pid))
 
@@ -62,17 +58,12 @@ def stop(pid: str):
 @cbox.cmd
 def quick():
     utils.logo()
-    # init('lastest')
-    # config('private', 8500, 8600, 50051, 50001)
-    # run('full')
-    # run('sol')
-
-async def get_root():
-    ROOT_PATH = os.getcwd()
+    init('lastest')
+    config('private', 8500, 8600, 50051, 50001)
+    run('full')
     
 
 def main():
-    asyncio.run(get_root())
     cbox.main([init, config, run, stop, quick])
     
 

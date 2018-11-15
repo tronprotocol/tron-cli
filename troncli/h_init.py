@@ -6,8 +6,8 @@ from troncli.constants import *
 
 class Init(object):
     """handler for init dirs and fetch code"""
-    def __init__(self, root_path):
-        self.root_path = root_path
+    def __init__(self):
+        self.root_path = os.getcwd()
         self.source_full_jar = 'java-tron.jar'
         self.source_sol_jar = 'SolidityNode.jar'
 

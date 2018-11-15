@@ -6,8 +6,8 @@ from troncli.constants import *
 
 class Worker(object):
     """handler for manage multiple nodes in multiple processes"""
-    def __init__(self, root_path):
-        self.root_path = root_path
+    def __init__(self):
+        self.root_path = os.getcwd()
         self.processes = {}
 
     async def run(self, node_type):
