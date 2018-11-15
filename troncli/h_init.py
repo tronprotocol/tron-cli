@@ -1,30 +1,31 @@
 import os
 import shutil
 
-from constants import *
-from utils import download, success_msg, warnning_msg, msg
+from troncli import utils
+from troncli.constants import *
 
 class Init(object):
     """handler for init dirs and fetch code"""
-    def __init__(self, root_path):
-        self.root_path = root_path
+    def __init__(self):
+        self.root_path = os.getcwd()
         self.source_full_jar = 'java-tron.jar'
         self.source_sol_jar = 'SolidityNode.jar'
 
     def create_dirs(self):
+        print('self.root_path: ', self.root_path)
         path = self.root_path
         try:
             os.mkdir(path + NODES_DIR)
             os.mkdir(path + NODES_DIR + FULL_NODE_DIR)
             os.mkdir(path + NODES_DIR + SOLIDITY_NODE_DIR)
         except OSError as err:
-            warnning_msg('OSError -' + str(err))
+            utils.warnning_msg('OSError -' + str(err))
         else:
-            success_msg('Folders are created:')
-            msg(path + '/ ')
-            msg('└──' + NODES_DIR)
-            msg('    |---' + FULL_NODE_DIR)
-            msg('    └──--' + SOLIDITY_NODE_DIR)
+            utils.success_msg('Folders are created:')
+            utils.msg(path + '/ ')
+            utils.msg('└──' + NODES_DIR)
+            utils.msg('    ├──' + FULL_NODE_DIR)
+            utils.msg('    └──' + SOLIDITY_NODE_DIR)
 
     async def fetch_jars(self, version):
         """
@@ -38,18 +39,18 @@ class Init(object):
         """
         download
         """
-        msg('download fullnode jar might take a while')
-        await download(self.source_full_jar, url)
-        success_msg('.jar file of Fullnode is successfully downloaded')
-        msg('download solidity jar might take a while')
-        await download(self.source_sol_jar, url)
-        success_msg('.jar file of Soliditynode is successfully downloaded')
+        utils.msg('download fullnode jar might take a while')
+        await utils.download(self.source_full_jar, url)
+        utils.success_msg('.jar file of Fullnode is successfully downloaded')
+        utils.msg('download solidity jar might take a while')
+        await utils.download(self.source_sol_jar, url)
+        utils.success_msg('.jar file of Soliditynode is successfully downloaded')
 
     async def move_jars(self):
         shutil.move(self.root_path + '/' + self.source_full_jar, 
             self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR)
         shutil.move(self.root_path + '/' + self.source_sol_jar, 
             self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOLIDITY_NODE_JAR)
-        success_msg('initialization finished')
+        utils.success_msg('initialization finished')
 
 
