@@ -12,6 +12,7 @@ class Init(object):
         self.source_sol_jar = 'SolidityNode.jar'
 
     def create_dirs(self):
+        print('self.root_path: ', self.root_path)
         path = self.root_path
         try:
             os.mkdir(path + NODES_DIR)
