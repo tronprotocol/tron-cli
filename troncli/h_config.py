@@ -40,8 +40,12 @@ class Config(object):
     async def set_http_port(self, port_num, node_type):
         if node_type == 'full':
             self.full_config[' node'][' http'][' fullNodePort'] = port_num
+            utils.success_msg('full-node http request set to listen: ')
+            utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'sol':
             self.sol_config[' node'][' http'][' solidityPort'] = port_num
+            utils.success_msg('solidity-node request set to listen: ')
+            utils.msg(LOCAL_HOST + str(port_num))
         else:
             utils.warnning_msg('wrong node_type')
 
@@ -50,8 +54,12 @@ class Config(object):
         if node_type == 'full':
             self.full_config[' node'][' rpc'][' port'] = port_num
             self.sol_config[' node'][' trustNode'] = LOCAL_HOST + str(port_num)
+            utils.success_msg('full-node grpc request set to listen: ')
+            utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'sol':
             self.sol_config[' node'][' rpc'][' port'] = port_num
+            utils.success_msg('solidity-node grpc request set to listen: ')
+            utils.msg(LOCAL_HOST + str(port_num))
         else:
             utils.warnning_msg('wrong node_type')
 
