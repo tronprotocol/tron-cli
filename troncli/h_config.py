@@ -28,11 +28,13 @@ class Config(object):
         phrase = utils.Phrase()
         _target_file_path_full = self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG
         phrase.store_json2properties_to_file(self.full_config, _target_file_path_full)
-        utils.success_msg('fullnode config file exported to: ' + _target_file_path_full)
+        utils.success_msg('fullnode config file exported to: ')
+        utils.msg(_target_file_path_full)
 
         _target_file_path_sol = self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOL_CONFIG
         phrase.store_json2properties_to_file(self.sol_config, _target_file_path_sol)
-        utils.success_msg('soliditynode config file exported to: ' + _target_file_path_sol)
+        utils.success_msg('soliditynode config file exported to: ')
+        utils.msg(_target_file_path_sol)
 
 
     async def set_http_port(self, port_num, node_type):

@@ -6,29 +6,31 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import json
 import re
 
+from colorama import Fore
+
 """
 Printing Messages
 """
 def logo():
-    print(' _________  ____  _  __    _______   ____')
-    print('/_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/')
-    print(' / / / , _/ /_/ /    /___/ /__/ /___/ /  ')
-    print('/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
+    print(Fore.RED + ' _________  ____  _  __    _______   ____')
+    print(Fore.RED + '/_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/')
+    print(Fore.RED + ' / / / , _/ /_/ /    /___/ /__/ /___/ /  ')
+    print(Fore.RED + '/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
 
 def progress_msg(content):
-    print('[ TRON-CLI ]: ' + content + '...')
+    print(Fore.CYAN + '[ TRON-CLI ]: ' + content + '...')
 
 def success_msg(content):
-    print('✓ : ' + content)
+    print(Fore.GREEN + '✓ : ' + content)
 
 def warnning_msg(content):
-    print('⚠ : ' + content)
+    print(Fore.YELLOW + '⚠ : ' + content)
 
 def error_msg(content):
-    print('✖ : ' + content)
+    print(Fore.RED + '✖ : ' + content)
 
 def msg(content):
-    print('    ' + content)
+    print(Fore.WHITE + '    ' + content)
 
 """
 Download
