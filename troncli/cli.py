@@ -87,9 +87,9 @@ def quick():
         tron-cli quick
     """
     utils.logo()
-    init('lastest')
-    config('private', 8500, 8600, 50051, 50001)
-    run('full')
+    # init('lastest')
+    # config('private', 8500, 8600, 50051, 50001)
+    # run('full')
     
 
 def main():

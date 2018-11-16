@@ -4,8 +4,10 @@ from setuptools import setup, find_packages
 PACKAGE = 'troncli'
 
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+def cat(files, join_str=''):
+    """Concatenate `files` content with `join_str` between them."""
+    files_content = (open(f).read() for f in files)
+    return join_str.join(files_content)
 
 
 def get_version(package):
@@ -21,6 +23,7 @@ def get_version(package):
                 return eval(line.split('=')[-1])
 
 SCRIPTS = ['tron-cli']
+LONG_DESCRIPTION_FILES = ['README.md', 'CHANGELOG.md']
 
 setup(
     name=PACKAGE,
@@ -28,7 +31,7 @@ setup(
     author='Weiyu X',
     author_email='weiyu@tron.network',
     description='A command line tool to monitor and manage tron nodes.',
-    long_description=long_description,
+    long_description=cat(LONG_DESCRIPTION_FILES, u'\n\n'),
     long_description_content_type='text/markdown',
     url='https://github.com/tronprotocol/tron-cli',
     packages=find_packages(),
