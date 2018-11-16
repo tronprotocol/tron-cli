@@ -33,7 +33,7 @@ def info_msg(content):
     print(Fore.MAGENTA + 'ⓘ: ' + content)
 
 def msg(content):
-    print(Fore.WHITE + '    ' + content)
+    print(Fore.RESET + '    ' + content)
 
 """
 Download

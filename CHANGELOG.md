@@ -10,9 +10,19 @@
 
 [ ] dump - fetch a dump
 
-[ ] CLI UI imporve
-
 [ ] init - add option to build from source code
+
+#### Version 0.1.2
+
+[X] colorful logo and msg
+
+[X] add more progress msg on ports config
+
+[X] add more progress msg on net_type config
+
+[X] add info msg type for instructions
+
+[X] move changelog to file
 
 #### Version 0.1.0
 
