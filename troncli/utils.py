@@ -29,6 +29,9 @@ def warnning_msg(content):
 def error_msg(content):
     print(Fore.RED + '✖ : ' + content)
 
+def info_msg(content):
+    print(Fore.MAGENTA + 'ⓘ: ' + content)
+
 def msg(content):
     print(Fore.WHITE + '    ' + content)
 

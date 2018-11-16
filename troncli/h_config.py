@@ -65,6 +65,9 @@ class Config(object):
 
 
     async def set_net_type(self, net_type):
+        # msg
+        utils.success_msg('net type set to: ')
+        utils.msg(net_type)
         # P2P verison
         if net_type == 'main':
             self.full_config[' node'][' p2p'][' version'] = MAINNET_P2P_VERSION
