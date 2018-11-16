@@ -18,7 +18,7 @@ class Init(object):
             os.mkdir(path + NODES_DIR + FULL_NODE_DIR)
             os.mkdir(path + NODES_DIR + SOLIDITY_NODE_DIR)
         except OSError as err:
-            utils.warnning_msg('OSError -' + str(err))
+            utils.warnning_msg('OS Warning -' + str(err))
         else:
             utils.success_msg('Folders are created:')
             utils.msg(path + '/ ')
@@ -38,10 +38,11 @@ class Init(object):
         """
         download
         """
-        utils.msg('download fullnode jar might take a while')
+        utils.progress_msg('Downloading full-node jar from released build')
         await utils.download(self.source_full_jar, url)
         utils.success_msg('.jar file of Fullnode is successfully downloaded')
-        utils.msg('download solidity jar might take a while')
+
+        utils.progress_msg('Downloading solidity-node jar from released build')
         await utils.download(self.source_sol_jar, url)
         utils.success_msg('.jar file of Soliditynode is successfully downloaded')
 

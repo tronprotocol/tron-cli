@@ -5,8 +5,8 @@ import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import json
 import re
-
 from colorama import Fore
+from tqdm import tqdm
 
 """
 Printing Messages
@@ -18,7 +18,7 @@ def logo():
     print(Fore.RED + '/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
 
 def progress_msg(content):
-    print(Fore.CYAN + '[ TRON-CLI ]: ' + content + '...')
+    print(Fore.CYAN + '[ TRON-CLI ]: ' + content + '...' + Fore.RESET)
 
 def success_msg(content):
     print(Fore.GREEN + '✓ : ' + content + Fore.BLACK)
@@ -30,21 +30,48 @@ def error_msg(content):
     print(Fore.RED + '✖ : ' + content)
 
 def info_msg(content):
-    print(Fore.MAGENTA + 'ⓘ: ' + content)
+    print(Fore.MAGENTA + 'ⓘ: ' + content + Fore.RESET)
 
 def msg(content):
-    print(Fore.RESET + '    ' + content)
+    print(Fore.RESET + '    ' + content + Fore.RESET)
 
 """
 Download
 """
 async def download(file_name, url_string):
     with open(file_name, 'wb') as f:
-        # remove warnings
+        # remove ssl warnings
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-        resp = requests.get(url_string + '/' + file_name, verify=False)
-        f.write(resp.content)
+        try:
+            resp = requests.get(url_string + '/' + file_name, verify=False, stream=True)
+
+        except OSError as err:
+            pbar.update(0)
+            error_msg('OS Error -' + str(err))
+            os.sys.exit()
+
+        else:
+            with tqdm(total=100) as pbar:
+                total_length = resp.headers.get('content-length')
+                if total_length is None: # no content length header
+                    pbar.update(100)
+                    pbar.close()
+                    f.write(resp.content)
+                else:
+                    data_length = 0
+                    progress = 0
+                    total_length = int(total_length)
+                    for data in resp.iter_content(chunk_size=4096):
+                        data_length += len(data)
+                        f.write(data)
+                        progress_update = progress
+                        progress = int(data_length / total_length)
+                        progress_update = progress - progress_update
+                        pbar.update(progress)
+                    pbar.close()
+
+
 
 def test():
     # dir_path = os.path.dirname(os.path.realpath(__file__))
