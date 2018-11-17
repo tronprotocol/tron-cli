@@ -54,21 +54,16 @@ async def download(file_name, url_string):
         else:
             with tqdm(total=100) as pbar:
                 total_length = resp.headers.get('content-length')
-                if total_length is None: # no content length header
+                if total_length is None:
                     pbar.update(100)
                     pbar.close()
                     f.write(resp.content)
                 else:
-                    data_length = 0
-                    progress = 0
-                    total_length = int(total_length)
-                    for data in resp.iter_content(chunk_size=4096):
-                        data_length += len(data)
+                    _chunk_num = 10
+                    _chunk_size = int(int(total_length) / _chunk_num) + 1
+                    for data in resp.iter_content(chunk_size=_chunk_size):
                         f.write(data)
-                        progress_update = progress
-                        progress = int(data_length / total_length)
-                        progress_update = progress - progress_update
-                        pbar.update(progress)
+                        pbar.update(_chunk_num)
                     pbar.close()
 
 

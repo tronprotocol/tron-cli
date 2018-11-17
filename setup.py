@@ -41,5 +41,6 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
-    install_requires=['cbox==0.5.0', 'certifi==2018.10.15', 'chardet==3.0.4', 'idna==2.7', 'psutil==5.4.7', 'requests==2.20.0', 'six==1.11.0', 'urllib3==1.24', 'colorama==0.4.0'],
+    install_requires=['cbox==0.5.0', 'certifi==2018.10.15', 'chardet==3.0.4', 'idna==2.7', 
+        'psutil==5.4.7', 'requests==2.20.0', 'six==1.11.0', 'urllib3==1.24', 'colorama==0.4.0', 'tqdm==4.28.1'],
 )
