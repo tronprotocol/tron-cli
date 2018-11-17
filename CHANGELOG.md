@@ -14,6 +14,10 @@
 
 #### Version 0.1.2
 
+[X] catch download errors
+
+[X] add progress bar for download
+
 [X] colorful logo and msg
 
 [X] add more progress msg on ports config
@@ -23,6 +27,8 @@
 [X] add info msg type for instructions
 
 [X] move changelog to file
+
+[X] optimize progress bar
 
 #### Version 0.1.0
 
