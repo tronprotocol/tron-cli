@@ -36,15 +36,7 @@ def config(nettype: str,
            solhttpport: int,
            fullgrpcport: int,
            solgrpcport: int):
-    """Create customize config files.
-
-    Args:
-        nettype (str):
-        fullhttpport (str):
-        solhttpport (str):
-        fullgrpcport (str):
-        solgrpcport (str):
-    """
+    """Create customize config files."""
 
     config_handler = h_config.Config()
     utils.progress_msg('Setting up config files')
