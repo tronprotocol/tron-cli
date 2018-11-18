@@ -1,12 +1,13 @@
 import os
-import json
 import copy
 
 from troncli import utils, json_store
 from troncli.constants import *
 
-class Config(object):
+
+class Config:
     """handler for setup config files"""
+
     def __init__(self):
         self.root_path = os.getcwd()
         self.full_config = None
@@ -16,7 +17,6 @@ class Config(object):
         """
         Load raw json config
         """
-        phrase = utils.Phrase()
         self.full_config = copy.deepcopy(json_store.raw_config)
         self.sol_config = copy.deepcopy(json_store.raw_config)
         utils.success_msg('config initialized')
@@ -34,15 +34,13 @@ class Config(object):
         phrase.store_json2properties_to_file(self.sol_config, _target_file_path_sol)
         utils.success_msg('soliditynode config file exported to: ' + _target_file_path_sol)
 
-
     async def set_http_port(self, port_num, node_type):
         if node_type == 'full':
             self.full_config[' node'][' http'][' fullNodePort'] = port_num
         elif node_type == 'sol':
             self.sol_config[' node'][' http'][' solidityPort'] = port_num
         else:
-            utils.warnning_msg('wrong node_type')
-
+            utils.warning_msg('wrong node_type')
 
     async def set_grpc_port(self, port_num, node_type):
         if node_type == 'full':
@@ -51,8 +49,7 @@ class Config(object):
         elif node_type == 'sol':
             self.sol_config[' node'][' rpc'][' port'] = port_num
         else:
-            utils.warnning_msg('wrong node_type')
-
+            utils.warning_msg('wrong node_type')
 
     async def set_net_type(self, net_type):
         # P2P verison
@@ -97,20 +94,10 @@ class Config(object):
         #     self.sol_config[' genesis.block'][' witnesses'] = 
         if net_type == 'private':
             self.full_config[' genesis.block'][' witnesses'] = [{
-                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY', 
+                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
                 ' url': 'http://tronstudio.com',
                 ' voteCount': 10000}]
             self.sol_config[' genesis.block'][' witnesses'] = [{
-                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY', 
+                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
                 ' url': 'http://tronstudio.com',
                 ' voteCount': 10000}]
-
-
-
-
-
-
-
-
-
-
