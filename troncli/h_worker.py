@@ -13,7 +13,9 @@ class Worker(object):
     async def run(self, node_type):
         # self.processes['fullnode'] = self.start()
         pid = await self.start(node_type)
-        utils.success_msg('node running at pid:' + str(pid))
+        utils.success_msg('node running at pid:')
+        utils.msg(str(pid))
+        utils.info_msg('To stop this node: tron-cli stop --pid ' + str(pid))
 
     async def start(self, node_type):
         """
@@ -51,6 +53,6 @@ class Worker(object):
         except OSError as err:
             utils.warnning_msg('OSError -' + str(err))
         else:
-            utils.success_msg('process: ' + pid + ' is shutting down')
+            utils.success_msg('process: ' + pid + ' is shut down')
 
         

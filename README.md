@@ -14,6 +14,8 @@ A command line tool, to quick set up, turn on/off (multiple) tron nodes(full/sol
 
 * Source code on [Github](https://github.com/tronprotocol/tron-cli)
 
+* Project on [Pypi](https://pypi.org/project/troncli/)
+
 ## Install
 
 ### pip
@@ -37,16 +39,30 @@ pip install troncli
     b. please check if you are using python 3.x
 
 2. How to test in virtual environment?
+    
+    a. create virtual environment
 
     ```
     python3 -m venv venv
     ```
 
-##### dev version:
+    b. activate venv
 
-```
-pip install -i https://test.pypi.org/simple/ troncli
-```
+    ```
+    . ./venv/bin/activate
+    ```
+
+    c. install troncli in venv
+
+    ```
+    pip install troncli
+    ```
+
+    d. when done testing, or using the venv - to deactivate venv
+
+    ```
+    deactivate
+    ```
 
 ## Usage
 
@@ -61,7 +77,7 @@ pip install -i https://test.pypi.org/simple/ troncli
 
 
 ```
-usage: cli.py [-h] {init,config,run,stop,quick} ...
+usage: tron-cli [-h] {init,config,run,stop,quick} ...
 
 which subcommand do you want?
 
@@ -79,45 +95,3 @@ subcommands:
     quick               Quick start. (run a full private node by one command)
                         >> Example: tron-cli quick
 ```
-
-## Dev List
-
-[ ] run - monitor running nodes
-
-[ ] run - filter nodes
-
-[ ] run - multiple (full) nodes
-
-[ ] dump - fetch a dump
-
-[ ] CLI UI imporve
-
-[ ] init - add option to build from source code
-
-##### Version 0.1.0
-
-[X] init - set up file folders, and get builds based on given version number
-
-[X] config - init basic config file in json format, and convert to java properties format and export
-
-[X] run - run a single main net full node
-
-[X] quick start
-
-[X] run - move 'run' to its handler, and async the call 
-
-[X] stop - add sub cmd and its handler to stop all nodes (kill -15)
-
-[X] run - change log and data store location
-
-[X] config - add custom method to fire up private/shasta testnet
-
-[X] config - add custom method to change port number
-
-[X] config - add custom method to fire up solidity node
-
-[X] run - add option to run solidity node
-
-[X] pack to pip
-
-[X] Doc - add more instruction in readme file
