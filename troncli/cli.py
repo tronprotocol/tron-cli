@@ -7,7 +7,7 @@ import os
 import asyncio
 import cbox
 
-from troncli import utils, h_init, h_config, h_worker
+from troncli import utils, h_init, h_config, h_worker, h_status
 
 
 @cbox.cmd
@@ -41,7 +41,7 @@ def config(nettype: str, fullhttpport: int, solhttpport: int, fullgrpcport: int,
     """
     # >>
     # Example:
-    #     tron-cli config --nettype 'private' --fullhttpport 8500 --solhttpport 8600 --fullgrpcport 50051 --solgrpcport 5001
+    #     tron-cli config --nettype private --fullhttpport 8500 --solhttpport 8600 --fullgrpcport 50051 --solgrpcport 5001
 
     config_handler = h_config.Config()
     utils.progress_msg('Setting up config files')
@@ -79,6 +79,17 @@ def stop(pid: str):
 
 
 @cbox.cmd
+def status(pid: str):
+    """Monitor nodes status.
+    >> 
+    Settings: 
+        --pid
+    """
+    status_handler = h_status.Status()
+    status_handler.test(pid)
+
+
+@cbox.cmd
 def quick():
     """Quick start. (run a full private node by one command)
     >>
@@ -92,7 +103,7 @@ def quick():
     
 
 def main():
-    cbox.main([init, config, run, stop, quick])
+    cbox.main([init, config, run, stop, quick, status])
     
 
 if __name__ == '__main__':

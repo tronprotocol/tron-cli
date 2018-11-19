@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import psutil
 import os
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -35,6 +34,7 @@ def info_msg(content):
 def msg(content):
     print(Fore.RESET + '    ' + content + Fore.RESET)
 
+
 """
 Download
 """
@@ -67,32 +67,9 @@ async def download(file_name, url_string):
                     pbar.close()
 
 
-
-def test():
-    # dir_path = os.path.dirname(os.path.realpath(__file__))
-    cwd = os.getcwd()
-    print('cwd: ', cwd)
-
-    virt = psutil.virtual_memory()
-    swap = psutil.swap_memory()
-    templ = "%-7s %10s %10s %10s %10s %10s %10s"
-    print(templ % ('', 'total', 'used', 'free', 'shared', 'buffers', 'cache'))
-    print(templ % (
-        'Mem:',
-        int(virt.total / 1024),
-        int(virt.used / 1024),
-        int(virt.free / 1024),
-        int(getattr(virt, 'shared', 0) / 1024),
-        int(getattr(virt, 'buffers', 0) / 1024),
-        int(getattr(virt, 'cached', 0) / 1024)))
-    print(templ % (
-        'Swap:', int(swap.total / 1024),
-        int(swap.used / 1024),
-        int(swap.free / 1024),
-        '',
-        '',
-        ''))
-
+"""
+Phrase
+"""
 class Phrase(object):
     def load_json_file(self, json_file_path):
         f = open(json_file_path)
