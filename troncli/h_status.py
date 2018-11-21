@@ -16,31 +16,31 @@ class Status(object):
     def __init__(self):
         self.phrase = utils.Phrase()
 
-    def total(self, pid):
-        print('pid: ', pid)
-
+    def overall(self):
         virt = psutil.virtual_memory()
         swap = psutil.swap_memory()
-        templ = '%-7s %10s %10s %10s %10s %10s %10s'
-        print(templ % ('', 'total', 'used', 'free', 'shared', 'buffers', 'cache'))
+        templ = '%-7s %10s %10s %10s %10s %10s %10s %10s'
+        print(templ % ('', 'total', 'percent', 'used', 'free', 'active', 'inactive', 'wired'))
         print(templ % (
             'Mem:',
-            int(virt.total / 1024),
-            int(virt.used / 1024),
-            int(virt.free / 1024),
-            int(getattr(virt, 'shared', 0) / 1024),
-            int(getattr(virt, 'buffers', 0) / 1024),
-            int(getattr(virt, 'cached', 0) / 1024)))
+            self.phrase.convert_bytes(int(virt.total)),
+            str(virt.percent)+'%',
+            self.phrase.convert_bytes(int(virt.used)),
+            self.phrase.convert_bytes(int(virt.free)),
+            self.phrase.convert_bytes(int(virt.active)),
+            self.phrase.convert_bytes(int(virt.inactive)),
+            self.phrase.convert_bytes(int(virt.wired)))
+        )
         print(templ % (
-            'Swap:', int(swap.total / 1024),
-            int(swap.used / 1024),
-            int(swap.free / 1024),
+            'Swap:',
+            self.phrase.convert_bytes(int(swap.total)),
+            str(swap.percent)+'%',
+            self.phrase.convert_bytes(int(swap.used)),
+            self.phrase.convert_bytes(int(swap.free)),
             '',
             '',
-            ''))
-
-        print('RUN------')
-        self.run(pid)
+            '')
+        )
 
 
     def str_ntuple(self, nt, bytes2human=False):

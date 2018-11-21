@@ -79,14 +79,17 @@ def stop(pid: str):
 
 
 @cbox.cmd
-def status(pid: int):
+def status(node: str):
     """Monitor nodes status.
     >> 
     Settings: 
-        --pid
+        --node
     """
     status_handler = h_status.Status()
-    status_handler.ps(pid)
+    if node == 'all':
+        status_handler.overall()
+    else:
+        status_handler.ps(int(node))
 
 
 @cbox.cmd
