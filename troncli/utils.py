@@ -4,6 +4,8 @@ import os
 import requests
 import json
 import re
+from colorama import Fore
+from tqdm import tqdm
 
 import urllib3
 
@@ -13,30 +15,33 @@ Printing Messages
 
 
 def logo():
-    print(' _________  ____  _  __    _______   ____')
-    print('/_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/')
-    print(' / / / , _/ /_/ /    /___/ /__/ /___/ /  ')
-    print('/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
+    print(Fore.RED + ' _________  ____  _  __    _______   ____')
+    print(Fore.RED + '/_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/')
+    print(Fore.RED + ' / / / , _/ /_/ /    /___/ /__/ /___/ /  ')
+    print(Fore.RED + '/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
 
 
 def progress_msg(content):
-    print('[ TRON-CLI ]: ' + content + '...')
+    print(Fore.CYAN + '[ TRON-CLI ]: ' + content + '...' + Fore.RESET)
 
 
 def success_msg(content):
-    print('✓ : ' + content)
+    print(Fore.GREEN + '✓ : ' + content + Fore.BLACK)
 
-
-def warning_msg(content):
-    print('⚠ : ' + content)
+    
+def warnning_msg(content):
+    print(Fore.YELLOW + '⚠ : ' + content)
 
 
 def error_msg(content):
-    print('✖ : ' + content)
+    print(Fore.RED + '✖ : ' + content)
+
+def info_msg(content):
+    print(Fore.MAGENTA + 'ⓘ: ' + content + Fore.RESET)
 
 
 def msg(content):
-    print('    ' + content)
+    print(Fore.RESET + '    ' + content + Fore.RESET)
 
 
 """
@@ -46,11 +51,33 @@ Download
 
 async def download(file_name, url_string):
     with open(file_name, 'wb') as f:
-        # remove warnings
+        # remove ssl warnings
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-        resp = requests.get(url_string + '/' + file_name, verify=False)
-        f.write(resp.content)
+        try:
+            resp = requests.get(url_string + '/' + file_name, verify=False, stream=True)
+
+        except OSError as err:
+            pbar.update(0)
+            error_msg('OS Error -' + str(err))
+            os.sys.exit()
+
+        else:
+            with tqdm(total=100) as pbar:
+                total_length = resp.headers.get('content-length')
+                if total_length is None:
+                    pbar.update(100)
+                    pbar.close()
+                    f.write(resp.content)
+                else:
+                    _chunk_num = 10
+                    _chunk_size = int(int(total_length) / _chunk_num) + 1
+                    for data in resp.iter_content(chunk_size=_chunk_size):
+                        f.write(data)
+                        pbar.update(_chunk_num)
+                    pbar.close()
+
+
 
 
 def test():

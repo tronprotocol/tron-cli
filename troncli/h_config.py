@@ -28,17 +28,23 @@ class Config:
         phrase = utils.Phrase()
         _target_file_path_full = self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG
         phrase.store_json2properties_to_file(self.full_config, _target_file_path_full)
-        utils.success_msg('fullnode config file exported to: ' + _target_file_path_full)
+        utils.success_msg('fullnode config file exported to: ')
+        utils.msg(_target_file_path_full)
 
         _target_file_path_sol = self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOL_CONFIG
         phrase.store_json2properties_to_file(self.sol_config, _target_file_path_sol)
-        utils.success_msg('soliditynode config file exported to: ' + _target_file_path_sol)
+        utils.success_msg('soliditynode config file exported to: ')
+        utils.msg(_target_file_path_sol)
 
     async def set_http_port(self, port_num, node_type):
         if node_type == 'full':
             self.full_config[' node'][' http'][' fullNodePort'] = port_num
+            utils.success_msg('full-node http request set to listen: ')
+            utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'sol':
             self.sol_config[' node'][' http'][' solidityPort'] = port_num
+            utils.success_msg('solidity-node request set to listen: ')
+            utils.msg(LOCAL_HOST + str(port_num))
         else:
             utils.warning_msg('wrong node_type')
 
@@ -46,12 +52,19 @@ class Config:
         if node_type == 'full':
             self.full_config[' node'][' rpc'][' port'] = port_num
             self.sol_config[' node'][' trustNode'] = LOCAL_HOST + str(port_num)
+            utils.success_msg('full-node grpc request set to listen: ')
+            utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'sol':
             self.sol_config[' node'][' rpc'][' port'] = port_num
+            utils.success_msg('solidity-node grpc request set to listen: ')
+            utils.msg(LOCAL_HOST + str(port_num))
         else:
             utils.warning_msg('wrong node_type')
 
     async def set_net_type(self, net_type):
+        # msg
+        utils.success_msg('net type set to: ')
+        utils.msg(net_type)
         # P2P verison
         if net_type == 'main':
             self.full_config[' node'][' p2p'][' version'] = MAINNET_P2P_VERSION

@@ -2,7 +2,14 @@
 
 import sys
 
+
 from setuptools import setup, find_packages
+
+def cat(files, join_str=''):
+    """Concatenate `files` content with `join_str` between them."""
+    files_content = (open(f).read() for f in files)
+    return join_str.join(files_content)
+
 
 PKG_NAME = 'troncli'
 PKG_AUTHOR = ', '.join(['Weiyu X'])
@@ -20,9 +27,7 @@ PKG_REQUIRES = [
 ]
 
 PKG_DESC = 'A command line tool to monitor and manage tron nodes.'
-
-with open("README.md", "r") as fh:
-    PKG_LONG_DESC = fh.read()
+PKG_LONG_DESC = cat(['README.md', 'CHANGELOG.md'], u'\n\n')
 
 setup(
     name=PKG_NAME,

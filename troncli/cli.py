@@ -22,8 +22,6 @@ def init(version: str):
     init_handler = h_init.Init()
     utils.progress_msg('Creating folders')
     init_handler.create_dirs()
-    utils.progress_msg('Downloading release builds')
-
     loop = asyncio.get_event_loop()
     loop.run_until_complete(init_handler.fetch_jars(version))
     loop.run_until_complete(init_handler.move_jars())
