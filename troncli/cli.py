@@ -13,10 +13,10 @@ from troncli import utils, h_init, h_config, h_worker
 @cbox.cmd
 def init(version: str):
     """Init dirs and fetch code.
-
-    Examples:
-        $ tron-cli init --version latest
-
+    >>
+    Settings:
+        --version
+    >>
     """
 
     init_handler = h_init.Init()
@@ -36,7 +36,15 @@ def config(nettype: str,
            solhttpport: int,
            fullgrpcport: int,
            solgrpcport: int):
-    """Create customize config files."""
+    """Create customize config files.
+    >>
+    Settings:
+        --nettype
+        --fullhttpport
+        --solhttpport
+        --fullgrpcport
+        --solgrpcport
+    """
 
     config_handler = h_config.Config()
     utils.progress_msg('Setting up config files')
@@ -54,7 +62,11 @@ def config(nettype: str,
 
 @cbox.cmd
 def run(nodetype: str):
-    """Run node."""
+    """Run node.
+    >>
+    Settings:
+        --nodetype
+    """
     utils.progress_msg('Starting node(s)')
     worker = h_worker.Worker()
     loop = asyncio.get_event_loop()
@@ -64,7 +76,11 @@ def run(nodetype: str):
 
 @cbox.cmd
 def stop(pid: str):
-    """Stop node."""
+    """Stop node.
+    >>
+    Settings:
+        --pid
+    """
     worker = h_worker.Worker()
     utils.progress_msg('Shutting down node(s)')
     loop = asyncio.get_event_loop()
@@ -75,10 +91,9 @@ def stop(pid: str):
 @cbox.cmd
 def quick():
     """Quick start. (run a full private node by one command)
-
-    Examples:
-        $ tron-cli quick
-
+    >>
+    Example:
+        tron-cli quick
     """
     utils.logo()
     init('lastest')

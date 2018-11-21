@@ -7,6 +7,7 @@ from setuptools import setup, find_packages
 PKG_NAME = 'troncli'
 PKG_AUTHOR = ', '.join(['Weiyu X'])
 PKG_SCRIPTS = ['tron-cli']
+PKG_VERSION = '0.1.3'
 PKG_REQUIRES = [
     'cbox==0.5.0',
     'certifi==2018.10.15',
@@ -23,14 +24,9 @@ PKG_DESC = 'A command line tool to monitor and manage tron nodes.'
 with open("README.md", "r") as fh:
     PKG_LONG_DESC = fh.read()
 
-# get the version
-version = {}
-with open('{}/version.py'.format(PKG_NAME)) as fp:
-    exec(fp.read(), version)
-
 setup(
     name=PKG_NAME,
-    version=version['__version__'],
+    version=PKG_VERSION,
     author=PKG_AUTHOR,
     author_email='weiyu@tron.network',
     description=PKG_DESC,
