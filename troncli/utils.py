@@ -6,7 +6,7 @@ import json
 import sys
 import psutil
 import re
-from colorama import Fore
+from colorama import Fore, Style
 from tqdm import tqdm
 
 """
@@ -41,8 +41,7 @@ def info_msg(content):
 
 def status_msg(category, detail):
     if sys.stdout.isatty() and psutil.POSIX:
-        # fmt = '\x1b[1;32m' + '%-13s' + '\x1b[0m' + '%s' % (category, detail)
-        fmt = '\x1b[1;32m%-13s\x1b[0m %s' % (category, detail)
+        fmt = '%-13s %s' % (Fore.BLUE + Style.BRIGHT + str(category), Fore.RESET + Style.RESET_ALL + str(detail))
     else:
         fmt = '%-11s %s' % (category, detail)
     print(fmt)
