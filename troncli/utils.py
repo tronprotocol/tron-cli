@@ -3,6 +3,8 @@ import os
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import json
+import sys
+import psutil
 import re
 from colorama import Fore
 from tqdm import tqdm
@@ -16,20 +18,35 @@ def logo():
     print(Fore.RED + ' / / / , _/ /_/ /    /___/ /__/ /___/ /  ')
     print(Fore.RED + '/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
 
+
 def progress_msg(content):
     print(Fore.CYAN + '[ TRON-CLI ]: ' + content + '...' + Fore.RESET)
+
 
 def success_msg(content):
     print(Fore.GREEN + '✓ : ' + content + Fore.BLACK)
 
+
 def warnning_msg(content):
     print(Fore.YELLOW + '⚠ : ' + content)
+
 
 def error_msg(content):
     print(Fore.RED + '✖ : ' + content)
 
+
 def info_msg(content):
     print(Fore.MAGENTA + 'ⓘ: ' + content + Fore.RESET)
+
+
+def status_msg(category, detail):
+    if sys.stdout.isatty() and psutil.POSIX:
+        # fmt = '\x1b[1;32m' + '%-13s' + '\x1b[0m' + '%s' % (category, detail)
+        fmt = '\x1b[1;32m%-13s\x1b[0m %s' % (category, detail)
+    else:
+        fmt = '%-11s %s' % (category, detail)
+    print(fmt)
+
 
 def msg(content):
     print(Fore.RESET + '    ' + content + Fore.RESET)
@@ -71,6 +88,17 @@ async def download(file_name, url_string):
 Phrase
 """
 class Phrase(object):
+    def convert_bytes(self, n):
+        symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
+        prefix = {}
+        for i, s in enumerate(symbols):
+            prefix[s] = 1 << (i + 1) * 10
+        for s in reversed(symbols):
+            if n >= prefix[s]:
+                value = float(n) / prefix[s]
+                return '%.1f%s' % (value, s)
+        return "%sB" % n
+
     def load_json_file(self, json_file_path):
         f = open(json_file_path)
         _json_props = json.load(f)
