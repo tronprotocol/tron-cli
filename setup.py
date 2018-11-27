@@ -1,8 +1,9 @@
-import os
+"""The setup.py file for Tron CLI."""
+
+import sys
+
+
 from setuptools import setup, find_packages
-
-PACKAGE = 'troncli'
-
 
 def cat(files, join_str=''):
     """Concatenate `files` content with `join_str` between them."""
@@ -10,37 +11,43 @@ def cat(files, join_str=''):
     return join_str.join(files_content)
 
 
-def get_version(package):
-    """ Extract package version without importing file
-    Importing cause issues with coverage,
-        (modules can be removed from sys.modules to prevent this)
-    Importing __init__.py triggers importing rest and then requests too
-    Inspired from pep8 setup.py
-    """
-    with open(os.path.join(package, '__init__.py')) as init_fd:
-        for line in init_fd:
-            if line.startswith('__version__'):
-                return eval(line.split('=')[-1])
+PKG_NAME = 'troncli'
+PKG_AUTHOR = ', '.join(['Weiyu X'])
+PKG_SCRIPTS = ['tron-cli']
+PKG_VERSION = '0.1.3'
+PKG_REQUIRES = [
+    'cbox==0.5.0',
+    'certifi==2018.10.15',
+    'chardet==3.0.4',
+    'idna==2.7',
+    'psutil==5.4.7',
+    'requests==2.20.0',
+    'six==1.11.0',
+    'urllib3==1.24'
+]
 
-SCRIPTS = ['tron-cli']
-LONG_DESCRIPTION_FILES = ['README.md', 'CHANGELOG.md']
+PKG_DESC = 'A command line tool to monitor and manage tron nodes.'
+PKG_LONG_DESC = cat(['README.md', 'CHANGELOG.md'], u'\n\n')
 
 setup(
-    name=PACKAGE,
-    version=get_version(PACKAGE),
-    author='Weiyu X',
+    name=PKG_NAME,
+    version=PKG_VERSION,
+    author=PKG_AUTHOR,
     author_email='weiyu@tron.network',
-    description='A command line tool to monitor and manage tron nodes.',
-    long_description=cat(LONG_DESCRIPTION_FILES, u'\n\n'),
+    description=PKG_DESC,
+    long_description=PKG_LONG_DESC,
     long_description_content_type='text/markdown',
     url='https://github.com/tronprotocol/tron-cli',
     packages=find_packages(),
-    scripts=SCRIPTS,
+    zip_safe=False,
+    scripts=PKG_SCRIPTS,
     classifiers=[
-        'Programming Language :: Python :: 3',
+        'Environment :: Console',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ],
-    install_requires=['cbox==0.5.0', 'certifi==2018.10.15', 'chardet==3.0.4', 'idna==2.7', 
-        'psutil==5.4.7', 'requests==2.20.0', 'six==1.11.0', 'urllib3==1.24', 'colorama==0.4.0', 'tqdm==4.28.1'],
+    install_requires=PKG_REQUIRES,
 )
