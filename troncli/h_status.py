@@ -22,7 +22,9 @@ class Status(object):
         virt = psutil.virtual_memory()
         swap = psutil.swap_memory()
         templ = '%-7s %10s %10s %10s %10s %10s %10s %10s'
-        print(templ % ('', 'total', 'percent', 'used', 'free', 'active', 'inactive', 'wired'))
+        print(templ % (
+                       '', 'total', 'percent', 'used', 'free',
+                       'active', 'inactive', 'wired'))
         print(templ % (
             'Mem:',
             self.phrase.convert_bytes(int(virt.total)),
@@ -45,27 +47,27 @@ class Status(object):
         )
         self.running_nodes()
 
-
     def running_nodes(self):
         if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
             phrase = utils.Phrase()
-            running_nodes = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
+            running_nodes = phrase.load_json_file(self.root_path + '/' +
+                                                  RUNNING_NODE_LIST_FILE)
             utils.status_msg('Full-nodes', running_nodes['full'])
             utils.status_msg('Solidity-nodes', running_nodes['sol'])
             utils.info_msg('To stop node: tron-cli stop --pid')
         else:
             utils.warnning_msg('no running nodes')
 
-
     def str_ntuple(self, nt, bytes2human=False):
         if nt == ACCESS_DENIED:
             return ''
         if not bytes2human:
-            return ', '.join(['%s=%s' % (x, getattr(nt, x)) for x in nt._fields])
+            return ', '.join(['%s=%s' % (x, getattr(nt, x))
+                             for x in nt._fields])
         else:
-            return ', '.join(['%s=%s' % (x, self.phrase.convert_bytes(getattr(nt, x)))
-                              for x in nt._fields])
-
+            return ', '.join(['%s=%s' %
+                             (x, self.phrase.convert_bytes(getattr(nt, x)))
+                             for x in nt._fields])
 
     def ps(self, pid, verbose=False):
         try:
@@ -114,7 +116,8 @@ class Status(object):
         if hasattr(proc, 'cpu_num'):
             utils.status_msg('cpu-num', pinfo['cpu_num'])
 
-        utils.status_msg('memory', self.str_ntuple(pinfo['memory_info'], bytes2human=True))
+        utils.status_msg('memory', self.str_ntuple(pinfo['memory_info'],
+                         bytes2human=True))
         utils.status_msg('memory %', round(pinfo['memory_percent'], 2))
         utils.status_msg('user', pinfo['username'])
         utils.status_msg('status', pinfo['status'])
@@ -126,9 +129,11 @@ class Status(object):
             utils.status_msg('num-handles', pinfo['num_handles'])
 
         if 'io_counters' in pinfo:
-            utils.status_msg('I/O', self.str_ntuple(pinfo['io_counters'], bytes2human=True))
+            utils.status_msg('I/O', self.str_ntuple(pinfo['io_counters'],
+                             bytes2human=True))
         if 'num_ctx_switches' in pinfo:
-            utils.status_msg('ctx-switches', self.str_ntuple(pinfo['num_ctx_switches']))
+            utils.status_msg('ctx-switches',
+                             self.str_ntuple(pinfo['num_ctx_switches']))
         if pinfo['children']:
             template = '%-6s %s'
             utils.status_msg('children', template % ('PID', 'NAME'))
@@ -152,8 +157,8 @@ class Status(object):
 
         if pinfo['connections']:
             template = '%-5s %-25s %-25s %s'
-            utils.status_msg('connections',
-                   template % ('PROTO', 'LOCAL ADDR', 'REMOTE ADDR', 'STATUS'))
+            utils.status_msg('connections', template %
+                             ('PROTO', 'LOCAL ADDR', 'REMOTE ADDR', 'STATUS'))
             for conn in pinfo['connections']:
                 if conn.type == socket.SOCK_STREAM:
                     type = 'TCP'
@@ -186,9 +191,12 @@ class Status(object):
         if pinfo.get('memory_maps', None):
             template = '%-8s %s'
             utils.status_msg('mem-maps', template % ('RSS', 'PATH'))
-            maps = sorted(pinfo['memory_maps'], key=lambda x: x.rss, reverse=True)
+            maps = sorted(pinfo['memory_maps'], key=lambda x: x.rss,
+                          reverse=True)
             for i, region in enumerate(maps):
                 if not verbose and i >= NON_VERBOSE_ITERATIONS:
                     utils.status_msg('', '[...]')
                     break
-                utils.status_msg('', template % (self.phrase.convert_bytes(region.rss), region.path))
+                utils.status_msg('', template %
+                                 (self.phrase.convert_bytes(region.rss),
+                                  region.path))
