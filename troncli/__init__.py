@@ -1,3 +1,9 @@
 #!/usr/bin/env python3
-__version__ = '0.1.3'
 
+import pkg_resources
+
+__version__ = pkg_resources.get_distribution("troncli").version
+
+__all__ = [
+    '__version__',
+]
