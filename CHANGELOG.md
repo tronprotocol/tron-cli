@@ -2,15 +2,21 @@
 
 ### In doing
 
-[ ] run - monitor running nodes
-
 [ ] run - filter nodes
-
-[ ] run - multiple (full) nodes
 
 [ ] dump - fetch a dump
 
 [ ] init - add option to build from source code
+
+#### Version 0.1.3
+
+[X] run - check single ps status
+
+[X] keep track of all running nodes
+
+[ ] run - monitor over all system status
+
+[ ] run - multiple (full) nodes
 
 #### Version 0.1.2
 

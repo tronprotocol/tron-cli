@@ -7,6 +7,7 @@ import socket
 import sys
 
 from troncli import utils
+from troncli.constants import *
 
 ACCESS_DENIED = ''
 NON_VERBOSE_ITERATIONS = 6
@@ -14,6 +15,7 @@ NON_VERBOSE_ITERATIONS = 6
 
 class Status(object):
     def __init__(self):
+        self.root_path = os.getcwd()
         self.phrase = utils.Phrase()
 
     def overall(self):
@@ -41,6 +43,18 @@ class Status(object):
             '',
             '')
         )
+        self.running_nodes()
+
+
+    def running_nodes(self):
+        if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
+            phrase = utils.Phrase()
+            running_nodes = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
+            utils.status_msg('Full-nodes', running_nodes['full'])
+            utils.status_msg('Solidity-nodes', running_nodes['sol'])
+            utils.info_msg('To stop node: tron-cli stop --pid')
+        else:
+            utils.warnning_msg('no running nodes')
 
 
     def str_ntuple(self, nt, bytes2human=False):
