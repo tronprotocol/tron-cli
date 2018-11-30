@@ -10,7 +10,7 @@ class Init(object):
 
     def __init__(self):
         self.root_path = os.getcwd()
-        self.source_full_jar = 'java-tron.jar'
+        self.source_full_jar = 'FullNode.jar'
         self.source_sol_jar = 'SolidityNode.jar'
 
     def create_dirs(self):
@@ -37,6 +37,12 @@ class Init(object):
             url += 'Odyssey-v' + JAVA_TRON_LASTEST_VERSION
         elif '3.1.3' <= version <= '3.1.3':
             url += 'Odyssey-v' + version
+            self.source_full_jar = 'java-tron.jar'
+        elif '3.2.0' <= version <= '3.2.10':
+            url += 'Odyssey-v' + version
+        else:
+            utils.error_msg('version: ' + version + ' not supported')            
+            exit()
         """
         download
         """
