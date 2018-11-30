@@ -41,7 +41,8 @@ class Init(object):
         elif '3.2.0' <= version <= '3.2.10':
             url += 'Odyssey-v' + version
         else:
-            utils.error_msg('version: ' + version + ' not supported')            
+            utils.error_msg('version: ' + version + ' not supported')
+            utils.info_msg('current support versions: 3.1.3, 3.2, 3.2.1')
             exit()
         """
         download

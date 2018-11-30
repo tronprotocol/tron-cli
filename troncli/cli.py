@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #  _________  ____  _  __    _______   ____
 # /_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/
-#  / / / , _/ /_/ /    /___/ /__/ /___/ /  
+#  / / / , _/ /_/ /    /___/ /__/ /___/ /
 # /_/ /_/|_|\____/_/|_/    \___/____/___/
 
 import asyncio
@@ -86,7 +86,7 @@ def stop(pid: str):
 @cbox.cmd
 def status(node: str):
     """Monitor nodes status.
-    >> 
+    >>
     Parameter(s):
         --node
     """
@@ -108,12 +108,11 @@ def quick():
     init('lastest')
     config('private', 8500, 8600, 50051, 50001)
     run('full')
-    
+
 
 def main():
     cbox.main([init, config, run, stop, status, quick])
-    
+
 
 if __name__ == '__main__':
     main()
-
