@@ -14,9 +14,8 @@ from troncli import utils, h_init, h_config, h_worker, h_status
 def init(version: str):
     """Init dirs and fetch code.
     >>
-    Settings:
+    Parameter(s):
         --version
-    >>
     """
 
     init_handler = h_init.Init()
@@ -25,7 +24,6 @@ def init(version: str):
     loop = asyncio.get_event_loop()
     loop.run_until_complete(init_handler.fetch_jars(version))
     loop.run_until_complete(init_handler.move_jars())
-    loop.close()
 
 
 @cbox.cmd
@@ -36,7 +34,7 @@ def config(nettype: str,
            solgrpcport: int):
     """Create customize config files.
     >>
-    Settings:
+    Parameter(s):
         --nettype
         --fullhttpport
         --solhttpport
@@ -55,14 +53,13 @@ def config(nettype: str,
     loop.run_until_complete(config_handler.set_grpc_port(fullgrpcport, 'full'))
     loop.run_until_complete(config_handler.set_grpc_port(solgrpcport, 'sol'))
     loop.run_until_complete(config_handler.export())
-    loop.close()
 
 
 @cbox.cmd
 def run(nodetype: str):
     """Run node.
     >>
-    Settings:
+    Parameter(s):
         --nodetype
     """
     utils.progress_msg('Starting node(s)')
@@ -76,7 +73,7 @@ def run(nodetype: str):
 def stop(pid: str):
     """Stop node.
     >>
-    Settings:
+    Parameter(s):
         --pid
     """
     worker = h_worker.Worker()
@@ -90,7 +87,7 @@ def stop(pid: str):
 def status(node: str):
     """Monitor nodes status.
     >> 
-    Settings: 
+    Parameter(s):
         --node
     """
     status_handler = h_status.Status()
@@ -114,7 +111,7 @@ def quick():
     
 
 def main():
-    cbox.main([init, config, run, stop, quick, status])
+    cbox.main([init, config, run, stop, status, quick])
     
 
 if __name__ == '__main__':

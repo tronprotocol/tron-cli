@@ -44,12 +44,13 @@ def info_msg(content):
 
 def status_msg(category, detail):
     if sys.stdout.isatty() and psutil.POSIX:
-        fmt = '%-13s %s' % (Fore.BLUE + Style.BRIGHT + str(category), Fore.RESET + Style.RESET_ALL + str(detail))
+        fmt = '%-13s %s' % (Fore.BLUE + Style.BRIGHT + str(category),
+                            Fore.RESET + Style.RESET_ALL + str(detail))
     else:
         fmt = '%-11s %s' % (category, detail)
     print(fmt)
 
-    
+
 def msg(content):
     print(Fore.RESET + '    ' + content + Fore.RESET)
 
@@ -65,7 +66,8 @@ async def download(file_name, url_string):
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         try:
-            resp = requests.get(url_string + '/' + file_name, verify=False, stream=True)
+            resp = requests.get(url_string + '/' + file_name,
+                                verify=False, stream=True)
 
         except OSError as err:
             pbar.update(0)
@@ -91,8 +93,11 @@ async def download(file_name, url_string):
 """
 Phrase
 """
+
+
 class Phrase(object):
-    def convert_bytes(self, n):
+    @staticmethod
+    def convert_bytes(n):
         symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
         prefix = {}
         for i, s in enumerate(symbols):
@@ -102,14 +107,14 @@ class Phrase(object):
                 value = float(n) / prefix[s]
                 return '%.1f%s' % (value, s)
         return "%sB" % n
-     
+
     @staticmethod
     def load_json_file(json_file_path):
         f = open(json_file_path)
         _json_props = json.load(f)
         f.close()
         return _json_props
-  
+
     def store_json2properties_to_file(self, json_props, target_file_path):
         """
         convert json to properties and store in target file
@@ -150,19 +155,19 @@ class Phrase(object):
                         if prop_value.__len__() > 1:
                             map_property[prop_key] = prop_value[1]
                         else:
-                            print("json2properties - " + prop_key +
-                                  " will be ignored as its definition is incomplete...")
+                            print('json2properties - ' + prop_key +
+                                  ' will be ignored as its definition is incomplete...')
                     properties[prop['propertyName']] = map_property
 
                 elif prop['propertyType'] == 'array':
                     j_data = json.loads(prop['propertyValue'])
                     if j_data.__len__() > 1:
-                        if j_data[0] == "map":
+                        if j_data[0] == 'map':
                             t_data = []
                             for amap in j_data[1]:
                                 t_data.append(DriverTools.json_map2properties(amap))
                             properties[prop['propertyName']] = t_data
-                        elif j_data[0] == "array":
+                        elif j_data[0] == 'array':
                             t_data = []
                             for ar in j_data[1]:
                                 t_data.append(DriverTools.json_array2properties(ar))
@@ -170,8 +175,8 @@ class Phrase(object):
                         else:
                             properties[prop['propertyName']] = j_data[1]
                     else:
-                        print("json2properties - " + prop['propertyName'] +
-                              " will be ignored as its definition is incomplete...")
+                        print('json2properties - ' + prop['propertyName'] +
+                              ' will be ignored as its definition is incomplete...')
 
                 elif prop['propertyType'] == 'map':
                     j_data = json.loads(prop['propertyValue'])

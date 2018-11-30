@@ -13,7 +13,6 @@ class Worker:
         self.root_path = os.getcwd()
         self.processes = {}
 
-
     async def run(self, node_type):
         pid = await self.start(node_type)
         utils.success_msg('node running at pid:')
@@ -21,6 +20,15 @@ class Worker:
         utils.info_msg('To stop this node: tron-cli stop --pid ' + str(pid))
         await self.nodes_list(node_type, pid, 'add')
 
+    async def stop(self, pid):
+        try:
+            subprocess.Popen(["kill", "-15", pid])
+        except OSError as err:
+            utils.warning_msg('OSError -' + str(err))
+        else:
+            await self.nodes_list('', int(pid), 'remove')
+            utils.success_msg('process: ' + pid + ' is shut down')
+            
     async def nodes_list(self, node_type, pid, execution):
         """
         node_type: "full" / "sol"
@@ -48,7 +56,6 @@ class Worker:
 
         with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
              file.write(json.dumps(running_nodes))
-
 
     async def start(self, node_type):
         """
@@ -80,12 +87,3 @@ class Worker:
             utils.warning_msg('wrong node type')
 
         return _process.pid
-
-    async def stop(self, pid):
-        try:
-            subprocess.Popen(["kill", "-15", pid])
-        except OSError as err:
-            utils.warning_msg('OSError -' + str(err))
-        else:
-            await self.nodes_list('', int(pid), 'remove')
-            utils.success_msg('process: ' + pid + ' is shut down')
