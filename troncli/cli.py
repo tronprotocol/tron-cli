@@ -11,10 +11,10 @@ from troncli import utils, h_init, h_config, h_worker, h_status
 
 
 @cbox.cmd
-def init(version: str):
+def init(version: str = 'lastest'):
     """Init dirs and fetch code.
     >>
-    Parameter(s):
+    Option(s):
         --version
     """
 
@@ -27,14 +27,14 @@ def init(version: str):
 
 
 @cbox.cmd
-def config(nettype: str,
-           fullhttpport: int,
-           solhttpport: int,
-           fullgrpcport: int,
-           solgrpcport: int):
+def config(nettype: str = 'private',
+           fullhttpport: int = 8500,
+           solhttpport: int = 8600,
+           fullgrpcport: int = 50051,
+           solgrpcport: int = 50001):
     """Create customize config files.
     >>
-    Parameter(s):
+    Option(s):
         --nettype
         --fullhttpport
         --solhttpport
@@ -56,10 +56,10 @@ def config(nettype: str,
 
 
 @cbox.cmd
-def run(nodetype: str):
+def run(nodetype: str = 'full'):
     """Run node.
     >>
-    Parameter(s):
+    Option(s):
         --nodetype
     """
     utils.progress_msg('Starting node(s)')
@@ -73,7 +73,7 @@ def run(nodetype: str):
 def stop(pid: str):
     """Stop node.
     >>
-    Parameter(s):
+    Option(s):
         --pid
     """
     worker = h_worker.Worker()
@@ -84,10 +84,10 @@ def stop(pid: str):
 
 
 @cbox.cmd
-def status(node: str):
+def status(node: str = 'all'):
     """Monitor nodes status.
     >>
-    Parameter(s):
+    Option(s):
         --node
     """
     status_handler = h_status.Status()
@@ -100,14 +100,12 @@ def status(node: str):
 @cbox.cmd
 def quick():
     """Quick start. (run a full private node by one command)
-    >>
-    Example:
-        tron-cli quick
     """
     utils.logo()
     init('lastest')
     config('private', 8500, 8600, 50051, 50001)
     run('full')
+    status('all')
 
 
 def main():
