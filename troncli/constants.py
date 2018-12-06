@@ -1,7 +1,7 @@
 """Constants"""
 
 JAVA_TRON_RELEASES_URL = 'https://github.com/tronprotocol/java-tron/releases/download/'
-JAVA_TRON_LASTEST_VERSION = '3.1.3'
+JAVA_TRON_LASTEST_VERSION = '3.2.1'
 
 NODES_DIR = '/tron_nodes'
 FULL_NODE_DIR = '/fullnode'
@@ -19,3 +19,4 @@ PRIVATENET_P2P_VERSION = 1
 MAINNET_ALLOW_CREATION_OF_CONTRACTS = 0
 PRIVATENET_ALLOW_CREATION_OF_CONTRACTS = 1
 
+RUNNING_NODE_LIST_FILE = 'running_nodes.json'

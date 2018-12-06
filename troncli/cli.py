@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 #  _________  ____  _  __    _______   ____
 # /_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/
-#  / / / , _/ /_/ /    /___/ /__/ /___/ /  
+#  / / / , _/ /_/ /    /___/ /__/ /___/ /
 # /_/ /_/|_|\____/_/|_/    \___/____/___/
 
 import asyncio
 import cbox
 
-from troncli import utils, h_init, h_config, h_worker
+from troncli import utils, h_init, h_config, h_worker, h_status
 
 
 @cbox.cmd
-def init(version: str):
+def init(version: str = 'lastest'):
     """Init dirs and fetch code.
     >>
-    Settings:
+    Option(s):
         --version
-    >>
     """
 
     init_handler = h_init.Init()
@@ -25,18 +24,17 @@ def init(version: str):
     loop = asyncio.get_event_loop()
     loop.run_until_complete(init_handler.fetch_jars(version))
     loop.run_until_complete(init_handler.move_jars())
-    loop.close()
 
 
 @cbox.cmd
-def config(nettype: str,
-           fullhttpport: int,
-           solhttpport: int,
-           fullgrpcport: int,
-           solgrpcport: int):
+def config(nettype: str = 'private',
+           fullhttpport: int = 8500,
+           solhttpport: int = 8600,
+           fullgrpcport: int = 50051,
+           solgrpcport: int = 50001):
     """Create customize config files.
     >>
-    Settings:
+    Option(s):
         --nettype
         --fullhttpport
         --solhttpport
@@ -55,14 +53,13 @@ def config(nettype: str,
     loop.run_until_complete(config_handler.set_grpc_port(fullgrpcport, 'full'))
     loop.run_until_complete(config_handler.set_grpc_port(solgrpcport, 'sol'))
     loop.run_until_complete(config_handler.export())
-    loop.close()
 
 
 @cbox.cmd
-def run(nodetype: str):
+def run(nodetype: str = 'full'):
     """Run node.
     >>
-    Settings:
+    Option(s):
         --nodetype
     """
     utils.progress_msg('Starting node(s)')
@@ -76,7 +73,7 @@ def run(nodetype: str):
 def stop(pid: str):
     """Stop node.
     >>
-    Settings:
+    Option(s):
         --pid
     """
     worker = h_worker.Worker()
@@ -87,22 +84,33 @@ def stop(pid: str):
 
 
 @cbox.cmd
+def status(node: str = 'all'):
+    """Monitor nodes status.
+    >>
+    Option(s):
+        --node
+    """
+    status_handler = h_status.Status()
+    if node == 'all':
+        status_handler.overall()
+    else:
+        status_handler.ps(int(node))
+
+
+@cbox.cmd
 def quick():
     """Quick start. (run a full private node by one command)
-    >>
-    Example:
-        tron-cli quick
     """
     utils.logo()
     init('lastest')
     config('private', 8500, 8600, 50051, 50001)
     run('full')
-    
+    status('all')
+
 
 def main():
-    cbox.main([init, config, run, stop, quick])
-    
+    cbox.main([init, config, run, stop, status, quick])
+
 
 if __name__ == '__main__':
     main()
-

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-import psutil
 import os
 import requests
 import json
+import sys
+import psutil
 import re
-from colorama import Fore
+from colorama import Fore, Style
 from tqdm import tqdm
 
 import urllib3
@@ -28,7 +29,7 @@ def progress_msg(content):
 def success_msg(content):
     print(Fore.GREEN + '✓ : ' + content + Fore.BLACK)
 
-    
+
 def warnning_msg(content):
     print(Fore.YELLOW + '⚠ : ' + content)
 
@@ -36,8 +37,18 @@ def warnning_msg(content):
 def error_msg(content):
     print(Fore.RED + '✖ : ' + content)
 
+
 def info_msg(content):
     print(Fore.MAGENTA + 'ⓘ: ' + content + Fore.RESET)
+
+
+def status_msg(category, detail):
+    if sys.stdout.isatty() and psutil.POSIX:
+        fmt = '%-13s %s' % (Fore.BLUE + Style.BRIGHT + str(category),
+                            Fore.RESET + Style.RESET_ALL + str(detail))
+    else:
+        fmt = '%-11s %s' % (category, detail)
+    print(fmt)
 
 
 def msg(content):
@@ -55,7 +66,8 @@ async def download(file_name, url_string):
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         try:
-            resp = requests.get(url_string + '/' + file_name, verify=False, stream=True)
+            resp = requests.get(url_string + '/' + file_name,
+                                verify=False, stream=True)
 
         except OSError as err:
             pbar.update(0)
@@ -78,35 +90,24 @@ async def download(file_name, url_string):
                     pbar.close()
 
 
-
-
-def test():
-    # dir_path = os.path.dirname(os.path.realpath(__file__))
-    cwd = os.getcwd()
-    print('cwd: ', cwd)
-
-    virt = psutil.virtual_memory()
-    swap = psutil.swap_memory()
-    templ = "%-7s %10s %10s %10s %10s %10s %10s"
-    print(templ % ('', 'total', 'used', 'free', 'shared', 'buffers', 'cache'))
-    print(templ % (
-        'Mem:',
-        int(virt.total / 1024),
-        int(virt.used / 1024),
-        int(virt.free / 1024),
-        int(getattr(virt, 'shared', 0) / 1024),
-        int(getattr(virt, 'buffers', 0) / 1024),
-        int(getattr(virt, 'cached', 0) / 1024)))
-    print(templ % (
-        'Swap:', int(swap.total / 1024),
-        int(swap.used / 1024),
-        int(swap.free / 1024),
-        '',
-        '',
-        ''))
+"""
+Phrase
+"""
 
 
 class Phrase(object):
+    @staticmethod
+    def convert_bytes(n):
+        symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
+        prefix = {}
+        for i, s in enumerate(symbols):
+            prefix[s] = 1 << (i + 1) * 10
+        for s in reversed(symbols):
+            if n >= prefix[s]:
+                value = float(n) / prefix[s]
+                return '%.1f%s' % (value, s)
+        return "%sB" % n
+
     @staticmethod
     def load_json_file(json_file_path):
         f = open(json_file_path)
@@ -154,19 +155,19 @@ class Phrase(object):
                         if prop_value.__len__() > 1:
                             map_property[prop_key] = prop_value[1]
                         else:
-                            print("json2properties - " + prop_key +
-                                  " will be ignored as its definition is incomplete...")
+                            print('json2properties - ' + prop_key +
+                                  ' will be ignored as its definition is incomplete...')
                     properties[prop['propertyName']] = map_property
 
                 elif prop['propertyType'] == 'array':
                     j_data = json.loads(prop['propertyValue'])
                     if j_data.__len__() > 1:
-                        if j_data[0] == "map":
+                        if j_data[0] == 'map':
                             t_data = []
                             for amap in j_data[1]:
                                 t_data.append(DriverTools.json_map2properties(amap))
                             properties[prop['propertyName']] = t_data
-                        elif j_data[0] == "array":
+                        elif j_data[0] == 'array':
                             t_data = []
                             for ar in j_data[1]:
                                 t_data.append(DriverTools.json_array2properties(ar))
@@ -174,8 +175,8 @@ class Phrase(object):
                         else:
                             properties[prop['propertyName']] = j_data[1]
                     else:
-                        print("json2properties - " + prop['propertyName'] +
-                              " will be ignored as its definition is incomplete...")
+                        print('json2properties - ' + prop['propertyName'] +
+                              ' will be ignored as its definition is incomplete...')
 
                 elif prop['propertyType'] == 'map':
                     j_data = json.loads(prop['propertyValue'])
