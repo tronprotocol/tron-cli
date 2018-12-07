@@ -12,6 +12,10 @@
 
 [ ] robust - catch more errors and provide better error msg
 
+[ ] config -- add option to config to sync with newly deployed shasta testnet
+
+[ ] status -- add config setting in status json
+
 #### Version 0.1.4
 
 [X] update to support version 3.2 fetch release, check version
@@ -20,9 +24,7 @@
 
 [X] add more info message;
 
-[ ] config -- add option to config to sync with newly deployed shasta testnet
-
-[ ] status -- add config setting in status json
+[X] provide a more neat yet detail help info and command
 
 #### Version 0.1.3
 

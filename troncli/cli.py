@@ -13,9 +13,8 @@ from troncli import utils, h_init, h_config, h_worker, h_status
 @cbox.cmd
 def init(version: str = 'lastest'):
     """Init dirs and fetch code.
-    >>
-    Option(s):
-        --version
+
+    :param version: specify java-tron version
     """
 
     init_handler = h_init.Init()
@@ -30,17 +29,16 @@ def init(version: str = 'lastest'):
 def config(nettype: str = 'private',
            fullhttpport: int = 8500,
            solhttpport: int = 8600,
-           fullgrpcport: int = 50051,
-           solgrpcport: int = 50001,
+           fullrpcport: int = 50051,
+           solrpcport: int = 50001,
            enablememdb: str = 'True'):
     """Create customize config files.
-    >>
-    Option(s):
-        --nettype
-        --fullhttpport
-        --solhttpport
-        --fullgrpcport
-        --solgrpcport
+
+    :param nettype: specify net type [main, private]
+    :param fullhttpport: specify full http port
+    :param solhttpport: specify solidity http port
+    :param fullrpcport: specify full rpc port
+    :param solrpcport: specify solidity rpc port
     """
 
     config_handler = h_config.Config()
@@ -51,8 +49,8 @@ def config(nettype: str = 'private',
     loop.run_until_complete(config_handler.set_net_type(nettype))
     loop.run_until_complete(config_handler.set_http_port(fullhttpport, 'full'))
     loop.run_until_complete(config_handler.set_http_port(solhttpport, 'sol'))
-    loop.run_until_complete(config_handler.set_grpc_port(fullgrpcport, 'full'))
-    loop.run_until_complete(config_handler.set_grpc_port(solgrpcport, 'sol'))
+    loop.run_until_complete(config_handler.set_rpc_port(fullrpcport, 'full'))
+    loop.run_until_complete(config_handler.set_rpc_port(solrpcport, 'sol'))
     loop.run_until_complete(config_handler.set_db_version(enablememdb))
     loop.run_until_complete(config_handler.export())
 
@@ -60,9 +58,8 @@ def config(nettype: str = 'private',
 @cbox.cmd
 def run(nodetype: str = 'full'):
     """Run node.
-    >>
-    Option(s):
-        --nodetype
+    
+    :param nodetype: specify node type [full, sol]
     """
     utils.progress_msg('Starting node(s)')
     worker = h_worker.Worker()
@@ -74,9 +71,8 @@ def run(nodetype: str = 'full'):
 @cbox.cmd
 def stop(pid: str):
     """Stop node.
-    >>
-    Option(s):
-        --pid
+    
+    :param pid: stop node by given pid 
     """
     worker = h_worker.Worker()
     utils.progress_msg('Shutting down node(s)')
@@ -88,9 +84,8 @@ def stop(pid: str):
 @cbox.cmd
 def status(node: str = 'all'):
     """Monitor nodes status.
-    >>
-    Option(s):
-        --node
+    
+    :param node: check specific node detail by pid
     """
     status_handler = h_status.Status()
     if node == 'all':
