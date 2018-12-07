@@ -8,15 +8,31 @@
 
 [ ] init - add option to build from source code
 
+[ ] run - multiple (full) nodes
+
+[ ] robust - catch more errors and provide better error msg
+
+#### Version 0.1.4
+
+[X] update to support version 3.2 fetch release, check version
+
+[X] compatible check with version 3.2 release, and update config handler
+
+[X] add more info message;
+
+[ ] config -- add option to config to sync with newly deployed shasta testnet
+
+[ ] status -- add config setting in status json
+
 #### Version 0.1.3
 
 [X] run - check single ps status
 
 [X] keep track of all running nodes
 
-[ ] run - monitor over all system status
+[X] run - monitor overall system status
 
-[ ] run - multiple (full) nodes
+[X] set default value for all subcommand options
 
 #### Version 0.1.2
 

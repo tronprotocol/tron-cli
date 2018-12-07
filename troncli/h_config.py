@@ -114,3 +114,15 @@ class Config:
                 ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
                 ' url': 'http://tronstudio.com',
                 ' voteCount': 10000}]
+
+    async def set_db_version(self, enablememdb):
+        if enablememdb == 'disable' or enablememdb == '0' or enablememdb == 'False':
+            # enablememdb = False
+            self.full_config[' storage'][' db.version'] = 1
+            utils.success_msg('Enable in memeory db:')
+            utils.msg('False')
+        else:
+            # enablememdb = True
+            self.full_config[' storage'][' db.version'] = 2
+            utils.success_msg('Enable in memeory db:')
+            utils.msg('True')

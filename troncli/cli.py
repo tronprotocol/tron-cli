@@ -31,7 +31,8 @@ def config(nettype: str = 'private',
            fullhttpport: int = 8500,
            solhttpport: int = 8600,
            fullgrpcport: int = 50051,
-           solgrpcport: int = 50001):
+           solgrpcport: int = 50001,
+           enablememdb: str = 'True'):
     """Create customize config files.
     >>
     Option(s):
@@ -52,6 +53,7 @@ def config(nettype: str = 'private',
     loop.run_until_complete(config_handler.set_http_port(solhttpport, 'sol'))
     loop.run_until_complete(config_handler.set_grpc_port(fullgrpcport, 'full'))
     loop.run_until_complete(config_handler.set_grpc_port(solgrpcport, 'sol'))
+    loop.run_until_complete(config_handler.set_db_version(enablememdb))
     loop.run_until_complete(config_handler.export())
 
 
@@ -102,10 +104,10 @@ def quick():
     """Quick start. (run a full private node by one command)
     """
     utils.logo()
-    init('lastest')
-    config('private', 8500, 8600, 50051, 50001)
-    run('full')
-    status('all')
+    init()
+    config()
+    run()
+    status()
 
 
 def main():

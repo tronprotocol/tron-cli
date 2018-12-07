@@ -60,7 +60,8 @@ raw_config = {
 
     " rpc": {
       " port": 50051,
-      " maxConnectionIdleInMillis": 60000
+      " maxConnectionIdleInMillis": 60000,
+      " minEffectiveConnection": 0
     }
   },
 
