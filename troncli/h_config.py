@@ -48,15 +48,15 @@ class Config:
         else:
             utils.warning_msg('wrong node_type')
 
-    async def set_grpc_port(self, port_num, node_type):
+    async def set_rpc_port(self, port_num, node_type):
         if node_type == 'full':
             self.full_config[' node'][' rpc'][' port'] = port_num
             self.sol_config[' node'][' trustNode'] = LOCAL_HOST + str(port_num)
-            utils.success_msg('full-node grpc request set to listen: ')
+            utils.success_msg('full-node rpc request set to listen: ')
             utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'sol':
             self.sol_config[' node'][' rpc'][' port'] = port_num
-            utils.success_msg('solidity-node grpc request set to listen: ')
+            utils.success_msg('solidity-node rpc request set to listen: ')
             utils.msg(LOCAL_HOST + str(port_num))
         else:
             utils.warning_msg('wrong node_type')
@@ -114,3 +114,15 @@ class Config:
                 ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
                 ' url': 'http://tronstudio.com',
                 ' voteCount': 10000}]
+
+    async def set_db_version(self, enablememdb):
+        if enablememdb == 'disable' or enablememdb == '0' or enablememdb == 'False':
+            # enablememdb = False
+            self.full_config[' storage'][' db.version'] = 1
+            utils.success_msg('Enable in memeory db:')
+            utils.msg('False')
+        else:
+            # enablememdb = True
+            self.full_config[' storage'][' db.version'] = 2
+            utils.success_msg('Enable in memeory db:')
+            utils.msg('True')
