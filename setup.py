@@ -14,7 +14,7 @@ def cat(files, join_str=''):
 PKG_NAME = 'troncli'
 PKG_AUTHOR = ', '.join(['Weiyu X'])
 PKG_SCRIPTS = ['tron-cli']
-PKG_VERSION = '0.1.3'
+PKG_VERSION = '0.1.4'
 PKG_REQUIRES = [
     'bleach==3.0.2',
     'cbox==0.5.0',
