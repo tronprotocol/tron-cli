@@ -8,6 +8,10 @@
 
 A command line tool, to quick set up, turn on/off (multiple) tron nodes(full/solidity), and monitor running status.
 
+| Python | JDK |
+|--------|-----|
+| 3.7+   | 1.8 |
+
 * Learn more about tron on [TRON Developer Hub](https://developers.tron.network/docs/full-node)
 
 * Join the community on [TRON Discord](https://discord.gg/GsRgsTD)
@@ -66,17 +70,20 @@ pip install troncli
 
 ## Usage
 
-| Command                                                                              | Functions                          | Example1                                                                                                         | Example2                                                                                                      |
-|--------------------------------------------------------------------------------------|------------------------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| tron-cli init --version                                                              | Init dirs and fetch code.          | tron-cli init --version latest                                                                                   | tron-cli init --version 3.1.3                                                                                 |
-| tron-cli config --nettype --fullhttpport --solhttpport --fullgrpcport --solgrpcport  | Create and customize config files. | tron-cli config --nettype private --fullhttpport 8500 --solhttpport 8600 --fullgrpcport 50051 --solgrpcport 5001 | tron-cli config --nettype main --fullhttpport 8500 --solhttpport 8600 --fullgrpcport 50051 --solgrpcport 5001 |
-| tron-cli run --nodetype                                                              | Run node.                          | tron-cli run --nodetype full                                                                                     | tron-cli run --nodetype sol                                                                                   |
-| tron-cli stop --pid                                                                  | Stop node.                         | tron-cli stop --pid 7777                                                                                         | tron-cli stop --pid 7777                                                                                      |
-| tron-cli status --node                                                               | Monitor nodes status.              | tron-cli status --node all                                                                                       | tron-cli status --node 777                                                                                    |
-| tron-cli quick                                                                       | Quick start.                       | tron-cli quick                                                                                                   | tron-cli quick                                                                                                |
-| tron-cli -h, --help                                                                  | Check help manual.                 | tron-cli -h                                                                                                      | tron-cli --help                                                                                               |
+| Command                                                                              | Functions                          | Example1        | Example2                                                                                                      |
+|--------------------------------------------------------------------------------------|------------------------------------|-----------------|---------------------------------------------------------------------------------------------------------------|
+| tron-cli init --version                                                              | Init dirs and fetch code.          | tron-cli init   | tron-cli init --version 3.1.3                                                                                 |
+| tron-cli config --nettype --fullhttpport --solhttpport --fullgrpcport --solgrpcport  | Create and customize config files. | tron-cli config | tron-cli config --nettype main --fullhttpport 8500 --solhttpport 8600 --fullgrpcport 50051 --solgrpcport 5001 |
+| tron-cli run --nodetype                                                              | Run node.                          | tron-cli run    | tron-cli run --nodetype sol                                                                                   |
+| tron-cli stop --pid                                                                  | Stop node.                         | tron-cli stop   | tron-cli stop --pid 7777                                                                                      |
+| tron-cli status --node                                                               | Monitor nodes status.              | tron-cli status | tron-cli status --node 777                                                                                    |
+| tron-cli quick                                                                       | Quick start.                       | tron-cli quick  | tron-cli quick                                                                                                |
+| tron-cli -h, --help                                                                  | Check help manual.                 | tron-cli -h     | tron-cli --help                                                                                               |
+#### overall
 
-
+```
+tron-cli -h
+```
 ```
 usage: tron-cli [-h] {init,config,run,stop,status,quick} ...
 
@@ -87,13 +94,86 @@ optional arguments:
 
 subcommands:
   {init,config,run,stop,status,quick}
-    init                Init dirs and fetch code. >> Parameter(s): --version
-    config              Create customize config files. >> Parameter(s):
-                        --nettype --fullhttpport --solhttpport --fullgrpcport
-                        --solgrpcport
-    run                 Run node. >> Parameter(s): --nodetype
-    stop                Stop node. >> Parameter(s): --pid
-    status              Monitor nodes status. >> Parameter(s): --node
+    init                Init dirs and fetch code.
+    config              Create customize config files.
+    run                 Run node.
+    stop                Stop node.
+    status              Monitor nodes status.
     quick               Quick start. (run a full private node by one command)
-                        >> Example: tron-cli quick
+```
+
+##### subcommand: init
+
+```
+tron-cli init -h
+```
+```
+usage: tron-cli init [-h] [--version VERSION]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  --version VERSION  specify java-tron version
+```
+
+##### subcommand: config
+
+```
+tron-cli config -h
+```
+```
+usage: tron-cli config [-h] [--nettype NETTYPE] [--fullhttpport FULLHTTPPORT]
+                       [--solhttpport SOLHTTPPORT] [--fullrpcport FULLRPCPORT]
+                       [--solrpcport SOLRPCPORT] [--enablememdb ENABLEMEMDB]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --nettype NETTYPE     specify net type [main, private]
+  --fullhttpport FULLHTTPPORT
+                        specify full http port
+  --solhttpport SOLHTTPPORT
+                        specify solidity http port
+  --fullrpcport FULLRPCPORT
+                        specify full rpc port
+  --solrpcport SOLRPCPORT
+                        specify solidity rpc port
+  --enablememdb ENABLEMEMDB
+```
+
+##### subcommand: run
+
+```
+tron-cli run -h
+```
+```
+usage: tron-cli run [-h] [--nodetype NODETYPE]
+
+optional arguments:
+  -h, --help           show this help message and exit
+  --nodetype NODETYPE  specify node type [full, sol]
+```
+
+##### subcommand: stop
+
+```
+tron-cli stop -h
+```
+```
+usage: tron-cli stop [-h] --pid PID
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --pid PID   stop node by given pid
+```
+
+##### subcommand: status
+
+```
+tron-cli status -h
+```
+```
+usage: tron-cli status [-h] [--node NODE]
+
+optional arguments:
+  -h, --help   show this help message and exit
+  --node NODE  check specific node detail by pid
 ```
