@@ -16,6 +16,26 @@
 
 [ ] status -- add config setting in status json
 
+#### Version 0.1.5
+
+[ ] init - change file structure for event-node and tron-grid
+
+[ ] init - fetch event-node code
+
+[ ] init - fetch tron-grid code
+
+[ ] config - add options and handlers for event-node
+
+[ ] config - add options and handlers for tron-grid
+
+[ ] run - add event-node build and raise errors
+
+[ ] run - mongodb create db and set user name and psd
+
+[ ] run - add event-node run (detect mongo running status)
+
+[ ] run - fire up tron-grid (and add test curl)
+
 #### Version 0.1.4
 
 [X] update to support version 3.2 fetch release, check version
