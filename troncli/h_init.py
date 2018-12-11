@@ -15,7 +15,9 @@ class Init(object):
 
     async def create_dirs(self, reset):
         path = self.root_path
-
+        """
+        reset folders
+        """
         if reset == 'True' or reset == 'yes' or reset == '1' or reset == 'on':
             try:
                 shutil.rmtree(path + NODES_DIR)
@@ -23,7 +25,6 @@ class Init(object):
                 utils.warnning_msg('OS Warning -' + str(err))
             else:
                 utils.success_msg('Folders reset.')
-        # exit()
 
         try:
             os.mkdir(path + NODES_DIR)

@@ -19,8 +19,9 @@ def init(version: str = 'lastest',
     """
 
     init_handler = h_init.Init()
-    loop = asyncio.get_event_loop()
     utils.progress_msg('Creating folders')
+
+    loop = asyncio.get_event_loop()
     loop.run_until_complete(init_handler.create_dirs(reset))
     loop.run_until_complete(init_handler.fetch_jars(version))
     loop.run_until_complete(init_handler.move_jars())
@@ -62,8 +63,9 @@ def run(nodetype: str = 'full'):
     
     :param nodetype: specify node type [full, sol]
     """
-    utils.progress_msg('Starting node(s)')
     worker = h_worker.Worker()
+    utils.progress_msg('Starting node(s)')
+
     loop = asyncio.get_event_loop()
     loop.run_until_complete(worker.run(nodetype))
     loop.close()
@@ -77,6 +79,7 @@ def stop(pid: str):
     """
     worker = h_worker.Worker()
     utils.progress_msg('Shutting down node(s)')
+    
     loop = asyncio.get_event_loop()
     loop.run_until_complete(worker.stop(pid))
     loop.close()

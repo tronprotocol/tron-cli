@@ -18,7 +18,9 @@
 
 #### Version 0.1.5
 
-[ ] init - change file structure for event-node and tron-grid
+[X] init - change file structure for event-node and tron-grid
+
+[X] init - add reset option and handler
 
 [ ] init - fetch event-node code
 
