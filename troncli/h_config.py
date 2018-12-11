@@ -118,11 +118,11 @@ class Config:
     async def set_db_version(self, enablememdb):
         if enablememdb == 'disable' or enablememdb == '0' or enablememdb == 'False':
             # enablememdb = False
-            self.full_config[' storage'][' db.version'] = 1
+            self.full_config[' storage'][' db.version'] = DB_DISK_ONLY_VERSION
             utils.success_msg('Enable in memeory db:')
             utils.msg('False')
         else:
             # enablememdb = True
-            self.full_config[' storage'][' db.version'] = 2
+            self.full_config[' storage'][' db.version'] = DB_IN_MEMORY_SUPPORT_VERSION
             utils.success_msg('Enable in memeory db:')
             utils.msg('True')

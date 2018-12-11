@@ -13,12 +13,24 @@ class Init(object):
         self.source_full_jar = 'FullNode.jar'
         self.source_sol_jar = 'SolidityNode.jar'
 
-    def create_dirs(self):
+    async def create_dirs(self, reset):
         path = self.root_path
+
+        if reset == 'True' or reset == 'yes' or reset == '1' or reset == 'on':
+            try:
+                shutil.rmtree(path + NODES_DIR)
+            except OSError as err:
+                utils.warnning_msg('OS Warning -' + str(err))
+            else:
+                utils.success_msg('Folders reset.')
+        # exit()
+
         try:
             os.mkdir(path + NODES_DIR)
             os.mkdir(path + NODES_DIR + FULL_NODE_DIR)
             os.mkdir(path + NODES_DIR + SOLIDITY_NODE_DIR)
+            os.mkdir(path + NODES_DIR + EVENT_NODE_DIR)
+            os.mkdir(path + NODES_DIR + GRID_API_DIR)
         except OSError as err:
             utils.warnning_msg('OS Warning -' + str(err))
         else:
@@ -26,7 +38,9 @@ class Init(object):
             utils.msg(path + '/ ')
             utils.msg('└──' + NODES_DIR)
             utils.msg('    ├──' + FULL_NODE_DIR)
-            utils.msg('    └──' + SOLIDITY_NODE_DIR)
+            utils.msg('    ├──' + SOLIDITY_NODE_DIR)
+            utils.msg('    ├──' + EVENT_NODE_DIR)
+            utils.msg('    └──' + GRID_API_DIR)
 
     async def fetch_jars(self, version):
         """

@@ -11,16 +11,17 @@ from troncli import utils, h_init, h_config, h_worker, h_status
 
 
 @cbox.cmd
-def init(version: str = 'lastest'):
+def init(version: str = 'lastest',
+         reset: str = 'False'):
     """Init dirs and fetch code.
 
     :param version: specify java-tron version
     """
 
     init_handler = h_init.Init()
-    utils.progress_msg('Creating folders')
-    init_handler.create_dirs()
     loop = asyncio.get_event_loop()
+    utils.progress_msg('Creating folders')
+    loop.run_until_complete(init_handler.create_dirs(reset))
     loop.run_until_complete(init_handler.fetch_jars(version))
     loop.run_until_complete(init_handler.move_jars())
 
