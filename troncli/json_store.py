@@ -289,7 +289,7 @@ raw_config = {
   }
 }
 
-raw_mongodb_properties = {
+raw_eventnode_mongodb_properties = {
   " mongo.host": "127.0.0.1",
   " mongo.port": "27017",
   " mongo.dbname": "",
@@ -303,7 +303,7 @@ raw_mongodb_properties = {
   " mongo.writeConcern": "SAFE"
 }
 
-raw_application_properties = {
+raw_gridapi_application_properties = {
   " server.port": "18891",
 
   " spring.data.mongodb.host": "127.0.0.1",

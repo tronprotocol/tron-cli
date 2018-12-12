@@ -14,6 +14,7 @@ class Config:
         self.sol_config = None
         self.enable_event_services = False
         self.node_list = utils.Node()
+        self.phrase = utils.Phrase()
 
     async def init(self):
         """
@@ -21,20 +22,21 @@ class Config:
         """
         self.full_config = copy.deepcopy(json_store.raw_config)
         self.sol_config = copy.deepcopy(json_store.raw_config)
+        self.eventnode_db_properties = copy.deepcopy(json_store.raw_eventnode_mongodb_properties)
+        self.gridapi_db_properties = copy.deepcopy(json_store.raw_gridapi_application_properties)
         utils.success_msg('config initialized')
 
     async def export(self):
         """
         Export properties config file
         """
-        phrase = utils.Phrase()
         _target_file_path_full = self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG
-        phrase.store_json2properties_to_file(self.full_config, _target_file_path_full)
+        self.phrase.store_json2properties_to_file(self.full_config, _target_file_path_full)
         utils.success_msg('fullnode config file exported to: ')
         utils.msg(_target_file_path_full)
 
         _target_file_path_sol = self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOL_CONFIG
-        phrase.store_json2properties_to_file(self.sol_config, _target_file_path_sol)
+        self.phrase.store_json2properties_to_file(self.sol_config, _target_file_path_sol)
         utils.success_msg('soliditynode config file exported to: ')
         utils.msg(_target_file_path_sol)
 
@@ -132,7 +134,7 @@ class Config:
     async def store_db_settings(self, dbname, dbusername, dbpassword):
         if dbname == 'Null' and dbusername == 'Null' and dbpassword == 'Null':
             self.enable_event_services = False
-            utils.warnning_msg('Not using event services.')
+            utils.warnning_msg('Not configing event services since db settings not specified.')
         elif dbname == 'Null':
             utils.error_msg('Please set db name with --dbname')
             exit()
@@ -145,8 +147,22 @@ class Config:
         else:
             self.enable_event_services = True
             await self.node_list.update_db_settings(dbname, dbusername, dbpassword)
-            # print('dbname: ', dbname)
-            # print('dbusername: ', dbusername)
-            # print('dbpassword: ', dbpassword)
-            
+            utils.success_msg('db settings stored')
+
+    async def change_eventnode_db_settings(self):
+        _db = await self.node_list.get()
+        # utils.debug(str(_db['db']))
+        self.eventnode_db_properties[' mongo.dbname'] = _db['db']['dbname']
+        self.eventnode_db_properties[' mongo.username'] = _db['db']['dbusername']
+        self.eventnode_db_properties[' mongo.password'] = _db['db']['dbpassword']
+        """
+        export
+        """
+        _target_file_path_sol = self.root_path + NODES_DIR + EVENT_NODE_DIR + '/src/main/resources/mongodb.properties'
+        self.phrase.store_json2properties_to_file(self.eventnode_db_properties, _target_file_path_sol)
+        utils.success_msg('changed db settings for event node at: ')
+        utils.msg(_target_file_path_sol)
+
+    async def change_gridapi_db_settings(self):
+        pass
 
