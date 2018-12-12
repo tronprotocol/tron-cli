@@ -57,6 +57,10 @@ def msg(content):
     print(Fore.RESET + '    ' + content + Fore.RESET)
 
 
+def debug(content):
+    print(Fore.YELLOW + Style.BRIGHT + 'DEBUG:  ' + content + Fore.RESET + Style.RESET_ALL)
+
+
 """
 Node List
 """
@@ -73,7 +77,7 @@ class Node(object):
             self.node_list = {'full': [], 'sol': [], 'event': [],
                               'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''}}
 
-    async def get():
+    async def get(self):
         return self.node_list
 
     async def update_running_node(self, node_type, pid, execution):
