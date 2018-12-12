@@ -1,5 +1,4 @@
 import os
-import subprocess
 import shutil
 
 from troncli import utils
@@ -53,17 +52,25 @@ class Init(object):
         """
         event node
         """
-        utils.progress_msg('Git clone event-node source code from github')
-        cmd = 'git clone --single-branch -b ' + JAVA_TRON_EVENT_NODE_BRANCH_NAME + ' ' + JAVA_TRON_EVENT_NODE_GIT_URL
-        cmd += ' ' + self.root_path + NODES_DIR + EVENT_NODE_DIR
-        _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
+        try:
+            await utils.git_clone(JAVA_TRON_EVENT_NODE_GIT_URL,
+                        JAVA_TRON_EVENT_NODE_BRANCH_NAME,
+                        self.root_path + NODES_DIR + EVENT_NODE_DIR)
+        except OSError as err:
+            utils.warnning_msg('OS Warning -' + str(err))
+        else:
+            utils.success_msg('event-node source code cloned')
         """
         tron-grid
         """
-        utils.progress_msg('Git clone tron-grid source code from github')
-        cmd = 'git clone --single-branch -b ' + TRON_GRID_BRANCH_NAME + ' ' + TRON_GRID_GIT_URL
-        cmd += ' ' + self.root_path + NODES_DIR + GRID_API_DIR
-        _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
+        try:
+            await utils.git_clone(TRON_GRID_GIT_URL,
+                        TRON_GRID_BRANCH_NAME,
+                        self.root_path + NODES_DIR + GRID_API_DIR)
+        except OSError as err:
+            utils.warnning_msg('OS Warning -' + str(err))
+        else:
+            utils.success_msg('tron-grid source code cloned')
 
     async def fetch_jars(self, version):
         """

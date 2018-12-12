@@ -23,8 +23,8 @@ def init(version: str = 'lastest',
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(init_handler.create_dirs(reset))
-    # loop.run_until_complete(init_handler.fetch_jars(version))
-    # loop.run_until_complete(init_handler.move_jars())
+    loop.run_until_complete(init_handler.fetch_jars(version))
+    loop.run_until_complete(init_handler.move_jars())
     loop.run_until_complete(init_handler.fetch_code())
 
 

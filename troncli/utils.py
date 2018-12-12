@@ -4,6 +4,7 @@ import requests
 import json
 import sys
 import psutil
+import subprocess
 import re
 from colorama import Fore, Style
 from tqdm import tqdm
@@ -88,6 +89,14 @@ async def download(file_name, url_string):
                         f.write(data)
                         pbar.update(_chunk_num)
                     pbar.close()
+
+
+async def git_clone(host, branch, tar_path):
+    progress_msg('Git cloning ' + host + '-branch: ' + branch)
+    cmd = 'git clone --single-branch -b ' + branch + ' ' + host
+    cmd += ' ' + tar_path
+    # _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
+    os.system(cmd)
 
 
 """
