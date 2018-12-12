@@ -70,7 +70,11 @@ class Node(object):
             phrase = Phrase()
             self.node_list = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
         else:
-            self.node_list = {'full': [], 'sol': [], 'event': []}
+            self.node_list = {'full': [], 'sol': [], 'event': [],
+                              'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''}}
+
+    async def get():
+        return self.node_list
 
     async def update_running_node(self, node_type, pid, execution):
         """
@@ -93,6 +97,16 @@ class Node(object):
         with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
              file.write(json.dumps(self.node_list))
 
+    async def update_db_settings(self, dbname, dbusername, dbpassword):
+        self.node_list['db']['dbname'] = dbname
+        self.node_list['db']['dbusername'] = dbusername
+        self.node_list['db']['dbpassword'] = dbpassword
+
+        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+             file.write(json.dumps(self.node_list))
+
+    async def update_ports():
+        pass
 
 """
 Download

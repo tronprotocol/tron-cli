@@ -34,7 +34,11 @@ def config(nettype: str = 'private',
            solhttpport: int = 8600,
            fullrpcport: int = 50051,
            solrpcport: int = 50001,
-           enablememdb: str = 'True'):
+           enablememdb: str = 'True',
+           dbname: str = 'Null',
+           dbusername: str = 'Null',
+           dbpassword: str = 'Null'
+           ):
     """Create customize config files.
 
     :param nettype: specify net type [main, private]
@@ -55,6 +59,7 @@ def config(nettype: str = 'private',
     loop.run_until_complete(config_handler.set_rpc_port(fullrpcport, 'full'))
     loop.run_until_complete(config_handler.set_rpc_port(solrpcport, 'sol'))
     loop.run_until_complete(config_handler.set_db_version(enablememdb))
+    loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword))
     loop.run_until_complete(config_handler.export())
 
 

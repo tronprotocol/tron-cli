@@ -12,6 +12,8 @@ class Config:
         self.root_path = os.getcwd()
         self.full_config = None
         self.sol_config = None
+        self.enable_event_services = False
+        self.node_list = utils.Node()
 
     async def init(self):
         """
@@ -126,3 +128,25 @@ class Config:
             self.full_config[' storage'][' db.version'] = DB_IN_MEMORY_SUPPORT_VERSION
             utils.success_msg('Enable in memeory db:')
             utils.msg('True')
+
+    async def store_db_settings(self, dbname, dbusername, dbpassword):
+        if dbname == 'Null' and dbusername == 'Null' and dbpassword == 'Null':
+            self.enable_event_services = False
+            utils.warnning_msg('Not using event services.')
+        elif dbname == 'Null':
+            utils.error_msg('Please set db name with --dbname')
+            exit()
+        elif dbusername == 'Null':
+            utils.error_msg('Please set db user name with --dbusername')
+            exit()
+        elif dbpassword == 'Null':
+            utils.error_msg('Please set db password with --dbpassword')
+            exit()
+        else:
+            self.enable_event_services = True
+            await self.node_list.update_db_settings(dbname, dbusername, dbpassword)
+            # print('dbname: ', dbname)
+            # print('dbusername: ', dbusername)
+            # print('dbpassword: ', dbpassword)
+            
+
