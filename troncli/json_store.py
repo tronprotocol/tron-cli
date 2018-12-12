@@ -288,3 +288,27 @@ raw_config = {
      " root": "INFO"
   }
 }
+
+raw_mongodb_properties = {
+  " mongo.host": "127.0.0.1",
+  " mongo.port": "27017",
+  " mongo.dbname": "",
+  " mongo.username": "",
+  " mongo.password": "",
+
+  " mongo.connectionsPerHost": "8",
+  " mongo.threadsAllowedToBlockForConnectionMultiplier": "4",
+  " mongo.connectTimeout": "1000",
+  " mongo.socketTimeout": "10000",
+  " mongo.writeConcern": "SAFE"
+}
+
+raw_application_properties = {
+  " server.port": "18891",
+
+  " spring.data.mongodb.host": "127.0.0.1",
+  " spring.data.mongodb.port": "27017",
+  " spring.data.mongodb.database": "",
+  " spring.data.mongodb.username": "",
+  " spring.data.mongodb.password": ""
+}
