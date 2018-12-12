@@ -1,4 +1,5 @@
 import os
+import subprocess
 import shutil
 
 from troncli import utils
@@ -12,6 +13,8 @@ class Init(object):
         self.root_path = os.getcwd()
         self.source_full_jar = 'FullNode.jar'
         self.source_sol_jar = 'SolidityNode.jar'
+        self.event_node_zip = 'event_parser.zip'
+        self.tron_grid_zip = ''
 
     async def create_dirs(self, reset):
         path = self.root_path
@@ -42,6 +45,28 @@ class Init(object):
             utils.msg('    ├──' + SOLIDITY_NODE_DIR)
             utils.msg('    ├──' + EVENT_NODE_DIR)
             utils.msg('    └──' + GRID_API_DIR)
+
+    async def fetch_code(self):
+        """
+        get event parser/node and tron-grid code and unzip
+        """
+        """
+        event node
+        """
+        utils.progress_msg('Downloading event-node source code from github')
+        print(JAVA_TRON_EVENT_NODE_ZIP_URL)
+        await utils.download(self.event_node_zip, JAVA_TRON_EVENT_NODE_ZIP_URL)
+        utils.success_msg(self.event_node_zip + ' is successfully downloaded')
+        """
+        tron-grid
+        """
+        # utils.progress_msg('Downloading event-node source code from github')
+        # print(JAVA_TRON_EVENT_NODE_ZIP_URL)
+        # await utils.download(self.event_node_zip, JAVA_TRON_EVENT_NODE_ZIP_URL)
+        # utils.success_msg(self.event_node_zip + ' is successfully downloaded')
+
+    async def move_code(self):
+        pass
 
     async def fetch_jars(self, version):
         """

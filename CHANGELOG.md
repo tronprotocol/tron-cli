@@ -22,9 +22,9 @@
 
 [X] init - add reset option and handler
 
-[ ] init - fetch event-node code
+[X] init - fetch event-node code, unzip and move into folder
 
-[ ] init - fetch tron-grid code
+[ ] init - fetch tron-grid code, unzip and move into folder
 
 [ ] config - add options and handlers for event-node
 

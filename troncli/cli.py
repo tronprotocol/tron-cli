@@ -23,8 +23,10 @@ def init(version: str = 'lastest',
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(init_handler.create_dirs(reset))
-    loop.run_until_complete(init_handler.fetch_jars(version))
-    loop.run_until_complete(init_handler.move_jars())
+    # loop.run_until_complete(init_handler.fetch_jars(version))
+    # loop.run_until_complete(init_handler.move_jars())
+    loop.run_until_complete(init_handler.fetch_code())
+    loop.run_until_complete(init_handler.move_code())
 
 
 @cbox.cmd
@@ -79,7 +81,7 @@ def stop(pid: str):
     """
     worker = h_worker.Worker()
     utils.progress_msg('Shutting down node(s)')
-    
+
     loop = asyncio.get_event_loop()
     loop.run_until_complete(worker.stop(pid))
     loop.close()
