@@ -5,6 +5,9 @@ JAVA_TRON_LASTEST_VERSION = '3.2.1'
 JAVA_TRON_EVENT_NODE_GIT_URL = 'https://github.com/tronprotocol/java-tron.git'
 JAVA_TRON_EVENT_NODE_BRANCH_NAME = 'event_parser'
 
+TRON_GRID_GIT_URL = 'https://github.com/tronprotocol/tron-grid.git'
+TRON_GRID_BRANCH_NAME = 'master'
+
 NODES_DIR = '/tron_nodes'
 
 FULL_NODE_DIR = '/fullnode'

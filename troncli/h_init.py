@@ -60,10 +60,10 @@ class Init(object):
         """
         tron-grid
         """
-        # utils.progress_msg('Downloading event-node source code from github')
-        # print(JAVA_TRON_EVENT_NODE_ZIP_URL)
-        # await utils.download(self.event_node_zip, JAVA_TRON_EVENT_NODE_ZIP_URL)
-        # utils.success_msg(self.event_node_zip + ' is successfully downloaded')
+        utils.progress_msg('Git clone tron-grid source code from github')
+        cmd = 'git clone --single-branch -b ' + TRON_GRID_BRANCH_NAME + ' ' + TRON_GRID_GIT_URL
+        cmd += ' ' + self.root_path + NODES_DIR + GRID_API_DIR
+        _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
     async def fetch_jars(self, version):
         """
