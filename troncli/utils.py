@@ -10,6 +10,7 @@ from colorama import Fore, Style
 from tqdm import tqdm
 
 import urllib3
+from troncli.constants import *
 
 """
 Printing Messages
@@ -54,6 +55,43 @@ def status_msg(category, detail):
 
 def msg(content):
     print(Fore.RESET + '    ' + content + Fore.RESET)
+
+
+"""
+Node List
+"""
+
+
+class Node(object):
+    def __init__(self):
+        self.root_path = os.getcwd()
+        # load or init node list file
+        if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
+            phrase = Phrase()
+            self.node_list = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
+        else:
+            self.node_list = {'full': [], 'sol': [], 'event': []}
+
+    async def update_running_node(self, node_type, pid, execution):
+        """
+        node_type: "full" / "sol"
+        pid: int
+        execution: "add" / "remove"
+        """
+        if execution == 'add':
+            self.node_list[node_type].append(pid)
+        elif execution == 'remove':
+            if pid in self.node_list['full']:
+                self.node_list['full'].remove(pid)
+            elif pid in self.node_list['sol']:
+                self.node_list['sol'].remove(pid)
+            else:
+                warnning_msg('process id: ' + str(pid) + ' not in the running node list')
+        else:
+            error_msg('wrong execution key word: ' + str(execution))
+
+        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+             file.write(json.dumps(self.node_list))
 
 
 """

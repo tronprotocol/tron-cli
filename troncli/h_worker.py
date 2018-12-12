@@ -21,7 +21,8 @@ class Worker:
         utils.msg('tron-cli stop --pid ' + str(pid))
         utils.info_msg('To check node running details:')
         utils.msg('tron-cli status --node ' + str(pid))
-        await self.nodes_list(node_type, pid, 'add')
+        node_list = utils.Node()
+        await node_list.update_running_node(node_type, pid, 'add')
 
     async def stop(self, pid):
         try:
@@ -29,36 +30,37 @@ class Worker:
         except OSError as err:
             utils.warning_msg('OSError -' + str(err))
         else:
-            await self.nodes_list('', int(pid), 'remove')
+            node_list = utils.Node()
+            await node_list.update_running_node('', int(pid), 'remove')
             utils.success_msg('process: ' + pid + ' is shut down')
             
-    async def nodes_list(self, node_type, pid, execution):
-        """
-        node_type: "full" / "sol"
-        pid: int
-        execution: "add" / "remove"
-        """
-        # load or init node list file
-        if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
-            phrase = utils.Phrase()
-            running_nodes = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
-        else:
-            running_nodes = {'full': [], 'sol': []}
+    # async def nodes_list(self, node_type, pid, execution):
+    #     """
+    #     node_type: "full" / "sol"
+    #     pid: int
+    #     execution: "add" / "remove"
+    #     """
+    #     # load or init node list file
+    #     if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
+    #         phrase = utils.Phrase()
+    #         running_nodes = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
+    #     else:
+    #         running_nodes = {'full': [], 'sol': []}
         
-        if execution == 'add':
-            running_nodes[node_type].append(pid)
-        elif execution == 'remove':
-            if pid in running_nodes['full']:
-                running_nodes['full'].remove(pid)
-            elif pid in running_nodes['sol']:
-                running_nodes['sol'].remove(pid)
-            else:
-                utils.warnning_msg('process id: ' + str(pid) + ' not in the running node list')
-        else:
-            utils.error_msg('wrong execution key word: ' + str(execution))
+    #     if execution == 'add':
+    #         running_nodes[node_type].append(pid)
+    #     elif execution == 'remove':
+    #         if pid in running_nodes['full']:
+    #             running_nodes['full'].remove(pid)
+    #         elif pid in running_nodes['sol']:
+    #             running_nodes['sol'].remove(pid)
+    #         else:
+    #             utils.warnning_msg('process id: ' + str(pid) + ' not in the running node list')
+    #     else:
+    #         utils.error_msg('wrong execution key word: ' + str(execution))
 
-        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
-             file.write(json.dumps(running_nodes))
+    #     with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+    #          file.write(json.dumps(running_nodes))
 
     async def start(self, node_type):
         """
