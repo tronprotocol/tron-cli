@@ -26,7 +26,6 @@ def init(version: str = 'lastest',
     # loop.run_until_complete(init_handler.fetch_jars(version))
     # loop.run_until_complete(init_handler.move_jars())
     loop.run_until_complete(init_handler.fetch_code())
-    loop.run_until_complete(init_handler.move_code())
 
 
 @cbox.cmd

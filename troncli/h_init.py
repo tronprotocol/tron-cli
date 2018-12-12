@@ -53,10 +53,10 @@ class Init(object):
         """
         event node
         """
-        utils.progress_msg('Downloading event-node source code from github')
-        print(JAVA_TRON_EVENT_NODE_ZIP_URL)
-        await utils.download(self.event_node_zip, JAVA_TRON_EVENT_NODE_ZIP_URL)
-        utils.success_msg(self.event_node_zip + ' is successfully downloaded')
+        utils.progress_msg('Git clone event-node source code from github')
+        cmd = 'git clone --single-branch -b ' + JAVA_TRON_EVENT_NODE_BRANCH_NAME + ' ' + JAVA_TRON_EVENT_NODE_GIT_URL
+        cmd += ' ' + self.root_path + NODES_DIR + EVENT_NODE_DIR
+        _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
         """
         tron-grid
         """
@@ -64,9 +64,6 @@ class Init(object):
         # print(JAVA_TRON_EVENT_NODE_ZIP_URL)
         # await utils.download(self.event_node_zip, JAVA_TRON_EVENT_NODE_ZIP_URL)
         # utils.success_msg(self.event_node_zip + ' is successfully downloaded')
-
-    async def move_code(self):
-        pass
 
     async def fetch_jars(self, version):
         """
