@@ -184,6 +184,7 @@ class Config:
             await self.node_list.update_db_settings(dbname, dbusername, dbpassword)
             utils.success_msg('db settings stored')
             await self.change_eventnode_db_settings()
+            await self.change_gridapi_db_settings()
             await self.build_eventnode_jar()
 
     async def change_eventnode_db_settings(self):
@@ -201,7 +202,18 @@ class Config:
         utils.msg(_target_file_path_sol)
 
     async def change_gridapi_db_settings(self):
-        pass
+        _db = await self.node_list.get()
+        # utils.debug(str(_db['db']))
+        self.gridapi_db_properties[' spring.data.mongodb.database'] = _db['db']['dbname']
+        self.gridapi_db_properties[' spring.data.mongodb.username'] = _db['db']['dbusername']
+        self.gridapi_db_properties[' spring.data.mongodb.password'] = _db['db']['dbpassword']
+        """
+        export
+        """
+        _target_file_path_sol = self.root_path + NODES_DIR + GRID_API_DIR + '/src/main/resources/application.properties'
+        self.phrase.store_json2javabeanconfig_to_file(self.gridapi_db_properties, _target_file_path_sol)
+        utils.success_msg('changed db settings for grid api at: ')
+        utils.msg(_target_file_path_sol)
 
     async def build_eventnode_jar(self):
         utils.progress_msg('Build event node jar')
