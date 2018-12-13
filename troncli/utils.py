@@ -93,6 +93,8 @@ class Node(object):
                 self.node_list['full'].remove(pid)
             elif pid in self.node_list['sol']:
                 self.node_list['sol'].remove(pid)
+            elif pid in self.node_list['event']:
+                self.node_list['event'].remove(pid)
             else:
                 warning_msg('process id: ' + str(pid) + ' not in the running node list')
         else:

@@ -54,6 +54,7 @@ class Status(object):
                                                   RUNNING_NODE_LIST_FILE)
             utils.status_msg('Full-nodes', running_nodes['full'])
             utils.status_msg('Solidity-nodes', running_nodes['sol'])
+            utils.status_msg('Event-nodes', running_nodes['event'])
             utils.info_msg('To stop node: tron-cli stop --pid')
         else:
             utils.warning_msg('no running nodes')
