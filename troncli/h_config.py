@@ -1,5 +1,6 @@
 import os
 import copy
+import shutil
 
 from troncli import utils, json_store
 from troncli.constants import *
@@ -123,12 +124,12 @@ class Config:
         if enablememdb == 'disable' or enablememdb == '0' or enablememdb == 'False':
             # enablememdb = False
             self.full_config[' storage'][' db.version'] = DB_DISK_ONLY_VERSION
-            utils.success_msg('Enable in memeory db:')
+            utils.success_msg('enable in memeory db:')
             utils.msg('False')
         else:
             # enablememdb = True
             self.full_config[' storage'][' db.version'] = DB_IN_MEMORY_SUPPORT_VERSION
-            utils.success_msg('Enable in memeory db:')
+            utils.success_msg('enable in memeory db:')
             utils.msg('True')
 
     async def store_db_settings(self, dbname, dbusername, dbpassword):
@@ -173,4 +174,8 @@ class Config:
         os.chdir(self.root_path + NODES_DIR + EVENT_NODE_DIR)
         await utils.gradlew_build('event node')
         os.chdir(self.root_path)
+        shutil.move(self.root_path + NODES_DIR + EVENT_NODE_DIR + '/build/libs/FullNode.jar',
+                    self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR)
+        utils.success_msg('event node jar move to:')
+        utils.msg(self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR)
 
