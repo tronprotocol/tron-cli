@@ -59,10 +59,10 @@ def config(nettype: str = 'private',
     loop.run_until_complete(config_handler.set_rpc_port(fullrpcport, 'full'))
     loop.run_until_complete(config_handler.set_rpc_port(solrpcport, 'sol'))
     loop.run_until_complete(config_handler.set_db_version(enablememdb))
-    loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword))
-    loop.run_until_complete(config_handler.change_eventnode_db_settings())
-    loop.run_until_complete(config_handler.change_gridapi_db_settings())
     loop.run_until_complete(config_handler.export())
+    loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword))
+    # loop.run_until_complete(config_handler.change_eventnode_db_settings())
+    # loop.run_until_complete(config_handler.change_gridapi_db_settings())
 
 
 @cbox.cmd

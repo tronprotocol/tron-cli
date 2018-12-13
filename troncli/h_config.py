@@ -148,6 +148,8 @@ class Config:
             self.enable_event_services = True
             await self.node_list.update_db_settings(dbname, dbusername, dbpassword)
             utils.success_msg('db settings stored')
+            await self.change_eventnode_db_settings()
+            await self.build_eventnode_jar()
 
     async def change_eventnode_db_settings(self):
         _db = await self.node_list.get()
@@ -165,4 +167,10 @@ class Config:
 
     async def change_gridapi_db_settings(self):
         pass
+
+    async def build_eventnode_jar(self):
+        utils.progress_msg('Build event node jar')
+        os.chdir(self.root_path + NODES_DIR + EVENT_NODE_DIR)
+        await utils.gradlew_build('event node')
+        os.chdir(self.root_path)
 
