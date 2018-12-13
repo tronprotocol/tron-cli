@@ -56,7 +56,7 @@ class Status(object):
             utils.status_msg('Solidity-nodes', running_nodes['sol'])
             utils.info_msg('To stop node: tron-cli stop --pid')
         else:
-            utils.warnning_msg('no running nodes')
+            utils.warning_msg('no running nodes')
 
     def str_ntuple(self, nt, bytes2human=False):
         if nt == ACCESS_DENIED:

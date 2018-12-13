@@ -55,7 +55,7 @@ class Worker:
     #         elif pid in running_nodes['sol']:
     #             running_nodes['sol'].remove(pid)
     #         else:
-    #             utils.warnning_msg('process id: ' + str(pid) + ' not in the running node list')
+    #             utils.warning_msg('process id: ' + str(pid) + ' not in the running node list')
     #     else:
     #         utils.error_msg('wrong execution key word: ' + str(execution))
 
@@ -84,6 +84,16 @@ class Worker:
             cmd = "java -jar " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOLIDITY_NODE_JAR + \
                   " -c " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOL_CONFIG + " --witness" + \
                   " -d " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + "/data"
+
+            _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
+
+            os.chdir(self.root_path)
+        elif node_type == 'event':
+            os.chdir(self.root_path + NODES_DIR + EVENT_NODE_DIR)
+
+            cmd = "java -jar " + self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR + \
+                  " -c " + self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_CONFIG + " --witness" + \
+                  " -d " + self.root_path + NODES_DIR + EVENT_NODE_DIR + "/data"
 
             _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 

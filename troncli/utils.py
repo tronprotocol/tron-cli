@@ -94,7 +94,7 @@ class Node(object):
             elif pid in self.node_list['sol']:
                 self.node_list['sol'].remove(pid)
             else:
-                warnning_msg('process id: ' + str(pid) + ' not in the running node list')
+                warning_msg('process id: ' + str(pid) + ' not in the running node list')
         else:
             error_msg('wrong execution key word: ' + str(execution))
 

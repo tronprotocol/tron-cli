@@ -24,7 +24,7 @@ class Init(object):
             try:
                 shutil.rmtree(path + NODES_DIR)
             except OSError as err:
-                utils.warnning_msg('OS Warning -' + str(err))
+                utils.warning_msg('OS Warning -' + str(err))
             else:
                 utils.success_msg('Folders reset.')
 
@@ -35,7 +35,7 @@ class Init(object):
             os.mkdir(path + NODES_DIR + EVENT_NODE_DIR)
             os.mkdir(path + NODES_DIR + GRID_API_DIR)
         except OSError as err:
-            utils.warnning_msg('OS Warning -' + str(err))
+            utils.warning_msg('OS Warning -' + str(err))
         else:
             utils.success_msg('Folders are created:')
             utils.msg(path + '/ ')
@@ -57,7 +57,7 @@ class Init(object):
                         JAVA_TRON_EVENT_NODE_BRANCH_NAME,
                         self.root_path + NODES_DIR + EVENT_NODE_DIR)
         except OSError as err:
-            utils.warnning_msg('OS Warning -' + str(err))
+            utils.warning_msg('OS Warning -' + str(err))
         else:
             utils.success_msg('event-node source code cloned')
         """
@@ -68,7 +68,7 @@ class Init(object):
                         TRON_GRID_BRANCH_NAME,
                         self.root_path + NODES_DIR + GRID_API_DIR)
         except OSError as err:
-            utils.warnning_msg('OS Warning -' + str(err))
+            utils.warning_msg('OS Warning -' + str(err))
         else:
             utils.success_msg('tron-grid source code cloned')
 
