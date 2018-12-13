@@ -196,7 +196,7 @@ class Config:
         export
         """
         _target_file_path_sol = self.root_path + NODES_DIR + EVENT_NODE_DIR + '/src/main/resources/mongodb.properties'
-        self.phrase.store_json2properties_to_file(self.eventnode_db_properties, _target_file_path_sol)
+        self.phrase.store_json2javabeanconfig_to_file(self.eventnode_db_properties, _target_file_path_sol)
         utils.success_msg('changed db settings for event node at: ')
         utils.msg(_target_file_path_sol)
 

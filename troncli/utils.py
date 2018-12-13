@@ -200,6 +200,16 @@ class Phrase(object):
         f.write(_properties_str_formatted)
         f.close()
 
+    def store_json2javabeanconfig_to_file(self, json_props, target_file_path):
+        """
+        convert json to properties and store in target file
+        """
+        _properties = self.json2properties(json_props)
+        _properties_str_formatted = self.properties2str_bean(_properties)
+        f = open(target_file_path, 'w')
+        f.write(_properties_str_formatted)
+        f.close()
+
     @staticmethod
     def properties2str(properties_props):
         """
@@ -211,6 +221,21 @@ class Phrase(object):
         _formatted_str = re.sub("' ", "", _formatted_str)
         _formatted_str = re.sub("'", "\"", _formatted_str)
         return _formatted_str
+
+    @staticmethod
+    def properties2str_bean(properties_props):
+        """
+        convert properties to string, and change format
+        """
+        _formatted_str = str(properties_props)
+        _formatted_str = re.sub("}, '", "},\n\n'", _formatted_str)
+        _formatted_str = re.sub("':", ":", _formatted_str)
+        _formatted_str = re.sub("' ", "", _formatted_str)
+        _formatted_str = re.sub("'", "\"", _formatted_str)
+        _formatted_str = re.sub(":", " =", _formatted_str)
+        _formatted_str = re.sub(", ", "\r", _formatted_str)
+        _formatted_str = re.sub("\"", "", _formatted_str)
+        return _formatted_str[1:-1]
 
     @staticmethod
     def json2properties(json_props):
