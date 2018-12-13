@@ -32,8 +32,10 @@ def init(version: str = 'lastest',
 def config(nettype: str = 'private',
            fullhttpport: int = 8500,
            solhttpport: int = 8600,
-           fullrpcport: int = 50051,
-           solrpcport: int = 50001,
+           eventhttpport: int = 8400,
+           fullrpcport: int = 58500,
+           solrpcport: int = 58600,
+           eventrpcport: int = 58400,
            enablememdb: str = 'True',
            dbname: str = 'Null',
            dbusername: str = 'Null',
@@ -54,10 +56,12 @@ def config(nettype: str = 'private',
     loop = asyncio.get_event_loop()
     loop.run_until_complete(config_handler.init())
     loop.run_until_complete(config_handler.set_net_type(nettype))
-    loop.run_until_complete(config_handler.set_http_port(fullhttpport, 'full'))
-    loop.run_until_complete(config_handler.set_http_port(solhttpport, 'sol'))
+    loop.run_until_complete(config_handler.set_http_port(fullhttpport, 'full', nettype))
+    loop.run_until_complete(config_handler.set_http_port(solhttpport, 'sol', nettype))
+    loop.run_until_complete(config_handler.set_http_port(eventhttpport, 'event', nettype))
     loop.run_until_complete(config_handler.set_rpc_port(fullrpcport, 'full'))
     loop.run_until_complete(config_handler.set_rpc_port(solrpcport, 'sol'))
+    loop.run_until_complete(config_handler.set_rpc_port(eventrpcport, 'event'))
     loop.run_until_complete(config_handler.set_db_version(enablememdb))
     loop.run_until_complete(config_handler.export())
     loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword))

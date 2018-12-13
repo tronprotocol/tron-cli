@@ -32,7 +32,7 @@ def success_msg(content):
     print(Fore.GREEN + '✓ : ' + content + Fore.BLACK)
 
 
-def warnning_msg(content):
+def warning_msg(content):
     print(Fore.YELLOW + '⚠ : ' + content)
 
 
