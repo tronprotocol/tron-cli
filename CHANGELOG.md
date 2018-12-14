@@ -16,6 +16,40 @@
 
 [ ] status -- add config setting in status json
 
+[ ] db - mongodb create db and set user name, user role, db name, and psd
+
+[ ] db - check and trim db
+
+#### Version 0.1.5
+
+##### highlight:
+
+Support event-node and tron-grid set up/config/run/stop/monitor.
+
+##### details:
+
+[X] init - change file structure for event-node and tron-grid
+
+[X] init - add reset option and handler
+
+[X] init - fetch event-node code
+
+[X] init - fetch tron-grid code
+
+[X] utils - make git_clone a util function
+
+[X] utils - build util method to store more info and provide for status
+
+[X] config - add options and handlers for event-node
+
+[X] config - add options and handlers for tron-grid
+
+[X] config - add event-node build and raise errors
+
+[X] run - add event-node run
+
+[X] run - fire up tron-grid
+
 #### Version 0.1.4
 
 [X] update to support version 3.2 fetch release, check version

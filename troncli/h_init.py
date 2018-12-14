@@ -12,21 +12,65 @@ class Init(object):
         self.root_path = os.getcwd()
         self.source_full_jar = 'FullNode.jar'
         self.source_sol_jar = 'SolidityNode.jar'
+        self.event_node_zip = 'event_parser.zip'
+        self.tron_grid_zip = ''
 
-    def create_dirs(self):
+    async def create_dirs(self, reset):
         path = self.root_path
+        """
+        reset folders
+        """
+        if reset == 'True' or reset == 'yes' or reset == '1' or reset == 'on':
+            try:
+                shutil.rmtree(path + NODES_DIR)
+            except OSError as err:
+                utils.warning_msg('OS Warning -' + str(err))
+            else:
+                utils.success_msg('Folders reset.')
+
         try:
             os.mkdir(path + NODES_DIR)
             os.mkdir(path + NODES_DIR + FULL_NODE_DIR)
             os.mkdir(path + NODES_DIR + SOLIDITY_NODE_DIR)
+            os.mkdir(path + NODES_DIR + EVENT_NODE_DIR)
+            os.mkdir(path + NODES_DIR + GRID_API_DIR)
         except OSError as err:
-            utils.warnning_msg('OS Warning -' + str(err))
+            utils.warning_msg('OS Warning -' + str(err))
         else:
             utils.success_msg('Folders are created:')
             utils.msg(path + '/ ')
             utils.msg('└──' + NODES_DIR)
             utils.msg('    ├──' + FULL_NODE_DIR)
-            utils.msg('    └──' + SOLIDITY_NODE_DIR)
+            utils.msg('    ├──' + SOLIDITY_NODE_DIR)
+            utils.msg('    ├──' + EVENT_NODE_DIR)
+            utils.msg('    └──' + GRID_API_DIR)
+
+    async def fetch_code(self):
+        """
+        get event parser/node and tron-grid code and unzip
+        """
+        """
+        event node
+        """
+        try:
+            await utils.git_clone(JAVA_TRON_EVENT_NODE_GIT_URL,
+                        JAVA_TRON_EVENT_NODE_BRANCH_NAME,
+                        self.root_path + NODES_DIR + EVENT_NODE_DIR)
+        except OSError as err:
+            utils.warning_msg('OS Warning -' + str(err))
+        else:
+            utils.success_msg('event-node source code cloned')
+        """
+        tron-grid
+        """
+        try:
+            await utils.git_clone(TRON_GRID_GIT_URL,
+                        TRON_GRID_BRANCH_NAME,
+                        self.root_path + NODES_DIR + GRID_API_DIR)
+        except OSError as err:
+            utils.warning_msg('OS Warning -' + str(err))
+        else:
+            utils.success_msg('tron-grid source code cloned')
 
     async def fetch_jars(self, version):
         """
