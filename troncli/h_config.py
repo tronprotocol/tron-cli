@@ -166,7 +166,7 @@ class Config:
             utils.success_msg('enable in memeory db:')
             utils.msg('True')
 
-    async def store_db_settings(self, dbname, dbusername, dbpassword):
+    async def store_db_settings(self, dbname, dbusername, dbpassword, gridport):
         if dbname == 'Null' and dbusername == 'Null' and dbpassword == 'Null':
             self.enable_event_services = False
             utils.warning_msg('Not configing event services since db settings not specified.')
@@ -184,7 +184,7 @@ class Config:
             await self.node_list.update_db_settings(dbname, dbusername, dbpassword)
             utils.success_msg('db settings stored')
             await self.change_eventnode_db_settings()
-            await self.change_gridapi_db_settings()
+            await self.change_gridapi_db_settings(gridport)
             await self.build_eventnode_jar()
 
     async def change_eventnode_db_settings(self):
@@ -201,12 +201,13 @@ class Config:
         utils.success_msg('changed db settings for event node at: ')
         utils.msg(_target_file_path_sol)
 
-    async def change_gridapi_db_settings(self):
+    async def change_gridapi_db_settings(self, gridport):
         _db = await self.node_list.get()
         # utils.debug(str(_db['db']))
         self.gridapi_db_properties[' spring.data.mongodb.database'] = _db['db']['dbname']
         self.gridapi_db_properties[' spring.data.mongodb.username'] = _db['db']['dbusername']
         self.gridapi_db_properties[' spring.data.mongodb.password'] = _db['db']['dbpassword']
+        self.gridapi_db_properties[' server.port'] = gridport
         """
         export
         """
