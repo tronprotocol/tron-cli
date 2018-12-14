@@ -74,7 +74,7 @@ class Node(object):
             phrase = Phrase()
             self.node_list = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
         else:
-            self.node_list = {'full': [], 'sol': [], 'event': [],
+            self.node_list = {'full': [], 'sol': [], 'event': [], 'grid': [],
                               'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''}}
 
     async def get(self):
@@ -95,6 +95,8 @@ class Node(object):
                 self.node_list['sol'].remove(pid)
             elif pid in self.node_list['event']:
                 self.node_list['event'].remove(pid)
+            elif pid in self.node_list['grid']:
+                self.node_list['grid'].remove(pid)
             else:
                 warning_msg('process id: ' + str(pid) + ' not in the running node list')
         else:

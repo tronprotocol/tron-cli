@@ -70,6 +70,17 @@ class Worker:
             _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
             os.chdir(self.root_path)
+        elif node_type == 'grid':
+            os.chdir(self.root_path + NODES_DIR + GRID_API_DIR)
+
+            # cmd = "./deploy.sh"
+            cmd = "java -jar target/trongrid-1.0.1-SNAPSHOT.jar"
+
+            # _process = subprocess.call([cmd])
+            # _process = subprocess.Popen(cmd)
+            _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
+
+            os.chdir(self.root_path)
         else:
             utils.warning_msg('wrong node type')
 
