@@ -208,6 +208,8 @@ class Config:
         self.gridapi_db_properties[' spring.data.mongodb.username'] = _db['db']['dbusername']
         self.gridapi_db_properties[' spring.data.mongodb.password'] = _db['db']['dbpassword']
         self.gridapi_db_properties[' server.port'] = gridport
+        utils.success_msg('grid api request set to listen: ')
+        utils.msg(LOCAL_HOST + str(gridport))
         """
         export
         """
