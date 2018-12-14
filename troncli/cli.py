@@ -44,10 +44,16 @@ def config(nettype: str = 'private',
     """Create customize config files.
 
     :param nettype: specify net type [main, private]
-    :param fullhttpport: specify full http port
-    :param solhttpport: specify solidity http port
-    :param fullrpcport: specify full rpc port
-    :param solrpcport: specify solidity rpc port
+    :param fullhttpport: specify full node http port
+    :param solhttpport: specify solidity node http port
+    :param eventhttpport: specify event node http port
+    :param fullrpcport: specify full node rpc port
+    :param solrpcport: specify solidity node rpc port
+    :param eventrpcport: specify event node rpc port
+    :param enablememdb: enable/disable in memory db
+    :param dbname: specify db name
+    :param dbusername: specify db user name
+    :param dbpassword: specify db password name
     """
 
     config_handler = h_config.Config()
@@ -65,15 +71,13 @@ def config(nettype: str = 'private',
     loop.run_until_complete(config_handler.set_db_version(enablememdb))
     loop.run_until_complete(config_handler.export())
     loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword))
-    # loop.run_until_complete(config_handler.change_eventnode_db_settings())
-    # loop.run_until_complete(config_handler.change_gridapi_db_settings())
 
 
 @cbox.cmd
 def run(nodetype: str = 'full'):
     """Run node.
     
-    :param nodetype: specify node type [full, sol]
+    :param nodetype: specify node type [full, sol, event]
     """
     worker = h_worker.Worker()
     utils.progress_msg('Starting node(s)')
