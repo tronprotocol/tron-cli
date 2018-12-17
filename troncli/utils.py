@@ -4,11 +4,13 @@ import requests
 import json
 import sys
 import psutil
+import subprocess
 import re
 from colorama import Fore, Style
 from tqdm import tqdm
 
 import urllib3
+from troncli.constants import *
 
 """
 Printing Messages
@@ -30,7 +32,7 @@ def success_msg(content):
     print(Fore.GREEN + '✓ : ' + content + Fore.BLACK)
 
 
-def warnning_msg(content):
+def warning_msg(content):
     print(Fore.YELLOW + '⚠ : ' + content)
 
 
@@ -55,6 +57,65 @@ def msg(content):
     print(Fore.RESET + '    ' + content + Fore.RESET)
 
 
+def debug(content):
+    print(Fore.YELLOW + Style.BRIGHT + 'DEBUG:  ' + content + Fore.RESET + Style.RESET_ALL)
+
+
+"""
+Node List
+"""
+
+
+class Node(object):
+    def __init__(self):
+        self.root_path = os.getcwd()
+        # load or init node list file
+        if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
+            phrase = Phrase()
+            self.node_list = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
+        else:
+            self.node_list = {'full': [], 'sol': [], 'event': [], 'grid': [],
+                              'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''}}
+
+    async def get(self):
+        return self.node_list
+
+    async def update_running_node(self, node_type, pid, execution):
+        """
+        node_type: "full" / "sol"
+        pid: int
+        execution: "add" / "remove"
+        """
+        if execution == 'add':
+            self.node_list[node_type].append(pid)
+        elif execution == 'remove':
+            if pid in self.node_list['full']:
+                self.node_list['full'].remove(pid)
+            elif pid in self.node_list['sol']:
+                self.node_list['sol'].remove(pid)
+            elif pid in self.node_list['event']:
+                self.node_list['event'].remove(pid)
+            elif pid in self.node_list['grid']:
+                self.node_list['grid'].remove(pid)
+            else:
+                warning_msg('process id: ' + str(pid) + ' not in the running node list')
+        else:
+            error_msg('wrong execution key word: ' + str(execution))
+
+        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+             file.write(json.dumps(self.node_list))
+
+    async def update_db_settings(self, dbname, dbusername, dbpassword):
+        self.node_list['db']['dbname'] = dbname
+        self.node_list['db']['dbusername'] = dbusername
+        self.node_list['db']['dbpassword'] = dbpassword
+
+        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+             file.write(json.dumps(self.node_list))
+
+    async def update_ports():
+        pass
+
 """
 Download
 """
@@ -70,7 +131,7 @@ async def download(file_name, url_string):
                                 verify=False, stream=True)
 
         except OSError as err:
-            pbar.update(0)
+            # pbar.update(0)
             error_msg('OS Error -' + str(err))
             os.sys.exit()
 
@@ -88,6 +149,24 @@ async def download(file_name, url_string):
                         f.write(data)
                         pbar.update(_chunk_num)
                     pbar.close()
+
+
+async def git_clone(host, branch, tar_path):
+    progress_msg('Git cloning ' + host + '-branch: ' + branch)
+    cmd = 'git clone --single-branch -b ' + branch + ' ' + host
+    cmd += ' ' + tar_path
+    # _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
+    os.system(cmd)
+
+async def gradlew_build(task):
+    cmd = './gradlew build -x test'
+    try:
+        os.system(cmd)
+    except OSError as err:
+        error_msg('OS Error -' + str(err))
+        os.sys.exit()
+    else:
+        success_msg(task + ' gradlew build finished')
 
 
 """
@@ -125,6 +204,16 @@ class Phrase(object):
         f.write(_properties_str_formatted)
         f.close()
 
+    def store_json2javabeanconfig_to_file(self, json_props, target_file_path):
+        """
+        convert json to properties and store in target file
+        """
+        _properties = self.json2properties(json_props)
+        _properties_str_formatted = self.properties2str_bean(_properties)
+        f = open(target_file_path, 'w')
+        f.write(_properties_str_formatted)
+        f.close()
+
     @staticmethod
     def properties2str(properties_props):
         """
@@ -136,6 +225,21 @@ class Phrase(object):
         _formatted_str = re.sub("' ", "", _formatted_str)
         _formatted_str = re.sub("'", "\"", _formatted_str)
         return _formatted_str
+
+    @staticmethod
+    def properties2str_bean(properties_props):
+        """
+        convert properties to string, and change format
+        """
+        _formatted_str = str(properties_props)
+        _formatted_str = re.sub("}, '", "},\n\n'", _formatted_str)
+        _formatted_str = re.sub("':", ":", _formatted_str)
+        _formatted_str = re.sub("' ", "", _formatted_str)
+        _formatted_str = re.sub("'", "\"", _formatted_str)
+        _formatted_str = re.sub(":", " =", _formatted_str)
+        _formatted_str = re.sub(", ", "\r", _formatted_str)
+        _formatted_str = re.sub("\"", "", _formatted_str)
+        return _formatted_str[1:-1]
 
     @staticmethod
     def json2properties(json_props):

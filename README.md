@@ -122,21 +122,37 @@ tron-cli config -h
 ```
 ```
 usage: tron-cli config [-h] [--nettype NETTYPE] [--fullhttpport FULLHTTPPORT]
-                       [--solhttpport SOLHTTPPORT] [--fullrpcport FULLRPCPORT]
-                       [--solrpcport SOLRPCPORT] [--enablememdb ENABLEMEMDB]
+                       [--solhttpport SOLHTTPPORT]
+                       [--eventhttpport EVENTHTTPPORT]
+                       [--fullrpcport FULLRPCPORT] [--solrpcport SOLRPCPORT]
+                       [--eventrpcport EVENTRPCPORT]
+                       [--enablememdb ENABLEMEMDB] [--gridport GRIDPORT]
+                       [--dbname DBNAME] [--dbusername DBUSERNAME]
+                       [--dbpassword DBPASSWORD]
 
 optional arguments:
   -h, --help            show this help message and exit
   --nettype NETTYPE     specify net type [main, private]
   --fullhttpport FULLHTTPPORT
-                        specify full http port
+                        specify full node http port
   --solhttpport SOLHTTPPORT
-                        specify solidity http port
+                        specify solidity node http port
+  --eventhttpport EVENTHTTPPORT
+                        specify event node http port
   --fullrpcport FULLRPCPORT
-                        specify full rpc port
+                        specify full node rpc port
   --solrpcport SOLRPCPORT
-                        specify solidity rpc port
+                        specify solidity node rpc port
+  --eventrpcport EVENTRPCPORT
+                        specify event node rpc port
   --enablememdb ENABLEMEMDB
+                        enable/disable in memory db
+  --gridport GRIDPORT   specify grid api port
+  --dbname DBNAME       specify db name
+  --dbusername DBUSERNAME
+                        specify db user name
+  --dbpassword DBPASSWORD
+                        specify db password name
 ```
 
 ##### subcommand: run
@@ -149,7 +165,7 @@ usage: tron-cli run [-h] [--nodetype NODETYPE]
 
 optional arguments:
   -h, --help           show this help message and exit
-  --nodetype NODETYPE  specify node type [full, sol]
+  --nodetype NODETYPE  specify node type [full, sol, event]
 ```
 
 ##### subcommand: stop
