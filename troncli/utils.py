@@ -131,7 +131,7 @@ async def download(file_name, url_string):
                                 verify=False, stream=True)
 
         except OSError as err:
-            pbar.update(0)
+            # pbar.update(0)
             error_msg('OS Error -' + str(err))
             os.sys.exit()
 
