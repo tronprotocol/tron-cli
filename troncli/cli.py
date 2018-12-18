@@ -37,6 +37,9 @@ def config(nettype: str = 'private',
            solrpcport: int = 58600,
            eventrpcport: int = 58400,
            enablememdb: str = 'True',
+           dbsyncmode: str = 'async',
+           saveintertx: str = 'False',
+           savehistorytx: str = 'False',
            gridport: int = 18891,
            dbname: str = 'Null',
            dbusername: str = 'Null',
@@ -53,6 +56,9 @@ def config(nettype: str = 'private',
     :param eventrpcport: specify event node rpc port
     :param enablememdb: enable/disable in memory db
     :param gridport: specify grid api port
+    :param dbsyncmode: specify either db async or sync mode
+    :param saveintertx: enable/disable save internal transcation
+    :param savehistorytx: enable/disable save history transcation
     :param dbname: specify db name
     :param dbusername: specify db user name
     :param dbpassword: specify db password name
@@ -71,6 +77,9 @@ def config(nettype: str = 'private',
     loop.run_until_complete(config_handler.set_rpc_port(solrpcport, 'sol'))
     loop.run_until_complete(config_handler.set_rpc_port(eventrpcport, 'event'))
     loop.run_until_complete(config_handler.set_db_version(enablememdb))
+    loop.run_until_complete(config_handler.set_db_sync_mode(dbsyncmode))
+    loop.run_until_complete(config_handler.enable_save_inter_tx(saveintertx))
+    loop.run_until_complete(config_handler.enable_save_history_tx(savehistorytx))
     loop.run_until_complete(config_handler.export())
     loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword, gridport))
 

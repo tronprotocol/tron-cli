@@ -228,3 +228,47 @@ class Config:
         utils.success_msg('event node jar move to:')
         utils.msg(self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR)
 
+    async def set_db_sync_mode(self, dbsyncmode):
+        if dbsyncmode == 'async':
+            self.full_config[' storage'][' db.sync'] = 'false'
+            self.sol_config[' storage'][' db.sync'] = 'false'
+            self.event_config[' storage'][' db.sync'] = 'false'
+            utils.success_msg('db sync mode set to: ')
+            utils.msg('asynchronous')
+        elif dbsyncmode == 'sync':
+            self.full_config[' storage'][' db.sync'] = 'true'
+            self.sol_config[' storage'][' db.sync'] = 'true'
+            self.event_config[' storage'][' db.sync'] = 'true'
+            utils.success_msg('db sync mode set to: ')
+            utils.msg('synchronous')
+        else:
+            utils.warning_msg('wrong dbsyncmode, expect async or sync, however ' + dbsyncmode + ' is given')
+
+    async def enable_save_inter_tx(self, saveintertx):
+        if saveintertx == 'enable' or saveintertx == '1' or saveintertx == 'True' or saveintertx == 'on':
+            self.full_config[' storage'][' transHistory.switch'] = 'on'
+            self.sol_config[' storage'][' transHistory.switch'] = 'on'
+            self.event_config[' storage'][' transHistory.switch'] = 'on'
+            utils.success_msg('save internal transaction: ')
+            utils.msg('enabled')
+        else:
+            self.full_config[' storage'][' transHistory.switch'] = 'off'
+            self.sol_config[' storage'][' transHistory.switch'] = 'off'
+            self.event_config[' storage'][' transHistory.switch'] = 'off'
+            utils.success_msg('save internal transaction: ')
+            utils.msg('disabled')
+
+    async def enable_save_history_tx(self, savehistorytx):
+        if savehistorytx == 'enable' or savehistorytx == '1' or savehistorytx == 'True' or savehistorytx == 'on':
+            self.full_config[' vm'][' saveInternalTx'] = 'true'
+            self.sol_config[' vm'][' saveInternalTx'] = 'true'
+            self.event_config[' vm'][' saveInternalTx'] = 'true'
+            utils.success_msg('save internal transaction: ')
+            utils.msg('enabled')
+        else:
+            self.full_config[' vm'][' saveInternalTx'] = 'false'
+            self.sol_config[' vm'][' saveInternalTx'] = 'false'
+            self.event_config[' vm'][' saveInternalTx'] = 'false'
+            utils.success_msg('save internal transaction: ')
+            utils.msg('disabled')
+
