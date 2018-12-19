@@ -17,6 +17,7 @@ class Status(object):
     def __init__(self):
         self.root_path = os.getcwd()
         self.phrase = utils.Phrase()
+        self.node_list = utils.Node()
 
     def overall(self):
         virt = psutil.virtual_memory()
@@ -46,11 +47,32 @@ class Status(object):
             '')
         )
         self.running_nodes()
+        self.show_config()
+
+    def show_config(self):
+        _node_list = self.node_list.get()
+        _config = _node_list['config']
+        utils.status_msg('Config', 'tron-cli config ' +
+                                    '--nettype ' + str(_config['nettype']) + ' '
+                                    '--fullhttpport ' + str(_config['fullhttpport']) + ' '
+                                    '--solhttpport ' + str(_config['solhttpport']) + ' '
+                                    '--eventhttpport ' + str(_config['eventhttpport']) + ' '
+                                    '--fullrpcport ' + str(_config['fullrpcport']) + ' '
+                                    '--solrpcport ' + str(_config['solrpcport']) + ' '
+                                    '--eventrpcport ' + str(_config['eventrpcport']) + ' '
+                                    '--enablememdb ' + str(_config['enablememdb']) + ' '
+                                    '--dbsyncmode ' + str(_config['dbsyncmode']) + ' '
+                                    '--saveintertx ' + str(_config['saveintertx']) + ' '
+                                    '--savehistorytx ' + str(_config['savehistorytx']) + ' '
+                                    '--gridport ' + str(_config['gridport']) + ' '
+                                    '--dbname ' + str(_config['dbname']) + ' '
+                                    '--dbusername ' + str(_config['dbusername']) + ' '
+                                    '--dbpassword ' + str(_config['dbpassword']))
+
 
     def running_nodes(self):
         if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
-            node_list = utils.Node()
-            running_nodes = node_list.get()
+            running_nodes = self.node_list.get()
             utils.status_msg('Full-nodes', running_nodes['live']['full'])
             utils.status_msg('Solidity-nodes', running_nodes['live']['sol'])
             utils.status_msg('Event-nodes', running_nodes['live']['event'])

@@ -88,7 +88,8 @@ class Node(object):
             self.node_list = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
         else:
             self.node_list = {'live': {'full': [], 'sol': [], 'event': [], 'grid': [], 'all': []},
-                              'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''}}
+                              'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''},
+                              'config': {}}
 
     def get(self):
         return self.node_list
@@ -137,8 +138,28 @@ class Node(object):
         # with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
         #      file.write(json.dumps(self.node_list))
 
-    async def update_ports():
-        pass
+    async def update_config(self, nettype, fullhttpport, solhttpport,
+                            eventhttpport, fullrpcport, solrpcport, eventrpcport,
+                            enablememdb, dbsyncmode, saveintertx, savehistorytx,
+                            gridport, dbname, dbusername, dbpassword):
+        self.node_list['config']['nettype'] = nettype
+        self.node_list['config']['fullhttpport'] = fullhttpport
+        self.node_list['config']['solhttpport'] = solhttpport
+        self.node_list['config']['eventhttpport'] = eventhttpport
+        self.node_list['config']['fullrpcport'] = fullrpcport
+        self.node_list['config']['solrpcport'] = solrpcport
+        self.node_list['config']['eventrpcport'] = eventrpcport
+        self.node_list['config']['enablememdb'] = enablememdb
+        self.node_list['config']['dbsyncmode'] = dbsyncmode
+        self.node_list['config']['saveintertx'] = saveintertx
+        self.node_list['config']['savehistorytx'] = savehistorytx
+        self.node_list['config']['gridport'] = gridport
+        self.node_list['config']['dbname'] = dbname
+        self.node_list['config']['dbusername'] = dbusername
+        self.node_list['config']['dbpassword'] = dbpassword
+
+        self.save()
+
 
 """
 Download
