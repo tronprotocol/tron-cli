@@ -139,18 +139,25 @@ class Config:
         #     self.full_config[' genesis.block'][' witnesses'] = 
         #     self.sol_config[' genesis.block'][' witnesses'] = 
         if net_type == 'private':
+            # add witnesses
             self.full_config[' genesis.block'][' witnesses'] = [{
                 ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
-                ' url': 'http://tronstudio.com',
+                ' url': 'https://github.com/tronprotocol/tron-cli',
                 ' voteCount': 10000}]
             self.sol_config[' genesis.block'][' witnesses'] = [{
                 ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
-                ' url': 'http://tronstudio.com',
+                ' url': 'https://github.com/tronprotocol/tron-cli',
                 ' voteCount': 10000}]
             self.event_config[' genesis.block'][' witnesses'] = [{
                 ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
-                ' url': 'http://tronstudio.com',
+                ' url': 'https://github.com/tronprotocol/tron-cli',
                 ' voteCount': 10000}]
+            # add assets
+            self.full_config[' genesis.block'][' assets'] = [{
+                ' accountName': 'TRONCLI',
+                ' accountType': 'AssetIssue',
+                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
+                ' balance': 5000000000000000}]
 
     async def set_db_version(self, enablememdb):
         if enablememdb == 'disable' or enablememdb == '0' or enablememdb == 'False':
