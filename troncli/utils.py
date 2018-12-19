@@ -17,11 +17,24 @@ Printing Messages
 """
 
 
-def logo():
-    print(Fore.RED + ' _________  ____  _  __    _______   ____')
-    print(Fore.RED + '/_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/')
-    print(Fore.RED + ' / / / , _/ /_/ /    /___/ /__/ /___/ /  ')
-    print(Fore.RED + '/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
+def logo_simple():
+    print(Fore.RED + Style.BRIGHT + '')
+    print(' _________  ____  _  __    _______   ____')
+    print('/_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/')
+    print(' / / / , _/ /_/ /    /___/ /__/ /___/ /  ')
+    print('/_/ /_/|_|\____/_/|_/    \___/____/___/  ')
+    print(Fore.RESET + Style.RESET_ALL + '')
+
+
+def logo_shadow():
+    print(Fore.RED + '')
+    print('████████╗██████╗  ██████╗ ███╗   ██╗       ██████╗██╗     ██╗')
+    print('╚══██╔══╝██╔══██╗██╔═══██╗████╗  ██║      ██╔════╝██║     ██║')
+    print('   ██║   ██████╔╝██║   ██║██╔██╗ ██║█████╗██║     ██║     ██║')
+    print('   ██║   ██╔══██╗██║   ██║██║╚██╗██║╚════╝██║     ██║     ██║')
+    print('   ██║   ██║  ██║╚██████╔╝██║ ╚████║      ╚██████╗███████╗██║')
+    print('   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝       ╚═════╝╚══════╝╚═╝')
+    print(Fore.RESET + '')
 
 
 def progress_msg(content):
@@ -74,29 +87,35 @@ class Node(object):
             phrase = Phrase()
             self.node_list = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
         else:
-            self.node_list = {'full': [], 'sol': [], 'event': [], 'grid': [],
+            self.node_list = {'live': {'full': [], 'sol': [], 'event': [], 'grid': [], 'all': []},
                               'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''}}
 
-    async def get(self):
+    def get(self):
         return self.node_list
 
     async def update_running_node(self, node_type, pid, execution):
         """
-        node_type: "full" / "sol"
+        node_type: "full" / "sol" / "event" / "grid"
         pid: int
         execution: "add" / "remove"
         """
         if execution == 'add':
-            self.node_list[node_type].append(pid)
+            self.node_list['live'][node_type].append(pid)
+            self.node_list['live']['all'].append(pid)
         elif execution == 'remove':
-            if pid in self.node_list['full']:
-                self.node_list['full'].remove(pid)
-            elif pid in self.node_list['sol']:
-                self.node_list['sol'].remove(pid)
-            elif pid in self.node_list['event']:
-                self.node_list['event'].remove(pid)
-            elif pid in self.node_list['grid']:
-                self.node_list['grid'].remove(pid)
+            print(self.node_list)
+            if pid in self.node_list['live']['full']:
+                self.node_list['live']['full'].remove(pid)
+                self.node_list['live']['all'].remove(pid)
+            elif pid in self.node_list['live']['sol']:
+                self.node_list['live']['sol'].remove(pid)
+                self.node_list['live']['all'].remove(pid)
+            elif pid in self.node_list['live']['event']:
+                self.node_list['live']['event'].remove(pid)
+                self.node_list['live']['all'].remove(pid)
+            elif pid in self.node_list['live']['grid']:
+                self.node_list['live']['grid'].remove(pid)
+                self.node_list['live']['all'].remove(pid)
             else:
                 warning_msg('process id: ' + str(pid) + ' not in the running node list')
         else:
