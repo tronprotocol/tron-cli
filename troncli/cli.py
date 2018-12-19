@@ -99,16 +99,14 @@ def run(nodetype: str = 'full'):
 
 
 @cbox.cmd
-def stop(pid: str):
+def stop(node: str = 'all'):
     """Stop node.
     
-    :param pid: stop node by given pid 
+    :param node: stop node by given node id or all
     """
     worker = h_worker.Worker()
-    utils.progress_msg('Shutting down node(s)')
-
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(worker.stop(pid))
+    loop.run_until_complete(worker.stop(node))
     loop.close()
 
 
@@ -116,7 +114,7 @@ def stop(pid: str):
 def status(node: str = 'all'):
     """Monitor nodes status.
     
-    :param node: check specific node detail by pid
+    :param node: check specific node detail by node id
     """
     status_handler = h_status.Status()
     if node == 'all':
@@ -129,7 +127,7 @@ def status(node: str = 'all'):
 def quick():
     """Quick start. (run a full private node by one command)
     """
-    utils.logo()
+    utils.logo_shadow()
     init()
     config()
     run()

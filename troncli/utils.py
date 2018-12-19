@@ -103,7 +103,6 @@ class Node(object):
             self.node_list['live'][node_type].append(pid)
             self.node_list['live']['all'].append(pid)
         elif execution == 'remove':
-            print(self.node_list)
             if pid in self.node_list['live']['full']:
                 self.node_list['live']['full'].remove(pid)
                 self.node_list['live']['all'].remove(pid)
