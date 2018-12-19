@@ -93,6 +93,10 @@ class Node(object):
     def get(self):
         return self.node_list
 
+    def save(self):
+        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+             file.write(json.dumps(self.node_list))
+
     async def update_running_node(self, node_type, pid, execution):
         """
         node_type: "full" / "sol" / "event" / "grid"
@@ -120,16 +124,18 @@ class Node(object):
         else:
             error_msg('wrong execution key word: ' + str(execution))
 
-        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
-             file.write(json.dumps(self.node_list))
+        self.save()
+        # with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+        #      file.write(json.dumps(self.node_list))
 
     async def update_db_settings(self, dbname, dbusername, dbpassword):
         self.node_list['db']['dbname'] = dbname
         self.node_list['db']['dbusername'] = dbusername
         self.node_list['db']['dbpassword'] = dbpassword
 
-        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
-             file.write(json.dumps(self.node_list))
+        self.save()
+        # with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+        #      file.write(json.dumps(self.node_list))
 
     async def update_ports():
         pass
