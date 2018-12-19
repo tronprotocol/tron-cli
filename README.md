@@ -126,7 +126,9 @@ usage: tron-cli config [-h] [--nettype NETTYPE] [--fullhttpport FULLHTTPPORT]
                        [--eventhttpport EVENTHTTPPORT]
                        [--fullrpcport FULLRPCPORT] [--solrpcport SOLRPCPORT]
                        [--eventrpcport EVENTRPCPORT]
-                       [--enablememdb ENABLEMEMDB] [--gridport GRIDPORT]
+                       [--enablememdb ENABLEMEMDB] [--dbsyncmode DBSYNCMODE]
+                       [--saveintertx SAVEINTERTX]
+                       [--savehistorytx SAVEHISTORYTX] [--gridport GRIDPORT]
                        [--dbname DBNAME] [--dbusername DBUSERNAME]
                        [--dbpassword DBPASSWORD]
 
@@ -147,6 +149,12 @@ optional arguments:
                         specify event node rpc port
   --enablememdb ENABLEMEMDB
                         enable/disable in memory db
+  --dbsyncmode DBSYNCMODE
+                        specify either db async or sync mode
+  --saveintertx SAVEINTERTX
+                        enable/disable save internal transcation
+  --savehistorytx SAVEHISTORYTX
+                        enable/disable save history transcation
   --gridport GRIDPORT   specify grid api port
   --dbname DBNAME       specify db name
   --dbusername DBUSERNAME
@@ -174,11 +182,11 @@ optional arguments:
 tron-cli stop -h
 ```
 ```
-usage: tron-cli stop [-h] --pid PID
+usage: tron-cli stop [-h] [--node NODE]
 
 optional arguments:
-  -h, --help  show this help message and exit
-  --pid PID   stop node by given pid
+  -h, --help   show this help message and exit
+  --node NODE  stop node by given node id or all
 ```
 
 ##### subcommand: status

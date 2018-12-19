@@ -8,6 +8,8 @@ raw_config = {
     " db.directory": "database",
     " index.directory": "index",
     " index.switch": "off",
+    " db.sync": "false",
+    " transHistory.switch": "on",
     " properties": [
     ]
   },
@@ -277,7 +279,8 @@ raw_config = {
   " vm": {
     " supportConstant": "false",
     " minTimeRatio": 0.0,
-    " maxTimeRatio": 5.0
+    " maxTimeRatio": 5.0,
+    " saveInternalTx": "false"
   },
 
   " committee": {
