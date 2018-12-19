@@ -49,13 +49,12 @@ class Status(object):
 
     def running_nodes(self):
         if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
-            phrase = utils.Phrase()
-            running_nodes = phrase.load_json_file(self.root_path + '/' +
-                                                  RUNNING_NODE_LIST_FILE)
-            utils.status_msg('Full-nodes', running_nodes['full'])
-            utils.status_msg('Solidity-nodes', running_nodes['sol'])
-            utils.status_msg('Event-nodes', running_nodes['event'])
-            utils.status_msg('Grid-api(tron-grid)', running_nodes['grid'])
+            node_list = utils.Node()
+            running_nodes = node_list.get()
+            utils.status_msg('Full-nodes', running_nodes['live']['full'])
+            utils.status_msg('Solidity-nodes', running_nodes['live']['sol'])
+            utils.status_msg('Event-nodes', running_nodes['live']['event'])
+            utils.status_msg('Grid-api(tron-grid)', running_nodes['live']['grid'])
             utils.info_msg('To stop node: tron-cli stop --pid')
         else:
             utils.warning_msg('no running nodes')

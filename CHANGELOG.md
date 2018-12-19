@@ -16,15 +16,41 @@
 
 [ ] status -- add config setting in status json
 
+[ ] db - check and trim db
+
+[ ] add more instruction in command
+
 [ ] db - mongodb create db and set user name, user role, db name, and psd
 
-[ ] db - check and trim db
+[ ] improve stop/config/status according to feedback
+
+[ ] build util method to store more info and provide for status
+
+#### Version 0.2.0
+
+##### highlight:
+
+Support event-node and tron-grid set up/config/run/stop/monitor.
+
+##### details:
+
+[X] support java-tron 3.2.2 with more config
+
+[X] add stop all feature
+
+[X] update logo and change node list structure
+
+[X] fix private net init account pk and address does not match
+
+#### Version 0.1.6
+
+[X] fix error on download progress bar when network not available
 
 #### Version 0.1.5
 
 ##### highlight:
 
-Support event-node and tron-grid set up/config/run/stop/monitor.
+Pre-release of support event-node and tron-grid set up/config/run/stop/monitor.
 
 ##### details:
 
