@@ -74,6 +74,18 @@ def debug(content):
     print(Fore.YELLOW + Style.BRIGHT + 'DEBUG:  ' + content + Fore.RESET + Style.RESET_ALL)
 
 
+def node_instruction():
+    info_msg('Tips: ')
+    info_msg('Check overall status:')
+    msg('tron-cli status')
+    info_msg('Check specific node status:')
+    msg('tron-cli status --node <node id>')
+    info_msg('Stop all nodes:')
+    msg('tron-cli stop')
+    info_msg('Stop specific node:')
+    msg('tron-cli stop --node <node id>')
+
+
 """
 Node List
 """

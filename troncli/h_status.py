@@ -23,6 +23,7 @@ class Status(object):
         virt = psutil.virtual_memory()
         swap = psutil.swap_memory()
         templ = '%-7s %10s %10s %10s %10s %10s %10s %10s'
+        utils.status_msg('RAM', '<usages>')
         print(templ % (
                        '', 'total', 'percent', 'used', 'free',
                        'active', 'inactive', 'wired'))
@@ -48,6 +49,7 @@ class Status(object):
         )
         self.running_nodes()
         self.show_config()
+        utils.node_instruction()
 
     def show_config(self):
         _node_list = self.node_list.get()
@@ -73,11 +75,10 @@ class Status(object):
     def running_nodes(self):
         if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
             running_nodes = self.node_list.get()
-            utils.status_msg('Full-nodes', running_nodes['live']['full'])
-            utils.status_msg('Solidity-nodes', running_nodes['live']['sol'])
-            utils.status_msg('Event-nodes', running_nodes['live']['event'])
-            utils.status_msg('Grid-api(tron-grid)', running_nodes['live']['grid'])
-            utils.info_msg('To stop node: tron-cli stop --node')
+            utils.status_msg('Full-node IDs', running_nodes['live']['full'])
+            utils.status_msg('Solidity-node IDs', running_nodes['live']['sol'])
+            utils.status_msg('Event-node IDs', running_nodes['live']['event'])
+            utils.status_msg('Grid-ap IDs', running_nodes['live']['grid'])
         else:
             utils.warning_msg('no running nodes')
 
