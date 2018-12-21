@@ -129,11 +129,11 @@ def status(node: str = 'all'):
 
 
 @cbox.cmd
-def quick():
+def quick(reset: str = 'False'):
     """Quick start. (run a full private node by one command)
     """
     utils.logo_shadow()
-    init()
+    init('lastest', reset)
     config()
     run()
     status()
