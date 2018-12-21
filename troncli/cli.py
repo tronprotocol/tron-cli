@@ -7,7 +7,7 @@
 import asyncio
 import cbox
 
-from troncli import utils, h_init, h_config, h_worker, h_status
+from troncli import utils, h_init, h_config, h_worker, h_status, __version__
 
 
 @cbox.cmd
@@ -138,9 +138,15 @@ def quick():
     run()
     status()
 
+@cbox.cmd
+def version():
+    """Check installed troncli version.
+    """
+    utils.msg(str(__version__))
+
 
 def main():
-    cbox.main([init, config, run, stop, status, quick])
+    cbox.main([init, config, run, stop, status, quick, version])
 
 
 if __name__ == '__main__':
