@@ -54,7 +54,7 @@ class Status(object):
     def show_config(self):
         _node_list = self.node_list.get()
         _config = _node_list['config']
-        utils.status_msg('Config', 'tron-cli config ' +
+        utils.status_msg('Config CMD', 'tron-cli config ' +
                                     '--nettype ' + str(_config['nettype']) + ' '
                                     '--fullhttpport ' + str(_config['fullhttpport']) + ' '
                                     '--solhttpport ' + str(_config['solhttpport']) + ' '
@@ -76,9 +76,20 @@ class Status(object):
         if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
             running_nodes = self.node_list.get()
             utils.status_msg('Full-node IDs', running_nodes['live']['full'])
+            if running_nodes['live']['full'] != []:
+                utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['fullhttpport']))
+                utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['fullrpcport']))
             utils.status_msg('Solidity-node IDs', running_nodes['live']['sol'])
+            if running_nodes['live']['sol'] != []:
+                utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['solhttpport']))
+                utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['solrpcport']))
             utils.status_msg('Event-node IDs', running_nodes['live']['event'])
+            if running_nodes['live']['event'] != []:
+                utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['eventhttpport']))
+                utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['eventrpcport']))
             utils.status_msg('Grid-ap IDs', running_nodes['live']['grid'])
+            if running_nodes['live']['grid'] != []:
+                utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['gridport']))
         else:
             utils.warning_msg('no running nodes')
 
