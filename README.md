@@ -30,6 +30,124 @@ A command line tool, to quick set up, turn on/off (multiple) tron nodes(full/sol
 pip install troncli
 ```
 
+### Use Cases
+
+#### I. set up private-net nodes
+
+a. set up full node only
+
+```
+tron-cli quick
+```
+
+b. add a solidity node
+
+```
+tron-cli run --nodetype sol
+```
+
+#### II. set up main-net nodes
+
+a. init
+
+```
+tron-cli init
+```
+
+b. config to main-net
+
+```
+tron-cli config --nettype main
+```
+
+c. run full node
+
+```
+tron-cli run
+```
+
+#### III. advanced config to start nodes
+
+a. initilize
+
+```
+tron-cli init --version latest --reset True
+```
+
+b. detail config (specify parameter to overwrite default)
+
+```
+tron-cli config --nettype private --fullhttpport 8500 --solhttpport 8600 --eventhttpport 8400 --fullrpcport 58500 --solrpcport 58600 --eventrpcport 58400 --enablememdb True --dbsyncmode async --saveintertx False --savehistorytx False --gridport 18891 --dbname Null --dbusername Null --dbpassword Null
+```
+
+c. run full/sol
+
+```
+tron-cli run --nodetype full
+```
+
+#### IV. start private full node + event node + tron-grid
+
+a. install mongodb and create user & db
+
+b. initilize
+
+```
+tron-cli init
+```
+
+c. config (specify parameter to overwrite default) __dbname dbusername dbpassword are required to set__
+
+```
+tron-cli config --nettype private --fullhttpport 8500 --solhttpport 8600 --eventhttpport 8400 --fullrpcport 58500 --solrpcport 58600 --eventrpcport 58400 --enablememdb True --dbsyncmode async --saveintertx False --savehistorytx False --gridport 18891 --dbname events --dbusername tron --dbpassword 12345678
+```
+
+d. run full node
+
+```
+tron-cli run
+```
+
+e. run event node
+
+```
+tron-cli run --nodetype event
+```
+
+f. run tron-grid
+
+```
+tron-cli run --nodetype grid
+```
+
+#### V. start mainnet event node + tron-grid
+
+a. install mongodb and create user & db
+
+b. initilize
+
+```
+tron-cli init
+```
+
+c. config (specify parameter to overwrite default) __dbname dbusername dbpassword are required to set__
+
+```
+tron-cli config --nettype private --fullhttpport 8500 --solhttpport 8600 --eventhttpport 8400 --fullrpcport 58500 --solrpcport 58600 --eventrpcport 58400 --enablememdb True --dbsyncmode async --saveintertx False --savehistorytx False --gridport 18891 --dbname events --dbusername tron --dbpassword 12345678
+```
+
+d. run event node
+
+```
+tron-cli run --nodetype event
+```
+
+e. run tron-grid
+
+```
+tron-cli run --nodetype grid
+```
+
 ## Usage
 
 | Command                                                                                                                                                                                                                            | Functions                          | Example1         | Example2                                                                                                                                                                                                                                                                                                           |
