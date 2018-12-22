@@ -74,6 +74,30 @@ def debug(content):
     print(Fore.YELLOW + Style.BRIGHT + 'DEBUG:  ' + content + Fore.RESET + Style.RESET_ALL)
 
 
+def node_instruction():
+    info_msg('Tips: ')
+    info_msg('Check overall status:')
+    msg('tron-cli status')
+    info_msg('Check specific node status:')
+    msg('tron-cli status --node <node id>')
+    info_msg('Stop all nodes:')
+    msg('tron-cli stop')
+    info_msg('Stop specific node:')
+    msg('tron-cli stop --node <node id>')
+
+
+def node_cmds(node_id):
+    info_msg('CMD Tips: ')
+    info_msg('Check overall status:')
+    msg('tron-cli status')
+    info_msg('Check current node status:')
+    msg('tron-cli status --node ' + str(node_id))
+    info_msg('Stop all nodes:')
+    msg('tron-cli stop')
+    info_msg('Stop current node:')
+    msg('tron-cli stop --node ' + str(node_id))
+
+
 """
 Node List
 """
@@ -88,10 +112,15 @@ class Node(object):
             self.node_list = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
         else:
             self.node_list = {'live': {'full': [], 'sol': [], 'event': [], 'grid': [], 'all': []},
-                              'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''}}
+                              'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''},
+                              'config': {}}
 
     def get(self):
         return self.node_list
+
+    def save(self):
+        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+             file.write(json.dumps(self.node_list))
 
     async def update_running_node(self, node_type, pid, execution):
         """
@@ -120,19 +149,41 @@ class Node(object):
         else:
             error_msg('wrong execution key word: ' + str(execution))
 
-        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
-             file.write(json.dumps(self.node_list))
+        self.save()
+        # with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+        #      file.write(json.dumps(self.node_list))
 
     async def update_db_settings(self, dbname, dbusername, dbpassword):
         self.node_list['db']['dbname'] = dbname
         self.node_list['db']['dbusername'] = dbusername
         self.node_list['db']['dbpassword'] = dbpassword
 
-        with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
-             file.write(json.dumps(self.node_list))
+        self.save()
+        # with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
+        #      file.write(json.dumps(self.node_list))
 
-    async def update_ports():
-        pass
+    async def update_config(self, nettype, fullhttpport, solhttpport,
+                            eventhttpport, fullrpcport, solrpcport, eventrpcport,
+                            enablememdb, dbsyncmode, saveintertx, savehistorytx,
+                            gridport, dbname, dbusername, dbpassword):
+        self.node_list['config']['nettype'] = nettype
+        self.node_list['config']['fullhttpport'] = fullhttpport
+        self.node_list['config']['solhttpport'] = solhttpport
+        self.node_list['config']['eventhttpport'] = eventhttpport
+        self.node_list['config']['fullrpcport'] = fullrpcport
+        self.node_list['config']['solrpcport'] = solrpcport
+        self.node_list['config']['eventrpcport'] = eventrpcport
+        self.node_list['config']['enablememdb'] = enablememdb
+        self.node_list['config']['dbsyncmode'] = dbsyncmode
+        self.node_list['config']['saveintertx'] = saveintertx
+        self.node_list['config']['savehistorytx'] = savehistorytx
+        self.node_list['config']['gridport'] = gridport
+        self.node_list['config']['dbname'] = dbname
+        self.node_list['config']['dbusername'] = dbusername
+        self.node_list['config']['dbpassword'] = dbpassword
+
+        self.save()
+
 
 """
 Download

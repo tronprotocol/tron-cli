@@ -14,25 +14,25 @@ def cat(files, join_str=''):
 PKG_NAME = 'troncli'
 PKG_AUTHOR = ', '.join(['Weiyu X'])
 PKG_SCRIPTS = ['tron-cli']
-PKG_VERSION = '0.2.0'
+PKG_VERSION = '0.2.1'
 PKG_REQUIRES = [
-    'bleach==3.0.2',
-    'cbox==0.5.0',
-    'certifi==2018.10.15',
-    'chardet==3.0.4',
-    'colorama==0.4.0',
-    'docutils==0.14',
-    'idna==2.7',
-    'pkginfo==1.4.2',
-    'psutil==5.4.7',
-    'Pygments==2.2.0',
-    'readme-renderer==24.0',
-    'requests==2.20.0',
-    'requests-toolbelt==0.8.0',
-    'six==1.11.0',
-    'tqdm==4.28.1',
-    'urllib3==1.24',
-    'webencodings==0.5.1'
+    'bleach',
+    'cbox',
+    'certifi',
+    'chardet',
+    'colorama',
+    'docutils',
+    'idna',
+    'pkginfo',
+    'psutil',
+    'Pygments',
+    'readme-renderer',
+    'requests',
+    'requests-toolbelt',
+    'six',
+    'tqdm',
+    'urllib3',
+    'webencodings'
 ]
 
 PKG_DESC = 'A command line tool to monitor and manage tron nodes.'

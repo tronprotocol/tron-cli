@@ -7,7 +7,7 @@
 import asyncio
 import cbox
 
-from troncli import utils, h_init, h_config, h_worker, h_status
+from troncli import utils, h_init, h_config, h_worker, h_status, __version__
 
 
 @cbox.cmd
@@ -65,6 +65,7 @@ def config(nettype: str = 'private',
     """
 
     config_handler = h_config.Config()
+    node_list = utils.Node()
     utils.progress_msg('Setting up config files')
 
     loop = asyncio.get_event_loop()
@@ -82,6 +83,10 @@ def config(nettype: str = 'private',
     loop.run_until_complete(config_handler.enable_save_history_tx(savehistorytx))
     loop.run_until_complete(config_handler.export())
     loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword, gridport))
+    loop.run_until_complete(node_list.update_config(nettype, fullhttpport, solhttpport,
+                                                             eventhttpport, fullrpcport, solrpcport, eventrpcport,
+                                                             enablememdb, dbsyncmode, saveintertx, savehistorytx, 
+                                                             gridport, dbname, dbusername, dbpassword))
 
 
 @cbox.cmd
@@ -124,18 +129,24 @@ def status(node: str = 'all'):
 
 
 @cbox.cmd
-def quick():
+def quick(reset: str = 'False'):
     """Quick start. (run a full private node by one command)
     """
     utils.logo_shadow()
-    init()
+    init('lastest', reset)
     config()
     run()
     status()
 
+@cbox.cmd
+def version():
+    """Check installed troncli version.
+    """
+    utils.msg(str(__version__))
+
 
 def main():
-    cbox.main([init, config, run, stop, status, quick])
+    cbox.main([init, config, run, stop, status, quick, version])
 
 
 if __name__ == '__main__':

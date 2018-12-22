@@ -17,11 +17,13 @@ class Status(object):
     def __init__(self):
         self.root_path = os.getcwd()
         self.phrase = utils.Phrase()
+        self.node_list = utils.Node()
 
     def overall(self):
         virt = psutil.virtual_memory()
         swap = psutil.swap_memory()
         templ = '%-7s %10s %10s %10s %10s %10s %10s %10s'
+        utils.status_msg('RAM', '<usages>')
         print(templ % (
                        '', 'total', 'percent', 'used', 'free',
                        'active', 'inactive', 'wired'))
@@ -46,16 +48,48 @@ class Status(object):
             '')
         )
         self.running_nodes()
+        self.show_config()
+        utils.node_instruction()
+
+    def show_config(self):
+        _node_list = self.node_list.get()
+        _config = _node_list['config']
+        utils.status_msg('Config CMD', 'tron-cli config ' +
+                                    '--nettype ' + str(_config['nettype']) + ' '
+                                    '--fullhttpport ' + str(_config['fullhttpport']) + ' '
+                                    '--solhttpport ' + str(_config['solhttpport']) + ' '
+                                    '--eventhttpport ' + str(_config['eventhttpport']) + ' '
+                                    '--fullrpcport ' + str(_config['fullrpcport']) + ' '
+                                    '--solrpcport ' + str(_config['solrpcport']) + ' '
+                                    '--eventrpcport ' + str(_config['eventrpcport']) + ' '
+                                    '--enablememdb ' + str(_config['enablememdb']) + ' '
+                                    '--dbsyncmode ' + str(_config['dbsyncmode']) + ' '
+                                    '--saveintertx ' + str(_config['saveintertx']) + ' '
+                                    '--savehistorytx ' + str(_config['savehistorytx']) + ' '
+                                    '--gridport ' + str(_config['gridport']) + ' '
+                                    '--dbname ' + str(_config['dbname']) + ' '
+                                    '--dbusername ' + str(_config['dbusername']) + ' '
+                                    '--dbpassword ' + str(_config['dbpassword']))
+
 
     def running_nodes(self):
         if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
-            node_list = utils.Node()
-            running_nodes = node_list.get()
-            utils.status_msg('Full-nodes', running_nodes['live']['full'])
-            utils.status_msg('Solidity-nodes', running_nodes['live']['sol'])
-            utils.status_msg('Event-nodes', running_nodes['live']['event'])
-            utils.status_msg('Grid-api(tron-grid)', running_nodes['live']['grid'])
-            utils.info_msg('To stop node: tron-cli stop --pid')
+            running_nodes = self.node_list.get()
+            utils.status_msg('Full-node IDs', running_nodes['live']['full'])
+            if running_nodes['live']['full'] != []:
+                utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['fullhttpport']))
+                utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['fullrpcport']))
+            utils.status_msg('Solidity-node IDs', running_nodes['live']['sol'])
+            if running_nodes['live']['sol'] != []:
+                utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['solhttpport']))
+                utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['solrpcport']))
+            utils.status_msg('Event-node IDs', running_nodes['live']['event'])
+            if running_nodes['live']['event'] != []:
+                utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['eventhttpport']))
+                utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['eventrpcport']))
+            utils.status_msg('Grid-ap IDs', running_nodes['live']['grid'])
+            if running_nodes['live']['grid'] != []:
+                utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['gridport']))
         else:
             utils.warning_msg('no running nodes')
 
