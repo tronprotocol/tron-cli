@@ -19,10 +19,7 @@ class Worker:
         pid = await self.run_node(node_type)
         utils.success_msg('node running at pid:')
         utils.msg(str(pid))
-        utils.info_msg('To stop this node:')
-        utils.msg('tron-cli stop --node ' + str(pid))
-        utils.info_msg('To check node running details:')
-        utils.msg('tron-cli status --node ' + str(pid))
+        utils.node_cmds(pid)
         await self.node_list.update_running_node(node_type, pid, 'add')
 
     async def stop(self, node):

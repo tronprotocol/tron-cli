@@ -86,6 +86,18 @@ def node_instruction():
     msg('tron-cli stop --node <node id>')
 
 
+def node_cmds(node_id):
+    info_msg('CMD Tips: ')
+    info_msg('Check overall status:')
+    msg('tron-cli status')
+    info_msg('Check current node status:')
+    msg('tron-cli status --node ' + str(node_id))
+    info_msg('Stop all nodes:')
+    msg('tron-cli stop')
+    info_msg('Stop current node:')
+    msg('tron-cli stop --node ' + str(node_id))
+
+
 """
 Node List
 """
