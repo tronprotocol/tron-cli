@@ -12,19 +12,29 @@
 
 [ ] robust - catch more errors and provide better error msg
 
-[ ] config -- add option to config to sync with newly deployed shasta testnet
-
 [ ] status -- add config setting in status json
 
 [ ] db - check and trim db
 
 [ ] add more instruction in command
 
-[ ] db - mongodb create db and set user name, user role, db name, and psd
-
 [ ] improve stop/config/status according to feedback
 
-[ ] build util method to store more info and provide for status
+[ ] db - mongodb create db and set user name, user role, db name, and psd
+
+[blocked] config -- add option to config to sync with newly deployed shasta testnet
+
+#### Version 0.2.1
+
+[X] store config, and show active config cmd in status
+
+[X] provide connection info in status
+
+[X] add --reset for quick
+
+[X] add more instruction in command
+
+[X] show ports info and cmd tips with run command
 
 #### Version 0.2.0
 

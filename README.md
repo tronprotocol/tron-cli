@@ -30,62 +30,26 @@ A command line tool, to quick set up, turn on/off (multiple) tron nodes(full/sol
 pip install troncli
 ```
 
-#### FAQs on installation
-
-1. How to fix "fail to build a wheel for psutil" error?
-
-    a. please check if you installed clang correctly, or install it using homebrew:
-
-    ```
-    brew install --with-toolchain llvm
-    ```
-
-    b. please check if you are using python 3.x
-
-2. How to test in virtual environment?
-    
-    a. create virtual environment
-
-    ```
-    python3 -m venv venv
-    ```
-
-    b. activate venv
-
-    ```
-    . ./venv/bin/activate
-    ```
-
-    c. install troncli in venv
-
-    ```
-    pip install troncli
-    ```
-
-    d. when done testing, or using the venv - to deactivate venv
-
-    ```
-    deactivate
-    ```
-
 ## Usage
 
-| Command                                                                              | Functions                          | Example1        | Example2                                                                                                      |
-|--------------------------------------------------------------------------------------|------------------------------------|-----------------|---------------------------------------------------------------------------------------------------------------|
-| tron-cli init --version                                                              | Init dirs and fetch code.          | tron-cli init   | tron-cli init --version 3.1.3                                                                                 |
-| tron-cli config --nettype --fullhttpport --solhttpport --fullgrpcport --solgrpcport  | Create and customize config files. | tron-cli config | tron-cli config --nettype main --fullhttpport 8500 --solhttpport 8600 --fullgrpcport 50051 --solgrpcport 5001 |
-| tron-cli run --nodetype                                                              | Run node.                          | tron-cli run    | tron-cli run --nodetype sol                                                                                   |
-| tron-cli stop --pid                                                                  | Stop node.                         | tron-cli stop   | tron-cli stop --pid 7777                                                                                      |
-| tron-cli status --node                                                               | Monitor nodes status.              | tron-cli status | tron-cli status --node 777                                                                                    |
-| tron-cli quick                                                                       | Quick start.                       | tron-cli quick  | tron-cli quick                                                                                                |
-| tron-cli -h, --help                                                                  | Check help manual.                 | tron-cli -h     | tron-cli --help                                                                                               |
+| Command                                                                                                                                                                                                                            | Functions                          | Example1         | Example2                                                                                                                                                                                                                                                                                                           |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| tron-cli init --version --reset                                                                                                                                                                                                    | Init dirs and fetch code.          | tron-cli init    | tron-cli init --version 3.2.2 --reset True                                                                                                                                                                                                                                                                         |
+| tron-cli config --nettype ---nettype --fullhttpport --solhttpport --eventhttpport --fullrpcport --solrpcport --eventrpcport --enablememdb --dbsyncmode --saveintertx --savehistorytx --gridport --dbname --dbusername --dbpassword | Create and customize config files. | tron-cli config  | tron-cli config --nettype private --fullhttpport 8500 --solhttpport 8600 --eventhttpport 8400 --fullrpcport 58500 --solrpcport 58600 --eventrpcport 58400 --enablememdb True --dbsyncmode async --saveintertx False --savehistorytx False --gridport 18891 --dbname events --dbusername tron --dbpassword 12345678 |
+| tron-cli run --nodetype                                                                                                                                                                                                            | Run node.                          | tron-cli run     | tron-cli run --nodetype full                                                                                                                                                                                                                                                                                       |
+| tron-cli stop --node                                                                                                                                                                                                               | Stop node.                         | tron-cli stop    | tron-cli stop --node 7777                                                                                                                                                                                                                                                                                          |
+| tron-cli status --node                                                                                                                                                                                                             | Monitor nodes status.              | tron-cli status  | tron-cli status --node 777                                                                                                                                                                                                                                                                                         |
+| tron-cli quick --reset                                                                                                                                                                                                             | Quick start.                       | tron-cli quick   | tron-cli quick -- reset True                                                                                                                                                                                                                                                                                       |
+| tron-cli version                                                                                                                                                                                                                   | Check installed troncli version.   | tron-cli version | tron-cli version                                                                                                                                                                                                                                                                                                   |
+| tron-cli -h, --help                                                                                                                                                                                                                | Check help manual.                 | tron-cli -h      | tron-cli --help                                                                                                                                                                                                                                                                                                    |
+
 #### overall
 
 ```
 tron-cli -h
 ```
 ```
-usage: tron-cli [-h] {init,config,run,stop,status,quick} ...
+usage: tron-cli [-h] {init,config,run,stop,status,quick,version} ...
 
 which subcommand do you want?
 
@@ -93,13 +57,14 @@ optional arguments:
   -h, --help            show this help message and exit
 
 subcommands:
-  {init,config,run,stop,status,quick}
+  {init,config,run,stop,status,quick,version}
     init                Init dirs and fetch code.
     config              Create customize config files.
     run                 Run node.
     stop                Stop node.
     status              Monitor nodes status.
     quick               Quick start. (run a full private node by one command)
+    version             Check installed troncli version.
 ```
 
 ##### subcommand: init
@@ -108,11 +73,12 @@ subcommands:
 tron-cli init -h
 ```
 ```
-usage: tron-cli init [-h] [--version VERSION]
+usage: tron-cli init [-h] [--version VERSION] [--reset RESET]
 
 optional arguments:
   -h, --help         show this help message and exit
   --version VERSION  specify java-tron version
+  --reset RESET
 ```
 
 ##### subcommand: config
@@ -201,3 +167,41 @@ optional arguments:
   -h, --help   show this help message and exit
   --node NODE  check specific node detail by pid
 ```
+
+#### FAQs on installation
+
+1. How to fix "fail to build a wheel for psutil" error?
+
+    a. please check if you installed clang correctly, or install it using homebrew:
+
+    ```
+    brew install --with-toolchain llvm
+    ```
+
+    b. please check if you are using python 3.x
+
+2. How to test in virtual environment?
+    
+    a. create virtual environment
+
+    ```
+    python3 -m venv venv
+    ```
+
+    b. activate venv
+
+    ```
+    . ./venv/bin/activate
+    ```
+
+    c. install troncli in venv
+
+    ```
+    pip install troncli
+    ```
+
+    d. when done testing, or using the venv - to deactivate venv
+
+    ```
+    deactivate
+    ```
