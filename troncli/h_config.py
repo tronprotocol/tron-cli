@@ -177,6 +177,7 @@ class Config:
         if dbname == 'Null' and dbusername == 'Null' and dbpassword == 'Null':
             self.enable_event_services = False
             utils.warning_msg('Not configing event services since db settings not specified.')
+            utils.info_msg('config event services by specify --dbname <name> --dbusername <user> --dbpassword <password>')
         elif dbname == 'Null':
             utils.error_msg('Please set db name with --dbname')
             exit()

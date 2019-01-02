@@ -18,11 +18,11 @@ class Worker:
     async def run(self, node_type):
         pid = await self.run_node(node_type)
         utils.success_msg('node running at pid:')
+        _config = self.node_list.get()['config']
         utils.msg(str(pid))
-        utils.info_msg('To stop this node:')
-        utils.msg('tron-cli stop --node ' + str(pid))
-        utils.info_msg('To check node running details:')
-        utils.msg('tron-cli status --node ' + str(pid))
+        utils.status_msg('HTTP', LOCAL_HOST + str(_config[node_type + 'httpport']))
+        utils.status_msg('RPC', LOCAL_HOST + str(_config[node_type + 'rpcport']))
+        utils.node_cmds(pid)
         await self.node_list.update_running_node(node_type, pid, 'add')
 
     async def stop(self, node):
