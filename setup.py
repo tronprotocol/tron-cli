@@ -5,6 +5,9 @@ import sys
 
 from setuptools import setup, find_packages
 
+if sys.version_info < (3,7):
+    sys.exit('Sorry, please update python to 3.7+ to avoid unexpected issues.')
+
 def cat(files, join_str=''):
     """Concatenate `files` content with `join_str` between them."""
     files_content = (open(f).read() for f in files)
