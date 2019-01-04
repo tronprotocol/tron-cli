@@ -22,11 +22,11 @@ class Status(object):
     def overall(self):
         virt = psutil.virtual_memory()
         swap = psutil.swap_memory()
-        templ = '%-7s %10s %10s %10s %10s %10s %10s %10s'
+        templ = '%-7s %10s %10s %10s %10s %10s %10s'
         utils.status_msg('RAM', '<usages>')
         print(templ % (
                        '', 'total', 'percent', 'used', 'free',
-                       'active', 'inactive', 'wired'))
+                       'active', 'inactive'))
         print(templ % (
             'Mem:',
             self.phrase.convert_bytes(int(virt.total)),
@@ -34,8 +34,7 @@ class Status(object):
             self.phrase.convert_bytes(int(virt.used)),
             self.phrase.convert_bytes(int(virt.free)),
             self.phrase.convert_bytes(int(virt.active)),
-            self.phrase.convert_bytes(int(virt.inactive)),
-            self.phrase.convert_bytes(int(virt.wired)))
+            self.phrase.convert_bytes(int(virt.inactive)))
         )
         print(templ % (
             'Swap:',
@@ -43,7 +42,6 @@ class Status(object):
             str(swap.percent)+'%',
             self.phrase.convert_bytes(int(swap.used)),
             self.phrase.convert_bytes(int(swap.free)),
-            '',
             '',
             '')
         )
