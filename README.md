@@ -133,7 +133,7 @@ tron-cli init
 c. config (specify parameter to overwrite default) __dbname dbusername dbpassword are required to set__
 
 ```
-tron-cli config --nettype main --fullhttpport 8500 --solhttpport 8600 --eventhttpport 8400 --fullrpcport 58500 --solrpcport 58600 --eventrpcport 58400 --enablememdb True --dbsyncmode async --saveintertx False --savehistorytx False --gridport 18891 --dbname events --dbusername tron --dbpassword 12345678
+tron-cli config --nettype private --fullhttpport 8500 --solhttpport 8600 --eventhttpport 8400 --fullrpcport 58500 --solrpcport 58600 --eventrpcport 58400 --enablememdb True --dbsyncmode async --saveintertx False --savehistorytx False --gridport 18891 --dbname events --dbusername tron --dbpassword 12345678
 ```
 
 d. run event node

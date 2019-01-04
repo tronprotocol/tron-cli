@@ -22,7 +22,6 @@ def init(version: str = 'lastest',
     utils.progress_msg('Creating folders')
 
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(init_handler.env_check())
     loop.run_until_complete(init_handler.create_dirs(reset))
     loop.run_until_complete(init_handler.fetch_jars(version))
     loop.run_until_complete(init_handler.move_jars())

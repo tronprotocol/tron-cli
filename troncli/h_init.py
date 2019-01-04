@@ -1,7 +1,5 @@
 import os
-import re
 import shutil
-import subprocess
 
 from troncli import utils
 from troncli.constants import *
@@ -16,20 +14,6 @@ class Init(object):
         self.source_sol_jar = 'SolidityNode.jar'
         self.event_node_zip = 'event_parser.zip'
         self.tron_grid_zip = ''
-        self.node_list = utils.Node()
-
-    async def env_check(self):
-        try:
-            jdk_version = subprocess.check_output(['java', '-version'], stderr=subprocess.STDOUT)
-            jdk_version = re.search('\"(\d+\.\d+).*\"', str(jdk_version)).groups()[0]
-        except OSError as err:
-            utils.warning_msg('OS Warning -' + str(err))
-            utils.error_msg('Please make sure you install JDK 1.8 correctly.')
-            os.sys.exit()
-        else:
-            if jdk_version != '1.8':
-                utils.error_msg('java-tron required JDK version = 1.8, please install and use JDK 1.8')
-                os.sys.exit()
 
     async def create_dirs(self, reset):
         path = self.root_path
@@ -95,14 +79,11 @@ class Init(object):
         url = JAVA_TRON_RELEASES_URL
         if version == 'lastest':
             url += 'Odyssey-v' + JAVA_TRON_LASTEST_VERSION
-            await self.node_list.update_node_version(JAVA_TRON_LASTEST_VERSION)
         elif '3.1.3' <= version <= '3.1.3':
             url += 'Odyssey-v' + version
             self.source_full_jar = 'java-tron.jar'
-            await self.node_list.update_node_version(version)
         elif '3.2.0' <= version <= '3.2.10':
             url += 'Odyssey-v' + version
-            await self.node_list.update_node_version(version)
         else:
             utils.error_msg('version: ' + version + ' not supported')
             utils.info_msg('current support versions: 3.1.3, 3.2, 3.2.1')

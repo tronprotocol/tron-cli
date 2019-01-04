@@ -22,7 +22,6 @@ class Worker:
         utils.msg(str(pid))
         utils.status_msg('HTTP', LOCAL_HOST + str(_config[node_type + 'httpport']))
         utils.status_msg('RPC', LOCAL_HOST + str(_config[node_type + 'rpcport']))
-        utils.status_msg('LOG PATH', utils.log_location(self.root_path, node_type))
         utils.node_cmds(pid)
         await self.node_list.update_running_node(node_type, pid, 'add')
 

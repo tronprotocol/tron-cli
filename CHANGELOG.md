@@ -8,33 +8,21 @@
 
 [ ] init - add option to build from source code
 
+[ ] run - multiple (full) nodes
+
+[ ] robust - catch more errors and provide better error msg
+
+[ ] status -- add config setting in status json
+
 [ ] db - check and trim db
 
 [ ] add more instruction in command
 
+[ ] improve stop/config/status according to feedback
+
 [ ] db - mongodb create db and set user name, user role, db name, and psd
 
-[ ] run - multiple (full) nodes
-
 [blocked] config -- add option to config to sync with newly deployed shasta testnet
-
-#### Version 0.2.2
-
-[X] Fix [issue#17](https://github.com/tronprotocol/tron-cli/issues/17)
-
-[X] check java install and JDK version
-
-[X] check python version
-
-[X] check git install
-
-[X] status - display recommended cpu / mem for running full nodes
-
-[X] status & run - display log locations
-
-[X] init & status - store and display java-tron node versions
-
-[X] status - show test account/witness's private key and address for private net
 
 #### Version 0.2.1
 
