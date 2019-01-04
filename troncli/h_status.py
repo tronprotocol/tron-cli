@@ -20,13 +20,15 @@ class Status(object):
         self.node_list = utils.Node()
 
     def overall(self):
+        utils.recommandation()
         virt = psutil.virtual_memory()
         swap = psutil.swap_memory()
-        templ = '%-7s %10s %10s %10s %10s %10s %10s %10s'
+        templ = '%-7s %10s %10s %10s %10s %10s %10s'
+        utils.status_msg_div()
         utils.status_msg('RAM', '<usages>')
         print(templ % (
                        '', 'total', 'percent', 'used', 'free',
-                       'active', 'inactive', 'wired'))
+                       'active', 'inactive'))
         print(templ % (
             'Mem:',
             self.phrase.convert_bytes(int(virt.total)),
@@ -34,8 +36,7 @@ class Status(object):
             self.phrase.convert_bytes(int(virt.used)),
             self.phrase.convert_bytes(int(virt.free)),
             self.phrase.convert_bytes(int(virt.active)),
-            self.phrase.convert_bytes(int(virt.inactive)),
-            self.phrase.convert_bytes(int(virt.wired)))
+            self.phrase.convert_bytes(int(virt.inactive)))
         )
         print(templ % (
             'Swap:',
@@ -44,17 +45,21 @@ class Status(object):
             self.phrase.convert_bytes(int(swap.used)),
             self.phrase.convert_bytes(int(swap.free)),
             '',
-            '',
             '')
         )
         self.running_nodes()
         self.show_config()
+        utils.status_msg_div()
         utils.node_instruction()
 
     def show_config(self):
         _node_list = self.node_list.get()
         _config = _node_list['config']
-        utils.status_msg('Config CMD', 'tron-cli config ' +
+        if _config == {}:
+            utils.warning_msg('not configurate yet, please check config help by')
+            utils.msg('tron-cli config -h')
+        else:
+            utils.status_msg('Config CMD', 'tron-cli config ' +
                                     '--nettype ' + str(_config['nettype']) + ' '
                                     '--fullhttpport ' + str(_config['fullhttpport']) + ' '
                                     '--solhttpport ' + str(_config['solhttpport']) + ' '
@@ -70,19 +75,25 @@ class Status(object):
                                     '--dbname ' + str(_config['dbname']) + ' '
                                     '--dbusername ' + str(_config['dbusername']) + ' '
                                     '--dbpassword ' + str(_config['dbpassword']))
+            if _config['nettype'] == 'private':
+                utils.status_msg('Witness Address', TEST_ACCOUNT_ADDRESS)
+                utils.status_msg('Witness Private-key', TEST_ACCOUNT_PK)
 
 
     def running_nodes(self):
         if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
             running_nodes = self.node_list.get()
+            utils.status_msg('Node Version', running_nodes['live']['version'])
             utils.status_msg('Full-node IDs', running_nodes['live']['full'])
             if running_nodes['live']['full'] != []:
                 utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['fullhttpport']))
                 utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['fullrpcport']))
+                utils.msg('log location: ' + utils.log_location(self.root_path, 'full'))
             utils.status_msg('Solidity-node IDs', running_nodes['live']['sol'])
             if running_nodes['live']['sol'] != []:
                 utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['solhttpport']))
                 utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['solrpcport']))
+                utils.msg('log location: ' + utils.log_location(self.root_path, 'sol'))
             utils.status_msg('Event-node IDs', running_nodes['live']['event'])
             if running_nodes['live']['event'] != []:
                 utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['eventhttpport']))
