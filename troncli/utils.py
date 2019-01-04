@@ -225,7 +225,11 @@ async def git_clone(host, branch, tar_path):
     cmd = 'git clone --single-branch -b ' + branch + ' ' + host
     cmd += ' ' + tar_path
     # _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
-    os.system(cmd)
+    try:
+        os.system(cmd)
+    except OSError as err:
+        error_msg('OS Error -' + str(err))
+        os.sys.exit()
 
 async def gradlew_build(task):
     cmd = './gradlew build -x test'
