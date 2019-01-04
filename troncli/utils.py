@@ -67,7 +67,7 @@ def status_msg(category, detail):
 
 
 def msg(content):
-    print(Fore.RESET + '    ' + content + Fore.RESET)
+    print(Fore.WHITE + '    ' + content + Fore.RESET)
 
 
 def debug(content):
