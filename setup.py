@@ -5,6 +5,9 @@ import sys
 
 from setuptools import setup, find_packages
 
+"""
+python version check
+"""
 if sys.version_info < (3,7):
     sys.exit('Sorry, please update python to 3.7+ to avoid unexpected issues.')
 

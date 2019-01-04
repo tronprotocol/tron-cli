@@ -1,5 +1,7 @@
 import os
+import re
 import shutil
+import subprocess
 
 from troncli import utils
 from troncli.constants import *
@@ -14,6 +16,19 @@ class Init(object):
         self.source_sol_jar = 'SolidityNode.jar'
         self.event_node_zip = 'event_parser.zip'
         self.tron_grid_zip = ''
+
+    async def env_check(self):
+        try:
+            jdk_version = subprocess.check_output(['java', '-version'], stderr=subprocess.STDOUT)
+            jdk_version = re.search('\"(\d+\.\d+).*\"', str(jdk_version)).groups()[0]
+        except OSError as err:
+            utils.warning_msg('OS Warning -' + str(err))
+            utils.error_msg('Please make sure you install JDK 1.8 correctly.')
+            os.sys.exit()
+        else:
+            if jdk_version != '1.8':
+                utils.error_msg('java-tron required JDK version = 1.8, please install and use JDK 1.8')
+                os.sys.exit()
 
     async def create_dirs(self, reset):
         path = self.root_path
