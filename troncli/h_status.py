@@ -54,7 +54,11 @@ class Status(object):
     def show_config(self):
         _node_list = self.node_list.get()
         _config = _node_list['config']
-        utils.status_msg('Config CMD', 'tron-cli config ' +
+        if _config == {}:
+            utils.warning_msg('not configurate yet, please check config help by')
+            utils.msg('tron-cli config -h')
+        else:
+            utils.status_msg('Config CMD', 'tron-cli config ' +
                                     '--nettype ' + str(_config['nettype']) + ' '
                                     '--fullhttpport ' + str(_config['fullhttpport']) + ' '
                                     '--solhttpport ' + str(_config['solhttpport']) + ' '
