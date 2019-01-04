@@ -58,7 +58,7 @@ def info_msg(content):
 
 
 def info_msg_div():
-    print(Fore.MAGENTA + 'ⓘ ⓘ ⓘ' + Fore.RESET)
+    print(Fore.MAGENTA + '------------------' + Fore.RESET)
 
 
 def status_msg(category, detail):
@@ -112,6 +112,15 @@ def recommandation():
     msg('CPU: 64 cores')
     msg('RAM: 64 GB')
     info_msg_div()
+
+
+def log_location(root_path, node_type):
+    if node_type == 'full':
+        return (root_path + NODES_DIR + FULL_NODE_DIR + '/logs/tron.log')
+    elif node_type == 'sol':
+        return (root_path + NODES_DIR + SOLIDITY_NODE_DIR + '/logs/tron.log')
+    else:
+        return ('not recording logs')
 
 
 """

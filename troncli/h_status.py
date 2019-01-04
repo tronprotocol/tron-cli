@@ -84,10 +84,12 @@ class Status(object):
             if running_nodes['live']['full'] != []:
                 utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['fullhttpport']))
                 utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['fullrpcport']))
+                utils.msg('log location: ' + utils.log_location(self.root_path, 'full'))
             utils.status_msg('Solidity-node IDs', running_nodes['live']['sol'])
             if running_nodes['live']['sol'] != []:
                 utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['solhttpport']))
                 utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['solrpcport']))
+                utils.msg('log location: ' + utils.log_location(self.root_path, 'sol'))
             utils.status_msg('Event-node IDs', running_nodes['live']['event'])
             if running_nodes['live']['event'] != []:
                 utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['eventhttpport']))
