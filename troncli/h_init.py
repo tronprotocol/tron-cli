@@ -16,6 +16,7 @@ class Init(object):
         self.source_sol_jar = 'SolidityNode.jar'
         self.event_node_zip = 'event_parser.zip'
         self.tron_grid_zip = ''
+        self.node_list = utils.Node()
 
     async def env_check(self):
         try:
@@ -94,11 +95,14 @@ class Init(object):
         url = JAVA_TRON_RELEASES_URL
         if version == 'lastest':
             url += 'Odyssey-v' + JAVA_TRON_LASTEST_VERSION
+            await self.node_list.update_node_version(JAVA_TRON_LASTEST_VERSION)
         elif '3.1.3' <= version <= '3.1.3':
             url += 'Odyssey-v' + version
             self.source_full_jar = 'java-tron.jar'
+            await self.node_list.update_node_version(version)
         elif '3.2.0' <= version <= '3.2.10':
             url += 'Odyssey-v' + version
+            await self.node_list.update_node_version(version)
         else:
             utils.error_msg('version: ' + version + ' not supported')
             utils.info_msg('current support versions: 3.1.3, 3.2, 3.2.1')

@@ -80,6 +80,7 @@ class Status(object):
     def running_nodes(self):
         if os.path.isfile(self.root_path + '/' + RUNNING_NODE_LIST_FILE):
             running_nodes = self.node_list.get()
+            utils.status_msg('Node Version', running_nodes['live']['version'])
             utils.status_msg('Full-node IDs', running_nodes['live']['full'])
             if running_nodes['live']['full'] != []:
                 utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['fullhttpport']))

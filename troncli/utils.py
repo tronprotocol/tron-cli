@@ -136,7 +136,7 @@ class Node(object):
             phrase = Phrase()
             self.node_list = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
         else:
-            self.node_list = {'live': {'full': [], 'sol': [], 'event': [], 'grid': [], 'all': []},
+            self.node_list = {'live': {'full': [], 'sol': [], 'event': [], 'grid': [], 'all': [], 'version': ''},
                               'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''},
                               'config': {}}
 
@@ -146,6 +146,10 @@ class Node(object):
     def save(self):
         with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
              file.write(json.dumps(self.node_list))
+
+    async def update_node_version(self, version):
+        self.node_list['live']['version'] = version
+        self.save()
 
     async def update_running_node(self, node_type, pid, execution):
         """
