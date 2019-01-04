@@ -57,6 +57,10 @@ def info_msg(content):
     print(Fore.MAGENTA + 'ⓘ: ' + content + Fore.RESET)
 
 
+def info_msg_div():
+    print(Fore.MAGENTA + 'ⓘ ⓘ ⓘ' + Fore.RESET)
+
+
 def status_msg(category, detail):
     if sys.stdout.isatty() and psutil.POSIX:
         fmt = '%-13s %s' % (Fore.BLUE + Style.BRIGHT + str(category),
@@ -64,6 +68,10 @@ def status_msg(category, detail):
     else:
         fmt = '%-11s %s' % (category, detail)
     print(fmt)
+
+
+def status_msg_div():
+    print(Fore.BLUE + Style.BRIGHT + '------------------' + Fore.RESET + Style.RESET_ALL)
 
 
 def msg(content):
@@ -96,6 +104,14 @@ def node_cmds(node_id):
     msg('tron-cli stop')
     info_msg('Stop current node:')
     msg('tron-cli stop --node ' + str(node_id))
+
+
+def recommandation():
+    info_msg_div()
+    info_msg('Hardware recommandation for running a full node: ')
+    msg('CPU: 64 cores')
+    msg('RAM: 64 GB')
+    info_msg_div()
 
 
 """

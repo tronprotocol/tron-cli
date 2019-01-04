@@ -20,9 +20,11 @@ class Status(object):
         self.node_list = utils.Node()
 
     def overall(self):
+        utils.recommandation()
         virt = psutil.virtual_memory()
         swap = psutil.swap_memory()
         templ = '%-7s %10s %10s %10s %10s %10s %10s'
+        utils.status_msg_div()
         utils.status_msg('RAM', '<usages>')
         print(templ % (
                        '', 'total', 'percent', 'used', 'free',
@@ -47,6 +49,7 @@ class Status(object):
         )
         self.running_nodes()
         self.show_config()
+        utils.status_msg_div()
         utils.node_instruction()
 
     def show_config(self):
