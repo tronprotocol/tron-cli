@@ -130,9 +130,9 @@ class Config:
             self.sol_config[' localwitness'] = []
             self.event_config[' localwitness'] = []
         if net_type == 'private':
-            self.full_config[' localwitness'] = ['da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0']
-            self.sol_config[' localwitness'] = ['da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0']
-            self.event_config[' localwitness'] = ['da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0']
+            self.full_config[' localwitness'] = [TEST_ACCOUNT_PK]
+            self.sol_config[' localwitness'] = [TEST_ACCOUNT_PK]
+            self.event_config[' localwitness'] = [TEST_ACCOUNT_PK]
         # genesis.block
         if net_type == 'main':
             pass
@@ -141,22 +141,22 @@ class Config:
         if net_type == 'private':
             # add witnesses
             self.full_config[' genesis.block'][' witnesses'] = [{
-                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
+                ' address': TEST_ACCOUNT_ADDRESS,
                 ' url': 'https://github.com/tronprotocol/tron-cli',
                 ' voteCount': 10000}]
             self.sol_config[' genesis.block'][' witnesses'] = [{
-                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
+                ' address': TEST_ACCOUNT_ADDRESS,
                 ' url': 'https://github.com/tronprotocol/tron-cli',
                 ' voteCount': 10000}]
             self.event_config[' genesis.block'][' witnesses'] = [{
-                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
+                ' address': TEST_ACCOUNT_ADDRESS,
                 ' url': 'https://github.com/tronprotocol/tron-cli',
                 ' voteCount': 10000}]
             # add assets
             self.full_config[' genesis.block'][' assets'] = [{
                 ' accountName': 'TRONCLI',
                 ' accountType': 'AssetIssue',
-                ' address': 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
+                ' address': TEST_ACCOUNT_ADDRESS,
                 ' balance': 5000000000000000}]
 
     async def set_db_version(self, enablememdb):

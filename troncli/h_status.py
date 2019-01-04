@@ -75,6 +75,9 @@ class Status(object):
                                     '--dbname ' + str(_config['dbname']) + ' '
                                     '--dbusername ' + str(_config['dbusername']) + ' '
                                     '--dbpassword ' + str(_config['dbpassword']))
+            if _config['nettype'] == 'private':
+                utils.status_msg('Witness Address', TEST_ACCOUNT_ADDRESS)
+                utils.status_msg('Witness Private-key', TEST_ACCOUNT_PK)
 
 
     def running_nodes(self):

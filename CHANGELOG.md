@@ -34,6 +34,8 @@
 
 [X] init & status - store and display java-tron node versions
 
+[X] status - show test account/witness's private key and address for private net
+
 #### Version 0.2.1
 
 [X] store config, and show active config cmd in status
