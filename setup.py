@@ -5,6 +5,12 @@ import sys
 
 from setuptools import setup, find_packages
 
+"""
+python version check
+"""
+if sys.version_info < (3,7):
+    sys.exit('Sorry, please update python to 3.7+ to avoid unexpected issues.')
+
 def cat(files, join_str=''):
     """Concatenate `files` content with `join_str` between them."""
     files_content = (open(f).read() for f in files)
@@ -14,7 +20,7 @@ def cat(files, join_str=''):
 PKG_NAME = 'troncli'
 PKG_AUTHOR = ', '.join(['Weiyu X'])
 PKG_SCRIPTS = ['tron-cli']
-PKG_VERSION = '0.2.1'
+PKG_VERSION = '0.2.2'
 PKG_REQUIRES = [
     'bleach',
     'cbox',

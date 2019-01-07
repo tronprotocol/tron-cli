@@ -57,6 +57,10 @@ def info_msg(content):
     print(Fore.MAGENTA + 'ⓘ: ' + content + Fore.RESET)
 
 
+def info_msg_div():
+    print(Fore.MAGENTA + '------------------' + Fore.RESET)
+
+
 def status_msg(category, detail):
     if sys.stdout.isatty() and psutil.POSIX:
         fmt = '%-13s %s' % (Fore.BLUE + Style.BRIGHT + str(category),
@@ -66,8 +70,12 @@ def status_msg(category, detail):
     print(fmt)
 
 
+def status_msg_div():
+    print(Fore.BLUE + Style.BRIGHT + '------------------' + Fore.RESET + Style.RESET_ALL)
+
+
 def msg(content):
-    print(Fore.RESET + '    ' + content + Fore.RESET)
+    print(Fore.WHITE + '    ' + content + Fore.RESET)
 
 
 def debug(content):
@@ -98,6 +106,23 @@ def node_cmds(node_id):
     msg('tron-cli stop --node ' + str(node_id))
 
 
+def recommandation():
+    info_msg_div()
+    info_msg('Hardware recommandation for running a full node: ')
+    msg('CPU: 64 cores')
+    msg('RAM: 64 GB')
+    info_msg_div()
+
+
+def log_location(root_path, node_type):
+    if node_type == 'full':
+        return (root_path + NODES_DIR + FULL_NODE_DIR + '/logs/tron.log')
+    elif node_type == 'sol':
+        return (root_path + NODES_DIR + SOLIDITY_NODE_DIR + '/logs/tron.log')
+    else:
+        return ('not recording logs')
+
+
 """
 Node List
 """
@@ -111,7 +136,7 @@ class Node(object):
             phrase = Phrase()
             self.node_list = phrase.load_json_file(self.root_path + '/' + RUNNING_NODE_LIST_FILE)
         else:
-            self.node_list = {'live': {'full': [], 'sol': [], 'event': [], 'grid': [], 'all': []},
+            self.node_list = {'live': {'full': [], 'sol': [], 'event': [], 'grid': [], 'all': [], 'version': ''},
                               'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''},
                               'config': {}}
 
@@ -121,6 +146,10 @@ class Node(object):
     def save(self):
         with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
              file.write(json.dumps(self.node_list))
+
+    async def update_node_version(self, version):
+        self.node_list['live']['version'] = version
+        self.save()
 
     async def update_running_node(self, node_type, pid, execution):
         """
@@ -225,7 +254,11 @@ async def git_clone(host, branch, tar_path):
     cmd = 'git clone --single-branch -b ' + branch + ' ' + host
     cmd += ' ' + tar_path
     # _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
-    os.system(cmd)
+    try:
+        os.system(cmd)
+    except OSError as err:
+        error_msg('OS Error -' + str(err))
+        os.sys.exit()
 
 async def gradlew_build(task):
     cmd = './gradlew build -x test'
