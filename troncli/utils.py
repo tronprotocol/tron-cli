@@ -140,7 +140,7 @@ class Node(object):
                               'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''},
                               'config': {}}
 
-    async def get(self):
+    def get(self):
         return self.node_list
 
     def save(self):

@@ -196,7 +196,7 @@ class Config:
             await self.build_eventnode_jar()
 
     async def change_eventnode_db_settings(self):
-        _db = await self.node_list.get()
+        _db = self.node_list.get()
         # utils.debug(str(_db['db']))
         self.eventnode_db_properties[' mongo.dbname'] = _db['db']['dbname']
         self.eventnode_db_properties[' mongo.username'] = _db['db']['dbusername']
@@ -210,7 +210,7 @@ class Config:
         utils.msg(_target_file_path_sol)
 
     async def change_gridapi_db_settings(self, gridport):
-        _db = await self.node_list.get()
+        _db = self.node_list.get()
         # utils.debug(str(_db['db']))
         self.gridapi_db_properties[' spring.data.mongodb.database'] = _db['db']['dbname']
         self.gridapi_db_properties[' spring.data.mongodb.username'] = _db['db']['dbusername']
