@@ -6,8 +6,6 @@
 
 [ ] dump - fetch a dump
 
-[ ] init - add option to build from source code
-
 [ ] db - check and trim db
 
 [ ] add more instruction in command
@@ -17,6 +15,22 @@
 [ ] run - multiple (full) nodes
 
 [blocked] config -- add option to config to sync with newly deployed shasta testnet
+
+#### Version 0.3.0
+
+##### highlight:
+
+* Redesign config logic and provide more features.
+
+* Set up mongodb with a default setting.
+
+#### details:
+
+[ ]
+
+#### Version 0.2.3
+
+[X] Catch more errors.
 
 #### Version 0.2.2
 
