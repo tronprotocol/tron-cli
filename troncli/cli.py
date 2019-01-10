@@ -44,7 +44,8 @@ def config(nettype: str = '',
            gridport: int = 0,
            dbname: str = 'Null',
            dbusername: str = 'Null',
-           dbpassword: str = 'Null'
+           dbpassword: str = 'Null',
+           reset: str = 'False'
            ):
     """Create customize config files.
 
@@ -70,7 +71,7 @@ def config(nettype: str = '',
     utils.progress_msg('Setting up config files')
 
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(config_handler.init())
+    loop.run_until_complete(config_handler.init(reset))
     loop.run_until_complete(config_handler.set_net_type(nettype))
     loop.run_until_complete(config_handler.set_http_port(fullhttpport, 'full', nettype))
     loop.run_until_complete(config_handler.set_http_port(solhttpport, 'sol', nettype))

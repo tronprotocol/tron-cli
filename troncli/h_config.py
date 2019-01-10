@@ -19,10 +19,12 @@ class Config:
         self.phrase = utils.Phrase()
         self.config_store = {}
 
-    async def init(self):
+    async def init(self, reset):
         """
         Load raw json config
         """
+        if reset == 'True' or reset == 'true' or reset == '1' or reset == 'Yes' or reset == 'yes' or reset == 'Y' or reset == 'y':
+            self.node_list.reset_config()
         self.full_config = copy.deepcopy(json_store.raw_config)
         self.sol_config = copy.deepcopy(json_store.raw_config)
         self.event_config = copy.deepcopy(json_store.raw_config)

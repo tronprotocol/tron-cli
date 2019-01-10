@@ -1,16 +1,26 @@
 # Changelog
 
-### In doing
+### Dev Pipeline
 
-[ ] run - filter nodes
+[ ] quick - add options to start common user cases
+
+[ ] restart - restart all running nodes
+
+[ ] clean up all std messages
+
+[ ] config - set default/customize committee proposal list
+
+[ ] log - show and filter nodes log
 
 [ ] dump - fetch a dump
 
-[ ] db - check and trim db
+[ ] db - manage db, check and trim db
 
-[ ] add more instruction in command
+[ ] manual - add more instruction for config
 
-[ ] db - mongodb create db and set user name, user role, db name, and psd
+[ ] interact - add interactive mode
+
+[ ] quiet - add quiet mode
 
 [ ] run - multiple (full) nodes
 
@@ -24,13 +34,20 @@
 
 * Set up mongodb with a default setting.
 
-#### details:
+##### details:
 
-[X] Redesign config logic check and restore previous config settings. Only overwrite by given options.
+[X] Redesign config logic check and restore previous config settings. Only overwrite by given options.tron
+
+[X] add config -- reset: reset to default config
+
+[ ] db - mongodb create db and set user name, user role, db name, and psd
+
+[ ] version - show current and also check latest version
+
 
 #### Version 0.2.4
 
-[X] Trivial fix on get current node status async error.
+[X] Fix get current node status async error.
 
 #### Version 0.2.3
 
