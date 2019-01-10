@@ -93,7 +93,7 @@ class Init(object):
         get release url
         """
         url = JAVA_TRON_RELEASES_URL
-        if version == 'lastest':
+        if version == 'latest':
             url += 'Odyssey-v' + JAVA_TRON_LASTEST_VERSION
             await self.node_list.update_node_version(JAVA_TRON_LASTEST_VERSION)
         elif '3.1.3' <= version <= '3.1.3':
