@@ -17,6 +17,7 @@ class Config:
         self.enable_event_services = False
         self.node_list = utils.Node()
         self.phrase = utils.Phrase()
+        self.config_store = {}
 
     async def init(self):
         """
@@ -27,6 +28,8 @@ class Config:
         self.event_config = copy.deepcopy(json_store.raw_config)
         self.eventnode_db_properties = copy.deepcopy(json_store.raw_eventnode_mongodb_properties)
         self.gridapi_db_properties = copy.deepcopy(json_store.raw_gridapi_application_properties)
+        _config_store = self.node_list.get()
+        self.config_store = _config_store['config']
         utils.success_msg('config initialized')
 
     async def export(self):
@@ -47,9 +50,25 @@ class Config:
         self.phrase.store_json2properties_to_file(self.event_config, _target_file_path_sol)
         utils.success_msg('eventnode config file exported to: ')
         utils.msg(_target_file_path_sol)
+        await self.update_config_store()
+
+    async def update_config_store(self):
+        await self.node_list.update_config(self.config_store['nettype'], self.config_store['fullhttpport'], self.config_store['solhttpport'],
+                                     self.config_store['eventhttpport'], self.config_store['fullrpcport'], 
+                                     self.config_store['solrpcport'], self.config_store['eventrpcport'],
+                                     self.config_store['enablememdb'], self.config_store['dbsyncmode'], 
+                                     self.config_store['saveintertx'], self.config_store['savehistorytx'], 
+                                     self.config_store['gridport'], self.config_store['dbname'], 
+                                     self.config_store['dbusername'], self.config_store['dbpassword'])
 
     async def set_http_port(self, port_num, node_type, net_type):
         if node_type == 'full':
+            # check void and restore
+            if port_num == 0:
+                port_num = self.config_store['fullhttpport']
+            else:
+                self.config_store['fullhttpport'] = port_num
+
             self.full_config[' node'][' http'][' fullNodePort'] = port_num
             if net_type == 'private':
                 self.event_config[' seed.node'][' ip.list'] = [LOCAL_HOST + ':' + str(port_num)]
@@ -57,10 +76,22 @@ class Config:
             utils.success_msg('full-node http request set to listen: ')
             utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'sol':
+            # check void and restore
+            if port_num == 0:
+                port_num = self.config_store['solhttpport']
+            else:
+                self.config_store['solhttpport'] = port_num
+
             self.sol_config[' node'][' http'][' solidityPort'] = port_num
             utils.success_msg('solidity-node request set to listen: ')
             utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'event':
+            # check void and restore
+            if port_num == 0:
+                port_num = self.config_store['eventhttpport']
+            else:
+                self.config_store['eventhttpport'] = port_num
+
             self.event_config[' node'][' http'][' fullNodePort'] = port_num
             utils.success_msg('event-node request set to listen: ')
             utils.msg(LOCAL_HOST + str(port_num))
@@ -69,15 +100,33 @@ class Config:
 
     async def set_rpc_port(self, port_num, node_type):
         if node_type == 'full':
+            # check void and restore
+            if port_num == 0:
+                port_num = self.config_store['fullrpcport']
+            else:
+                self.config_store['fullrpcport'] = port_num
+
             self.full_config[' node'][' rpc'][' port'] = port_num
             self.sol_config[' node'][' trustNode'] = LOCAL_HOST + str(port_num)
             utils.success_msg('full-node rpc request set to listen: ')
             utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'sol':
+            # check void and restore
+            if port_num == 0:
+                port_num = self.config_store['solrpcport']
+            else:
+                self.config_store['solrpcport'] = port_num
+
             self.sol_config[' node'][' rpc'][' port'] = port_num
             utils.success_msg('solidity-node rpc request set to listen: ')
             utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'event':
+            # check void and restore
+            if port_num == 0:
+                port_num = self.config_store['eventrpcport']
+            else:
+                self.config_store['eventrpcport'] = port_num
+
             self.event_config[' node'][' rpc'][' port'] = port_num
             utils.success_msg('event-node rpc request set to listen: ')
             utils.msg(LOCAL_HOST + str(port_num))
@@ -85,6 +134,12 @@ class Config:
             utils.warning_msg('wrong node_type')
 
     async def set_net_type(self, net_type):
+        # check void and restore
+        if net_type == '':
+            net_type = self.config_store['nettype']
+        else:
+            self.config_store['nettype'] = net_type
+
         # msg
         utils.success_msg('net type set to: ')
         utils.msg(net_type)
@@ -160,20 +215,46 @@ class Config:
                 ' balance': 5000000000000000}]
 
     async def set_db_version(self, enablememdb):
+        # check void and restore
+        if enablememdb == '':
+            enablememdb = self.config_store['enablememdb']
+        else:
+            self.config_store['enablememdb'] = enablememdb
+
         if enablememdb == 'disable' or enablememdb == '0' or enablememdb == 'False':
-            # enablememdb = False
             self.full_config[' storage'][' db.version'] = DB_DISK_ONLY_VERSION
             self.event_config[' storage'][' db.version'] = DB_DISK_ONLY_VERSION
             utils.success_msg('enable in memeory db:')
             utils.msg('False')
         else:
-            # enablememdb = True
             self.full_config[' storage'][' db.version'] = DB_IN_MEMORY_SUPPORT_VERSION
             self.event_config[' storage'][' db.version'] = DB_IN_MEMORY_SUPPORT_VERSION
             utils.success_msg('enable in memeory db:')
             utils.msg('True')
 
     async def store_db_settings(self, dbname, dbusername, dbpassword, gridport):
+        # check void and restore
+        if dbname == 'Null':
+            dbname = self.config_store['dbname']
+        else:
+            self.config_store['dbname'] = dbname
+
+        if dbusername == 'Null':
+            dbusername = self.config_store['dbusername']
+        else:
+            self.config_store['dbusername'] = dbusername
+
+        if dbpassword == 'Null':
+            dbpassword = self.config_store['dbpassword']
+        else:
+            self.config_store['dbpassword'] = dbpassword
+
+        if gridport == 0:
+            gridport = self.config_store['gridport']
+        else:
+            self.config_store['gridport'] = gridport
+        await self.update_config_store()
+        
         if dbname == 'Null' and dbusername == 'Null' and dbpassword == 'Null':
             self.enable_event_services = False
             utils.warning_msg('Not configing event services since db settings not specified.')
@@ -237,6 +318,12 @@ class Config:
         utils.msg(self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR)
 
     async def set_db_sync_mode(self, dbsyncmode):
+        # check void and restore
+        if dbsyncmode == '':
+            dbsyncmode = self.config_store['dbsyncmode']
+        else:
+            self.config_store['dbsyncmode'] = dbsyncmode
+
         if dbsyncmode == 'async':
             self.full_config[' storage'][' db.sync'] = 'false'
             self.sol_config[' storage'][' db.sync'] = 'false'
@@ -253,6 +340,12 @@ class Config:
             utils.warning_msg('wrong dbsyncmode, expect async or sync, however ' + dbsyncmode + ' is given')
 
     async def enable_save_inter_tx(self, saveintertx):
+        # check void and restore
+        if saveintertx == '':
+            saveintertx = self.config_store['saveintertx']
+        else:
+            self.config_store['saveintertx'] = saveintertx
+
         if saveintertx == 'enable' or saveintertx == '1' or saveintertx == 'True' or saveintertx == 'on':
             self.full_config[' storage'][' transHistory.switch'] = 'on'
             self.sol_config[' storage'][' transHistory.switch'] = 'on'
@@ -267,6 +360,12 @@ class Config:
             utils.msg('disabled')
 
     async def enable_save_history_tx(self, savehistorytx):
+        # check void and restore
+        if savehistorytx == '':
+            savehistorytx = self.config_store['savehistorytx']
+        else:
+            self.config_store['savehistorytx'] = savehistorytx
+
         if savehistorytx == 'enable' or savehistorytx == '1' or savehistorytx == 'True' or savehistorytx == 'on':
             self.full_config[' vm'][' saveInternalTx'] = 'true'
             self.sol_config[' vm'][' saveInternalTx'] = 'true'

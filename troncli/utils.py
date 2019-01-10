@@ -138,7 +138,21 @@ class Node(object):
         else:
             self.node_list = {'live': {'full': [], 'sol': [], 'event': [], 'grid': [], 'all': [], 'version': ''},
                               'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''},
-                              'config': {}}
+                              'config': {'nettype': 'private',
+                                         'fullhttpport': 8500,
+                                         'solhttpport': 8600, 
+                                         'eventhttpport': 8400, 
+                                         'fullrpcport': 58500, 
+                                         'solrpcport': 58600, 
+                                         'eventrpcport': 58400, 
+                                         'enablememdb': 'True', 
+                                         'dbsyncmode': 'async', 
+                                         'saveintertx': 'False', 
+                                         'savehistorytx': 'False', 
+                                         'gridport': 18891, 
+                                         'dbname': 'Null', 
+                                         'dbusername': 'Null', 
+                                         'dbpassword': 'Null'}}
 
     def get(self):
         return self.node_list

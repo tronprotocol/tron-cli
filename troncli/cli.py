@@ -30,18 +30,18 @@ def init(version: str = 'lastest',
 
 
 @cbox.cmd
-def config(nettype: str = 'private',
-           fullhttpport: int = 8500,
-           solhttpport: int = 8600,
-           eventhttpport: int = 8400,
-           fullrpcport: int = 58500,
-           solrpcport: int = 58600,
-           eventrpcport: int = 58400,
-           enablememdb: str = 'True',
-           dbsyncmode: str = 'async',
-           saveintertx: str = 'False',
-           savehistorytx: str = 'False',
-           gridport: int = 18891,
+def config(nettype: str = '',
+           fullhttpport: int = 0,
+           solhttpport: int = 0,
+           eventhttpport: int = 0,
+           fullrpcport: int = 0,
+           solrpcport: int = 0,
+           eventrpcport: int = 0,
+           enablememdb: str = '',
+           dbsyncmode: str = '',
+           saveintertx: str = '',
+           savehistorytx: str = '',
+           gridport: int = 0,
            dbname: str = 'Null',
            dbusername: str = 'Null',
            dbpassword: str = 'Null'
@@ -82,12 +82,12 @@ def config(nettype: str = 'private',
     loop.run_until_complete(config_handler.set_db_sync_mode(dbsyncmode))
     loop.run_until_complete(config_handler.enable_save_inter_tx(saveintertx))
     loop.run_until_complete(config_handler.enable_save_history_tx(savehistorytx))
-    loop.run_until_complete(config_handler.export())
     loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword, gridport))
-    loop.run_until_complete(node_list.update_config(nettype, fullhttpport, solhttpport,
-                                                             eventhttpport, fullrpcport, solrpcport, eventrpcport,
-                                                             enablememdb, dbsyncmode, saveintertx, savehistorytx, 
-                                                             gridport, dbname, dbusername, dbpassword))
+    loop.run_until_complete(config_handler.export())
+    # loop.run_until_complete(node_list.update_config(nettype, fullhttpport, solhttpport,
+    #                                                          eventhttpport, fullrpcport, solrpcport, eventrpcport,
+    #                                                          enablememdb, dbsyncmode, saveintertx, savehistorytx, 
+    #                                                          gridport, dbname, dbusername, dbpassword))
 
 
 @cbox.cmd

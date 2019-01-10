@@ -26,7 +26,11 @@
 
 #### details:
 
-[ ]
+[X] Redesign config logic check and restore previous config settings. Only overwrite by given options.
+
+#### Version 0.2.4
+
+[X] Trivial fix on get current node status async error.
 
 #### Version 0.2.3
 
