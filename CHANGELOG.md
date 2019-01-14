@@ -1,22 +1,57 @@
 # Changelog
 
-### In doing
+### Dev Pipeline
 
-[ ] run - filter nodes
+[ ] quick - add options to start common user cases
+
+[ ] restart - restart all running nodes
+
+[ ] clean up all std messages
+
+[ ] config - set default/customize committee proposal list
+
+[ ] log - show and filter nodes log
 
 [ ] dump - fetch a dump
 
-[ ] init - add option to build from source code
+[ ] db - manage db, check and trim db
 
-[ ] db - check and trim db
+[ ] manual - add more instruction for config
 
-[ ] add more instruction in command
+[ ] interact - add interactive mode
 
-[ ] db - mongodb create db and set user name, user role, db name, and psd
+[ ] quiet - add quiet mode
 
 [ ] run - multiple (full) nodes
 
 [blocked] config -- add option to config to sync with newly deployed shasta testnet
+
+#### Version 0.3.0
+
+##### highlight:
+
+* Redesign config logic and provide more features.
+
+* Add log subcommand to show log with filter.
+
+##### details:
+
+[X] Redesign config logic check and restore previous config settings. Only overwrite by given options.tron
+
+[X] add config -- reset: reset to default config
+
+[X] log - filter node logs
+
+[X] version - show current version and instruction to upgrade
+
+
+#### Version 0.2.4
+
+[X] Fix get current node status async error.
+
+#### Version 0.2.3
+
+[X] Catch more errors.
 
 #### Version 0.2.2
 

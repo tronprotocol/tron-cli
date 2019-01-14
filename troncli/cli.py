@@ -7,7 +7,7 @@
 import asyncio
 import cbox
 
-from troncli import utils, h_init, h_config, h_worker, h_status, __version__
+from troncli import utils, h_init, h_config, h_worker, h_status, h_log, __version__
 
 
 @cbox.cmd
@@ -30,21 +30,22 @@ def init(version: str = 'lastest',
 
 
 @cbox.cmd
-def config(nettype: str = 'private',
-           fullhttpport: int = 8500,
-           solhttpport: int = 8600,
-           eventhttpport: int = 8400,
-           fullrpcport: int = 58500,
-           solrpcport: int = 58600,
-           eventrpcport: int = 58400,
-           enablememdb: str = 'True',
-           dbsyncmode: str = 'async',
-           saveintertx: str = 'False',
-           savehistorytx: str = 'False',
-           gridport: int = 18891,
+def config(nettype: str = '',
+           fullhttpport: int = 0,
+           solhttpport: int = 0,
+           eventhttpport: int = 0,
+           fullrpcport: int = 0,
+           solrpcport: int = 0,
+           eventrpcport: int = 0,
+           enablememdb: str = '',
+           dbsyncmode: str = '',
+           saveintertx: str = '',
+           savehistorytx: str = '',
+           gridport: int = 0,
            dbname: str = 'Null',
            dbusername: str = 'Null',
-           dbpassword: str = 'Null'
+           dbpassword: str = 'Null',
+           reset: str = 'False'
            ):
     """Create customize config files.
 
@@ -70,7 +71,7 @@ def config(nettype: str = 'private',
     utils.progress_msg('Setting up config files')
 
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(config_handler.init())
+    loop.run_until_complete(config_handler.init(reset))
     loop.run_until_complete(config_handler.set_net_type(nettype))
     loop.run_until_complete(config_handler.set_http_port(fullhttpport, 'full', nettype))
     loop.run_until_complete(config_handler.set_http_port(solhttpport, 'sol', nettype))
@@ -82,12 +83,12 @@ def config(nettype: str = 'private',
     loop.run_until_complete(config_handler.set_db_sync_mode(dbsyncmode))
     loop.run_until_complete(config_handler.enable_save_inter_tx(saveintertx))
     loop.run_until_complete(config_handler.enable_save_history_tx(savehistorytx))
-    loop.run_until_complete(config_handler.export())
     loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword, gridport))
-    loop.run_until_complete(node_list.update_config(nettype, fullhttpport, solhttpport,
-                                                             eventhttpport, fullrpcport, solrpcport, eventrpcport,
-                                                             enablememdb, dbsyncmode, saveintertx, savehistorytx, 
-                                                             gridport, dbname, dbusername, dbpassword))
+    loop.run_until_complete(config_handler.export())
+    # loop.run_until_complete(node_list.update_config(nettype, fullhttpport, solhttpport,
+    #                                                          eventhttpport, fullrpcport, solrpcport, eventrpcport,
+    #                                                          enablememdb, dbsyncmode, saveintertx, savehistorytx, 
+    #                                                          gridport, dbname, dbusername, dbpassword))
 
 
 @cbox.cmd
@@ -134,20 +135,34 @@ def quick(reset: str = 'False'):
     """Quick start. (run a full private node by one command)
     """
     utils.logo_shadow()
-    init('lastest', reset)
+    init('latest', reset)
     config()
     run()
     status()
+
+
+@cbox.cmd
+def log(nodetype: str = 'full',
+        filter: str = ''):
+    """Show filtered log.
+    """
+    log = h_log.Log()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(log.show_log(nodetype, filter))
+    loop.close()
 
 @cbox.cmd
 def version():
     """Check installed troncli version.
     """
+    utils.progress_msg('Version:')
     utils.msg(str(__version__))
+    utils.info_msg('Upgrade to latest version:')
+    utils.msg('pip install troncli --upgrade')
 
 
 def main():
-    cbox.main([init, config, run, stop, status, quick, version])
+    cbox.main([init, config, run, stop, status, quick, log, version])
 
 
 if __name__ == '__main__':
