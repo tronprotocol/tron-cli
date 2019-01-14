@@ -148,10 +148,7 @@ def log(nodetype: str = 'full',
     """
     log = h_log.Log()
     loop = asyncio.get_event_loop()
-    if filter == '':
-        loop.run_until_complete(log.show_full_log(nodetype))
-    elif filter == 'height' or filter == 'number':
-        loop.run_until_complete(log.show_block_num(nodetype))
+    loop.run_until_complete(log.show_log(nodetype, filter))
     loop.close()
 
 @cbox.cmd
