@@ -1,7 +1,7 @@
 """Constants"""
 
 JAVA_TRON_RELEASES_URL = 'https://github.com/tronprotocol/java-tron/releases/download/'
-JAVA_TRON_LASTEST_VERSION = '3.2.2'
+JAVA_TRON_LASTEST_VERSION = '3.2.4'
 JAVA_TRON_EVENT_NODE_GIT_URL = 'https://github.com/tronprotocol/java-tron.git'
 JAVA_TRON_EVENT_NODE_BRANCH_NAME = 'event_parser'
 
