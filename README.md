@@ -1,12 +1,13 @@
 # TRON-CLI
+
+A command line tool, to quick set up, turn on/off (multiple) tron nodes(full/solidity), and monitor running status.
+
 ```
  _________  ____  _  __    _______   ____
 /_  __/ _ \/ __ \/ |/ /___/ ___/ /  /  _/
  / / / , _/ /_/ /    /___/ /__/ /___/ /  
 /_/ /_/|_|\____/_/|_/    \___/____/___/
 ```
-
-A command line tool, to quick set up, turn on/off (multiple) tron nodes(full/solidity), and monitor running status.
 
 | Python | JDK |
 |--------|-----|
@@ -158,6 +159,7 @@ tron-cli run --nodetype grid
 | tron-cli stop --node                                                                                                                                                                                                               | Stop node.                         | tron-cli stop    | tron-cli stop --node 7777                                                                                                                                                                                                                                                                                          |
 | tron-cli status --node                                                                                                                                                                                                             | Monitor nodes status.              | tron-cli status  | tron-cli status --node 777                                                                                                                                                                                                                                                                                         |
 | tron-cli quick --reset                                                                                                                                                                                                             | Quick start.                       | tron-cli quick   | tron-cli quick -- reset True                                                                                                                                                                                                                                                                                       |
+| tron-cli log --nodetype --filter                                                                                                                                                                                                   | Show filtered log.                 | tron-cli log     | tron-cli --nodetype sol --filter height                                                                                                                                                                                                                                                                            |
 | tron-cli version                                                                                                                                                                                                                   | Check installed troncli version.   | tron-cli version | tron-cli version                                                                                                                                                                                                                                                                                                   |
 | tron-cli -h, --help                                                                                                                                                                                                                | Check help manual.                 | tron-cli -h      | tron-cli --help                                                                                                                                                                                                                                                                                                    |
 
@@ -167,7 +169,7 @@ tron-cli run --nodetype grid
 tron-cli -h
 ```
 ```
-usage: tron-cli [-h] {init,config,run,stop,status,quick,version} ...
+usage: tron-cli [-h] {init,config,run,stop,status,quick,log,version} ...
 
 which subcommand do you want?
 
@@ -175,13 +177,14 @@ optional arguments:
   -h, --help            show this help message and exit
 
 subcommands:
-  {init,config,run,stop,status,quick,version}
+  {init,config,run,stop,status,quick,log,version}
     init                Init dirs and fetch code.
     config              Create customize config files.
     run                 Run node.
     stop                Stop node.
     status              Monitor nodes status.
     quick               Quick start. (run a full private node by one command)
+    log                 Show filtered log.
     version             Check installed troncli version.
 ```
 
@@ -284,6 +287,32 @@ usage: tron-cli status [-h] [--node NODE]
 optional arguments:
   -h, --help   show this help message and exit
   --node NODE  check specific node detail by pid
+```
+
+##### subcommand: log
+
+```
+tron-cli log -h
+```
+```
+usage: tron-cli log [-h] [--nodetype NODETYPE] [--filter FILTER]
+
+optional arguments:
+  -h, --help           show this help message and exit
+  --nodetype NODETYPE
+  --filter FILTER
+```
+
+##### subcommand: version
+
+```
+tron-cli version -h
+```
+```
+usage: tron-cli version [-h]
+
+optional arguments:
+  -h, --help  show this help message and exit
 ```
 
 #### FAQs on installation

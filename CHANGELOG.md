@@ -42,7 +42,7 @@
 
 [X] log - filter node logs
 
-[ ] version - show current and also check latest version
+[X] version - show current version and instruction to upgrade
 
 
 #### Version 0.2.4

@@ -155,7 +155,10 @@ def log(nodetype: str = 'full',
 def version():
     """Check installed troncli version.
     """
+    utils.progress_msg('Version:')
     utils.msg(str(__version__))
+    utils.info_msg('Upgrade to latest version:')
+    utils.msg('pip install troncli --upgrade')
 
 
 def main():
