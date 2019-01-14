@@ -138,7 +138,21 @@ class Node(object):
         else:
             self.node_list = {'live': {'full': [], 'sol': [], 'event': [], 'grid': [], 'all': [], 'version': ''},
                               'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''},
-                              'config': {}}
+                              'config': {'nettype': 'private',
+                                         'fullhttpport': 8500,
+                                         'solhttpport': 8600, 
+                                         'eventhttpport': 8400, 
+                                         'fullrpcport': 58500, 
+                                         'solrpcport': 58600, 
+                                         'eventrpcport': 58400, 
+                                         'enablememdb': 'True', 
+                                         'dbsyncmode': 'async', 
+                                         'saveintertx': 'False', 
+                                         'savehistorytx': 'False', 
+                                         'gridport': 18891, 
+                                         'dbname': 'Null', 
+                                         'dbusername': 'Null', 
+                                         'dbpassword': 'Null'}}
 
     def get(self):
         return self.node_list
@@ -146,6 +160,24 @@ class Node(object):
     def save(self):
         with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
              file.write(json.dumps(self.node_list))
+
+    def reset_config(self):
+        self.node_list['config'] = {'nettype': 'private',
+                                     'fullhttpport': 8500,
+                                     'solhttpport': 8600, 
+                                     'eventhttpport': 8400, 
+                                     'fullrpcport': 58500, 
+                                     'solrpcport': 58600, 
+                                     'eventrpcport': 58400, 
+                                     'enablememdb': 'True', 
+                                     'dbsyncmode': 'async', 
+                                     'saveintertx': 'False', 
+                                     'savehistorytx': 'False', 
+                                     'gridport': 18891, 
+                                     'dbname': 'Null', 
+                                     'dbusername': 'Null', 
+                                     'dbpassword': 'Null'}
+        self.save()
 
     async def update_node_version(self, version):
         self.node_list['live']['version'] = version
