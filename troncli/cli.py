@@ -7,7 +7,7 @@
 import asyncio
 import cbox
 
-from troncli import utils, h_init, h_config, h_worker, h_status, __version__
+from troncli import utils, h_init, h_config, h_worker, h_status, h_log, __version__
 
 
 @cbox.cmd
@@ -135,10 +135,24 @@ def quick(reset: str = 'False'):
     """Quick start. (run a full private node by one command)
     """
     utils.logo_shadow()
-    init('lastest', reset)
+    init('latest', reset)
     config()
     run()
     status()
+
+
+@cbox.cmd
+def log(nodetype: str = 'full',
+        filter: str = ''):
+    """Show filtered log.
+    """
+    log = h_log.Log()
+    loop = asyncio.get_event_loop()
+    if filter == '':
+        loop.run_until_complete(log.show_full_log(nodetype))
+    elif filter == 'height' or filter == 'number':
+        loop.run_until_complete(log.show_block_num(nodetype))
+    loop.close()
 
 @cbox.cmd
 def version():
@@ -148,7 +162,7 @@ def version():
 
 
 def main():
-    cbox.main([init, config, run, stop, status, quick, version])
+    cbox.main([init, config, run, stop, status, quick, log, version])
 
 
 if __name__ == '__main__':

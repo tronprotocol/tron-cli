@@ -24,11 +24,11 @@ class Init(object):
             jdk_version = re.search('\"(\d+\.\d+).*\"', str(jdk_version)).groups()[0]
         except OSError as err:
             utils.warning_msg('OS Warning -' + str(err))
-            utils.error_msg('Please make sure you install JDK 1.8 correctly.')
+            utils.error_msg('Please make sure you install Oracle JDK 1.8 correctly.')
             os.sys.exit()
         else:
             if jdk_version != '1.8':
-                utils.error_msg('java-tron required JDK version = 1.8, please install and use JDK 1.8')
+                utils.error_msg('java-tron required Oracle JDK version = 1.8, please install and use JDK 1.8')
                 os.sys.exit()
 
     async def create_dirs(self, reset):

@@ -32,7 +32,7 @@
 
 * Redesign config logic and provide more features.
 
-* Set up mongodb with a default setting.
+* Add log subcommand to show log with filter.
 
 ##### details:
 
@@ -40,7 +40,7 @@
 
 [X] add config -- reset: reset to default config
 
-[ ] db - mongodb create db and set user name, user role, db name, and psd
+[X] log - filter node logs
 
 [ ] version - show current and also check latest version
 
