@@ -284,7 +284,10 @@ raw_config = {
   },
 
   " committee": {
-    " allowCreationOfContracts": 0
+    " allowCreationOfContracts": 1,
+    " allowDelegateResource": 1,
+    " allowSameTokenName": 1,
+    " allowTvmTransferTrc10": 1
   },
 
   " log.level": {

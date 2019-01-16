@@ -3,7 +3,7 @@ import re
 import shutil
 import subprocess
 
-from troncli import utils
+from troncli import utils, h_worker
 from troncli.constants import *
 
 
@@ -36,8 +36,14 @@ class Init(object):
         """
         reset folders
         """
-        if reset == 'True' or reset == 'yes' or reset == '1' or reset == 'on':
+        if reset != 'False':
             try:
+                # stop running nodes
+                worker = h_worker.Worker()
+                await worker.stop('all')
+                # reset config
+                self.node_list.reset_config()
+                # delete folders
                 shutil.rmtree(path + NODES_DIR)
             except OSError as err:
                 utils.warning_msg('OS Warning -' + str(err))
