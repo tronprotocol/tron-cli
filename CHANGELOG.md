@@ -1,30 +1,12 @@
 # Changelog
 
-### Dev Pipeline
+#### Version 0.3.1
 
-[ ] quick - add options to start common user cases
+[X] config - set a default committee proposal list - enable CreationOfContracts, DelegateResource, SameTokenName, TvmTransferTrc10 for private testnet
 
-[ ] restart - restart all running nodes
+[X] check/test/update troncli with java-tron version 3.2.4
 
-[ ] clean up all std messages
-
-[ ] config - set default/customize committee proposal list
-
-[ ] log - show and filter nodes log
-
-[ ] dump - fetch a dump
-
-[ ] db - manage db, check and trim db
-
-[ ] manual - add more instruction for config
-
-[ ] interact - add interactive mode
-
-[ ] quiet - add quiet mode
-
-[ ] run - multiple (full) nodes
-
-[blocked] config -- add option to config to sync with newly deployed shasta testnet
+[X] reset running node and config -- on init and quick reset
 
 #### Version 0.3.0
 
@@ -198,3 +180,29 @@ Pre-release of support event-node and tron-grid set up/config/run/stop/monitor.
 [X] pack to pip
 
 [X] Doc - add more instruction in readme file
+
+### Future Features
+
+[ ] quick - add options to start common user cases
+
+[ ] restart - restart all running nodes
+
+[ ] clean up all std messages
+
+[ ] config - set default/customize committee proposal list
+
+[ ] log - show and filter nodes log
+
+[ ] dump - fetch a dump
+
+[ ] db - manage db, check and trim db
+
+[ ] manual - add more instruction for config
+
+[ ] interact - add interactive mode
+
+[ ] quiet - add quiet mode
+
+[ ] run - multiple (full) nodes
+
+[blocked] config -- add option to config to sync with newly deployed shasta testnet
