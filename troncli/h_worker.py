@@ -33,7 +33,7 @@ class Worker:
             if all_nodes != []:
                 utils.progress_msg('Shutting down node(s)')
             else:
-                utils.warning_msg('no running nodes')
+                utils.warning_msg('Checked: no running nodes')
             while all_nodes != []:
                 _node = all_nodes.pop(-1)
                 await self.stop_node(str(_node))
