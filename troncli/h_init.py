@@ -76,8 +76,8 @@ class Init(object):
         """
         try:
             await utils.git_clone(JAVA_TRON_EVENT_NODE_GIT_URL,
-                        JAVA_TRON_EVENT_NODE_BRANCH_NAME,
-                        self.root_path + NODES_DIR + EVENT_NODE_DIR)
+                                  JAVA_TRON_EVENT_NODE_BRANCH_NAME,
+                                  self.root_path + NODES_DIR + EVENT_NODE_DIR)
         except OSError as err:
             utils.warning_msg('OS Warning -' + str(err))
         else:
@@ -87,8 +87,8 @@ class Init(object):
         """
         try:
             await utils.git_clone(TRON_GRID_GIT_URL,
-                        TRON_GRID_BRANCH_NAME,
-                        self.root_path + NODES_DIR + GRID_API_DIR)
+                                  TRON_GRID_BRANCH_NAME,
+                                  self.root_path + NODES_DIR + GRID_API_DIR)
         except OSError as err:
             utils.warning_msg('OS Warning -' + str(err))
         else:

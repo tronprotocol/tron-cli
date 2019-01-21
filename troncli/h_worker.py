@@ -1,6 +1,5 @@
 import os
 import subprocess
-import json
 import copy
 
 from troncli import utils
@@ -30,11 +29,11 @@ class Worker:
         if node == 'all':
             _c = copy.deepcopy(self.node_list.get())
             all_nodes = _c['live']['all']
-            if all_nodes != []:
+            if all_nodes:
                 utils.progress_msg('Shutting down node(s)')
             else:
                 utils.warning_msg('Checked: no running nodes')
-            while all_nodes != []:
+            while all_nodes:
                 _node = all_nodes.pop(-1)
                 await self.stop_node(str(_node))
         else:

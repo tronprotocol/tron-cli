@@ -116,11 +116,11 @@ def recommandation():
 
 def log_location(root_path, node_type):
     if node_type == 'full':
-        return (root_path + NODES_DIR + FULL_NODE_DIR + '/logs/tron.log')
+        return root_path + NODES_DIR + FULL_NODE_DIR + '/logs/tron.log'
     elif node_type == 'sol':
-        return (root_path + NODES_DIR + SOLIDITY_NODE_DIR + '/logs/tron.log')
+        return root_path + NODES_DIR + SOLIDITY_NODE_DIR + '/logs/tron.log'
     else:
-        return ('not recording logs')
+        return 'not recording logs'
 
 
 """
@@ -140,18 +140,18 @@ class Node(object):
                               'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''},
                               'config': {'nettype': 'private',
                                          'fullhttpport': 8500,
-                                         'solhttpport': 8600, 
-                                         'eventhttpport': 8400, 
-                                         'fullrpcport': 58500, 
-                                         'solrpcport': 58600, 
-                                         'eventrpcport': 58400, 
-                                         'enablememdb': 'True', 
-                                         'dbsyncmode': 'async', 
-                                         'saveintertx': 'False', 
-                                         'savehistorytx': 'False', 
-                                         'gridport': 18891, 
-                                         'dbname': 'Null', 
-                                         'dbusername': 'Null', 
+                                         'solhttpport': 8600,
+                                         'eventhttpport': 8400,
+                                         'fullrpcport': 58500,
+                                         'solrpcport': 58600,
+                                         'eventrpcport': 58400,
+                                         'enablememdb': 'True',
+                                         'dbsyncmode': 'async',
+                                         'saveintertx': 'False',
+                                         'savehistorytx': 'False',
+                                         'gridport': 18891,
+                                         'dbname': 'Null',
+                                         'dbusername': 'Null',
                                          'dbpassword': 'Null'}}
 
     def get(self):
@@ -159,24 +159,24 @@ class Node(object):
 
     def save(self):
         with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
-             file.write(json.dumps(self.node_list))
+            file.write(json.dumps(self.node_list))
 
     def reset_config(self):
         self.node_list['config'] = {'nettype': 'private',
-                                     'fullhttpport': 8500,
-                                     'solhttpport': 8600, 
-                                     'eventhttpport': 8400, 
-                                     'fullrpcport': 58500, 
-                                     'solrpcport': 58600, 
-                                     'eventrpcport': 58400, 
-                                     'enablememdb': 'True', 
-                                     'dbsyncmode': 'async', 
-                                     'saveintertx': 'False', 
-                                     'savehistorytx': 'False', 
-                                     'gridport': 18891, 
-                                     'dbname': 'Null', 
-                                     'dbusername': 'Null', 
-                                     'dbpassword': 'Null'}
+                                    'fullhttpport': 8500,
+                                    'solhttpport': 8600,
+                                    'eventhttpport': 8400,
+                                    'fullrpcport': 58500,
+                                    'solrpcport': 58600,
+                                    'eventrpcport': 58400,
+                                    'enablememdb': 'True',
+                                    'dbsyncmode': 'async',
+                                    'saveintertx': 'False',
+                                    'savehistorytx': 'False',
+                                    'gridport': 18891,
+                                    'dbname': 'Null',
+                                    'dbusername': 'Null',
+                                    'dbpassword': 'Null'}
         self.save()
 
     async def update_node_version(self, version):
@@ -291,6 +291,7 @@ async def git_clone(host, branch, tar_path):
     except OSError as err:
         error_msg('OS Error -' + str(err))
         os.sys.exit()
+
 
 async def gradlew_build(task):
     cmd = './gradlew build -x test'
