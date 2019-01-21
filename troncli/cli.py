@@ -151,6 +151,7 @@ def log(nodetype: str = 'full',
     loop.run_until_complete(log.show_log(nodetype, filter))
     loop.close()
 
+
 @cbox.cmd
 def version():
     """Check installed troncli version.
