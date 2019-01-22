@@ -23,7 +23,7 @@ class Config:
         """
         Load raw json config
         """
-        if reset == 'True' or reset == 'true' or reset == '1' or reset == 'Yes' or reset == 'yes' or reset == 'Y' or reset == 'y':
+        if reset in ['True', 'true', '1', 'Yes', 'yes', 'Y', 'y']:
             self.node_list.reset_config()
         self.full_config = copy.deepcopy(json_store.raw_config)
         self.sol_config = copy.deepcopy(json_store.raw_config)
@@ -55,13 +55,21 @@ class Config:
         await self.update_config_store()
 
     async def update_config_store(self):
-        await self.node_list.update_config(self.config_store['nettype'], self.config_store['fullhttpport'], self.config_store['solhttpport'],
-                                     self.config_store['eventhttpport'], self.config_store['fullrpcport'], 
-                                     self.config_store['solrpcport'], self.config_store['eventrpcport'],
-                                     self.config_store['enablememdb'], self.config_store['dbsyncmode'], 
-                                     self.config_store['saveintertx'], self.config_store['savehistorytx'], 
-                                     self.config_store['gridport'], self.config_store['dbname'], 
-                                     self.config_store['dbusername'], self.config_store['dbpassword'])
+        await self.node_list.update_config(self.config_store['nettype'],
+                                           self.config_store['fullhttpport'],
+                                           self.config_store['solhttpport'],
+                                           self.config_store['eventhttpport'],
+                                           self.config_store['fullrpcport'],
+                                           self.config_store['solrpcport'],
+                                           self.config_store['eventrpcport'],
+                                           self.config_store['enablememdb'],
+                                           self.config_store['dbsyncmode'],
+                                           self.config_store['saveintertx'],
+                                           self.config_store['savehistorytx'],
+                                           self.config_store['gridport'],
+                                           self.config_store['dbname'],
+                                           self.config_store['dbusername'],
+                                           self.config_store['dbpassword'])
 
     async def set_http_port(self, port_num, node_type, net_type):
         if node_type == 'full':
@@ -256,11 +264,12 @@ class Config:
         else:
             self.config_store['gridport'] = gridport
         await self.update_config_store()
-        
+
         if dbname == 'Null' and dbusername == 'Null' and dbpassword == 'Null':
             self.enable_event_services = False
             utils.warning_msg('Not configing event services since db settings not specified.')
-            utils.info_msg('config event services by specify --dbname <name> --dbusername <user> --dbpassword <password>')
+            utils.info_msg(
+                'config event services by specify --dbname <name> --dbusername <user> --dbpassword <password>')
         elif dbname == 'Null':
             utils.error_msg('Please set db name with --dbname')
             exit()
@@ -380,4 +389,3 @@ class Config:
             self.event_config[' vm'][' saveInternalTx'] = 'false'
             utils.success_msg('save internal transaction: ')
             utils.msg('disabled')
-
