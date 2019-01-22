@@ -11,7 +11,7 @@ from troncli import utils, h_init, h_config, h_worker, h_status, h_log, __versio
 
 
 @cbox.cmd
-def init(version: str = 'lastest',
+def init(version: str = 'latest',
          reset: str = 'False'):
     """Init dirs and fetch code.
 
@@ -25,8 +25,10 @@ def init(version: str = 'lastest',
     loop.run_until_complete(init_handler.env_check())
     loop.run_until_complete(init_handler.create_dirs(reset))
     loop.run_until_complete(init_handler.fetch_jars(version))
-    loop.run_until_complete(init_handler.move_jars())
     loop.run_until_complete(init_handler.fetch_code())
+    loop.run_until_complete(init_handler.build_eventnode_jar())
+    loop.run_until_complete(init_handler.build_gridapi_jar())
+    loop.run_until_complete(init_handler.move_jars())
 
 
 @cbox.cmd
@@ -64,6 +66,7 @@ def config(nettype: str = '',
     :param dbname: specify db name
     :param dbusername: specify db user name
     :param dbpassword: specify db password name
+    :param reset: reset config to default settings
     """
 
     config_handler = h_config.Config()

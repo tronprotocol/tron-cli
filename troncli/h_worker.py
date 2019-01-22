@@ -88,9 +88,9 @@ class Worker:
         elif node_type == 'grid':
             os.chdir(self.root_path + NODES_DIR + GRID_API_DIR)
 
-            subprocess.call(['mvn', 'package'])
+            # subprocess.call(['mvn', 'package'])
 
-            cmd = "java -jar target/trongrid-1.0.1-SNAPSHOT.jar"
+            cmd = "java -jar " + GRID_NODE_JAR
             # _process = subprocess.Popen(cmd)
             _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 

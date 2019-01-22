@@ -1,5 +1,11 @@
 # Changelog
 
+#### Version 0.3.2
+
+[ ] build event node and tron-grid in init
+
+[ ] get event node and tron-grid config in run command
+
 #### Version 0.3.1
 
 [X] config - set a default committee proposal list - enable CreationOfContracts, DelegateResource, SameTokenName, TvmTransferTrc10 for private testnet

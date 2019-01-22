@@ -111,7 +111,7 @@ class Init(object):
             await self.node_list.update_node_version(version)
         else:
             utils.error_msg('version: ' + version + ' not supported')
-            utils.info_msg('current support versions: 3.1.3, 3.2, 3.2.1')
+            utils.info_msg('current support versions: 3.1.3 - ' + JAVA_TRON_LASTEST_VERSION)
             exit()
         """
         download
@@ -124,9 +124,38 @@ class Init(object):
         await utils.download(self.source_sol_jar, url)
         utils.success_msg('.jar file of Soliditynode is successfully downloaded')
 
+    async def build_eventnode_jar(self):
+        utils.progress_msg('Build event node jar')
+        os.chdir(self.root_path + NODES_DIR + EVENT_NODE_DIR)
+        await utils.gradlew_build('event node')
+        os.chdir(self.root_path)
+
+    async def build_gridapi_jar(self):
+        utils.progress_msg('Build grid api jar')
+        os.chdir(self.root_path + NODES_DIR + GRID_API_DIR)
+        subprocess.call(['mvn', 'package'])
+        os.chdir(self.root_path)
+
     async def move_jars(self):
+        # move full jar
         shutil.move(self.root_path + '/' + self.source_full_jar,
                     self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR)
+        utils.success_msg('full node jar move to:')
+        utils.msg(self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR)
+        # move sol jar
         shutil.move(self.root_path + '/' + self.source_sol_jar,
                     self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOLIDITY_NODE_JAR)
+        utils.success_msg('solidity node jar move to:')
+        utils.msg(self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOLIDITY_NODE_JAR)
+        # move event node jar
+        shutil.move(self.root_path + NODES_DIR + EVENT_NODE_DIR + '/build/libs/FullNode.jar',
+                    self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR)
+        utils.success_msg('event node jar move to:')
+        utils.msg(self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR)
+        # move grid api jar
+        utils.success_msg('grid api jar move to:')
+        shutil.move(self.root_path + NODES_DIR + GRID_API_DIR + '/target/trongrid-1.0.1-SNAPSHOT.jar',
+                    self.root_path + NODES_DIR + GRID_API_DIR + GRID_NODE_JAR)
+        utils.msg(self.root_path + NODES_DIR + GRID_API_DIR + GRID_NODE_JAR)
+        # finished
         utils.success_msg('initialization finished')

@@ -18,6 +18,7 @@ GRID_API_DIR = '/gridapi'
 FULL_NODE_JAR = '/full.jar'
 SOLIDITY_NODE_JAR = '/solidity.jar'
 EVENT_NODE_JAR = '/event.jar'
+GRID_NODE_JAR = '/grid.jar'
 
 FULL_CONFIG = '/full.conf'
 SOL_CONFIG = '/sol.conf'
