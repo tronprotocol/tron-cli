@@ -23,7 +23,7 @@ class Config:
         """
         Load raw json config
         """
-        if reset in ['True', 'true', '1', 'Yes', 'yes', 'Y', 'y']:
+        if reset != 'False':
             self.node_list.reset_config()
         self.full_config = copy.deepcopy(json_store.raw_config)
         self.sol_config = copy.deepcopy(json_store.raw_config)
@@ -263,6 +263,8 @@ class Config:
             gridport = self.config_store['gridport']
         else:
             self.config_store['gridport'] = gridport
+            utils.success_msg('grid api http request set to listen: ')
+            utils.msg(LOCAL_HOST + str(gridport))
         await self.update_config_store()
 
         if dbname == 'Null' and dbusername == 'Null' and dbpassword == 'Null':
@@ -283,50 +285,50 @@ class Config:
             self.enable_event_services = True
             await self.node_list.update_db_settings(dbname, dbusername, dbpassword)
             utils.success_msg('db settings stored')
-            await self.change_eventnode_db_settings()
-            await self.change_gridapi_db_settings(gridport)
-            await self.build_eventnode_jar()
+    #         await self.change_eventnode_db_settings()
+    #         await self.change_gridapi_db_settings(gridport)
+    #         await self.build_eventnode_jar()
 
-    async def change_eventnode_db_settings(self):
-        _db = self.node_list.get()
-        # utils.debug(str(_db['db']))
-        self.eventnode_db_properties[' mongo.dbname'] = _db['db']['dbname']
-        self.eventnode_db_properties[' mongo.username'] = _db['db']['dbusername']
-        self.eventnode_db_properties[' mongo.password'] = _db['db']['dbpassword']
-        """
-        export
-        """
-        _target_file_path_sol = self.root_path + NODES_DIR + EVENT_NODE_DIR + '/src/main/resources/mongodb.properties'
-        self.phrase.store_json2javabeanconfig_to_file(self.eventnode_db_properties, _target_file_path_sol)
-        utils.success_msg('changed db settings for event node at: ')
-        utils.msg(_target_file_path_sol)
+    # async def change_eventnode_db_settings(self):
+    #     _db = self.node_list.get()
+    #     # utils.debug(str(_db['db']))
+    #     self.eventnode_db_properties[' mongo.dbname'] = _db['db']['dbname']
+    #     self.eventnode_db_properties[' mongo.username'] = _db['db']['dbusername']
+    #     self.eventnode_db_properties[' mongo.password'] = _db['db']['dbpassword']
+    #     """
+    #     export
+    #     """
+    #     _target_file_path_sol = self.root_path + NODES_DIR + EVENT_NODE_DIR + '/src/main/resources/mongodb.properties'
+    #     self.phrase.store_json2javabeanconfig_to_file(self.eventnode_db_properties, _target_file_path_sol)
+    #     utils.success_msg('changed db settings for event node at: ')
+    #     utils.msg(_target_file_path_sol)
 
-    async def change_gridapi_db_settings(self, gridport):
-        _db = self.node_list.get()
-        # utils.debug(str(_db['db']))
-        self.gridapi_db_properties[' spring.data.mongodb.database'] = _db['db']['dbname']
-        self.gridapi_db_properties[' spring.data.mongodb.username'] = _db['db']['dbusername']
-        self.gridapi_db_properties[' spring.data.mongodb.password'] = _db['db']['dbpassword']
-        self.gridapi_db_properties[' server.port'] = gridport
-        utils.success_msg('grid api request set to listen: ')
-        utils.msg(LOCAL_HOST + str(gridport))
-        """
-        export
-        """
-        _target_file_path_sol = self.root_path + NODES_DIR + GRID_API_DIR + '/src/main/resources/application.properties'
-        self.phrase.store_json2javabeanconfig_to_file(self.gridapi_db_properties, _target_file_path_sol)
-        utils.success_msg('changed db settings for grid api at: ')
-        utils.msg(_target_file_path_sol)
+    # async def change_gridapi_db_settings(self, gridport):
+    #     _db = self.node_list.get()
+    #     # utils.debug(str(_db['db']))
+    #     self.gridapi_db_properties[' spring.data.mongodb.database'] = _db['db']['dbname']
+    #     self.gridapi_db_properties[' spring.data.mongodb.username'] = _db['db']['dbusername']
+    #     self.gridapi_db_properties[' spring.data.mongodb.password'] = _db['db']['dbpassword']
+    #     self.gridapi_db_properties[' server.port'] = gridport
+    #     utils.success_msg('grid api request set to listen: ')
+    #     utils.msg(LOCAL_HOST + str(gridport))
+    #     """
+    #     export
+    #     """
+    #     _target_file_path_sol = self.root_path + NODES_DIR + GRID_API_DIR + '/src/main/resources/application.properties'
+    #     self.phrase.store_json2javabeanconfig_to_file(self.gridapi_db_properties, _target_file_path_sol)
+    #     utils.success_msg('changed db settings for grid api at: ')
+    #     utils.msg(_target_file_path_sol)
 
-    async def build_eventnode_jar(self):
-        utils.progress_msg('Build event node jar')
-        os.chdir(self.root_path + NODES_DIR + EVENT_NODE_DIR)
-        await utils.gradlew_build('event node')
-        os.chdir(self.root_path)
-        shutil.move(self.root_path + NODES_DIR + EVENT_NODE_DIR + '/build/libs/FullNode.jar',
-                    self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR)
-        utils.success_msg('event node jar move to:')
-        utils.msg(self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR)
+    # async def build_eventnode_jar(self):
+    #     utils.progress_msg('Build event node jar')
+    #     os.chdir(self.root_path + NODES_DIR + EVENT_NODE_DIR)
+    #     await utils.gradlew_build('event node')
+    #     os.chdir(self.root_path)
+    #     shutil.move(self.root_path + NODES_DIR + EVENT_NODE_DIR + '/build/libs/FullNode.jar',
+    #                 self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR)
+    #     utils.success_msg('event node jar move to:')
+    #     utils.msg(self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR)
 
     async def set_db_sync_mode(self, dbsyncmode):
         # check void and restore
