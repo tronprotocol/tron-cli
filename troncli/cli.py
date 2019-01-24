@@ -26,8 +26,8 @@ def init(version: str = 'latest',
     loop.run_until_complete(init_handler.create_dirs(reset))
     loop.run_until_complete(init_handler.fetch_jars(version))
     loop.run_until_complete(init_handler.fetch_code())
-    loop.run_until_complete(init_handler.build_eventnode_jar())
-    loop.run_until_complete(init_handler.build_gridapi_jar())
+    # loop.run_until_complete(init_handler.build_eventnode_jar())
+    # loop.run_until_complete(init_handler.build_gridapi_jar())
     loop.run_until_complete(init_handler.move_jars())
 
 
