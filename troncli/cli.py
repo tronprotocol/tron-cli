@@ -7,7 +7,7 @@
 import asyncio
 import cbox
 
-from troncli import utils, h_init, h_config, h_worker, h_status, h_log, __version__
+from troncli import utils, h_init, h_config, h_worker, h_status, h_log, __version__, h_imode
 
 
 @cbox.cmd
@@ -165,8 +165,26 @@ def version():
     utils.msg('pip install troncli --upgrade')
 
 
+@cbox.cmd
+def i():
+    """Interactive Mode.
+    """
+    imode_handler = h_imode.IMode()
+    # 
+    # start
+    utils.progress_msg('Switched to [Interactive Mode]')
+
+    _stream = imode_handler.stream()
+    print(_stream)
+    
+    #
+    # end
+    utils.progress_msg('Left [Interactive Mode]')    
+
+
+
 def main():
-    cbox.main([init, config, run, stop, status, quick, log, version])
+    cbox.main([init, config, run, stop, status, quick, log, version, i])
 
 
 if __name__ == '__main__':
