@@ -6,7 +6,7 @@ JAVA_TRON_EVENT_NODE_GIT_URL = 'https://github.com/tronprotocol/java-tron.git'
 JAVA_TRON_EVENT_NODE_BRANCH_NAME = 'event_parser'
 
 TRON_GRID_GIT_URL = 'https://github.com/tronprotocol/tron-grid.git'
-TRON_GRID_BRANCH_NAME = 'master'
+TRON_GRID_BRANCH_NAME = 'dev'
 
 NODES_DIR = '/tron_nodes'
 

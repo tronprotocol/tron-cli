@@ -19,9 +19,12 @@ class Worker:
         utils.success_msg('node running at pid:')
         _config = self.node_list.get()['config']
         utils.msg(str(pid))
-        utils.status_msg('HTTP', LOCAL_HOST + str(_config[node_type + 'httpport']))
-        utils.status_msg('RPC', LOCAL_HOST + str(_config[node_type + 'rpcport']))
-        utils.status_msg('LOG PATH', utils.log_location(self.root_path, node_type))
+        if node_type in ['full', 'sol', 'event']:
+            utils.status_msg('HTTP', LOCAL_HOST + str(_config[node_type + 'httpport']))
+            utils.status_msg('RPC', LOCAL_HOST + str(_config[node_type + 'rpcport']))
+            utils.status_msg('LOG PATH', utils.log_location(self.root_path, node_type))
+        elif node_type == 'grid':
+            utils.status_msg('HTTP', LOCAL_HOST + str(_config['gridport']))
         utils.node_cmds(pid)
         await self.node_list.update_running_node(node_type, pid, 'add')
 
@@ -87,10 +90,11 @@ class Worker:
             os.chdir(self.root_path)
         elif node_type == 'grid':
             os.chdir(self.root_path + NODES_DIR + GRID_API_DIR)
+            _config = self.node_list.get()
 
             # subprocess.call(['mvn', 'package'])
 
-            cmd = "java -jar " + GRID_NODE_JAR
+            cmd = "java -jar ." + GRID_NODE_JAR
             # _process = subprocess.Popen(cmd)
             _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 

@@ -98,7 +98,7 @@ class Status(object):
             if running_nodes['live']['event'] != []:
                 utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['eventhttpport']))
                 utils.msg('rpc connection: ' + LOCAL_HOST + str(running_nodes['config']['eventrpcport']))
-            utils.status_msg('Grid-ap IDs', running_nodes['live']['grid'])
+            utils.status_msg('Grid-api IDs', running_nodes['live']['grid'])
             if running_nodes['live']['grid'] != []:
                 utils.msg('http connection: ' + LOCAL_HOST + str(running_nodes['config']['gridport']))
         else:
