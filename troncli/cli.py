@@ -173,8 +173,11 @@ def i():
     imode_handler = h_imode.IMode()
     choose_your_poison = { 'version': 'latest',
                            'reset':  'False',
-                           'nettype': 'private'
-
+                           'nettype': 'private',
+                           'dbname': 'Null',
+                           'dbusername': 'Null',
+                           'dbpassword': 'Null',
+                           'task_queue': []
                          }
     # 
     # start
@@ -185,26 +188,30 @@ def i():
     """
         init
     """
-    # choose java-tron version
-    utils.imode_msg('Use latest supported version[' + JAVA_TRON_LASTEST_VERSION + '] of java-tron? [Y(default)/n]')
+    utils.imode_msg('If you already initilized and fetched code, you can skip this(init) step by enter [skip], otherwise press any key to continue.')
     _stream = imode_handler.stream()
-    if _stream not in ['Y', 'y', 'yes', 'Yes', 'YES', '']:
-        utils.imode_msg('ok, so which version you want to use?[3.1.3 - ' + JAVA_TRON_LASTEST_VERSION + ']')
+    if _stream not in ['skip', 'SKIP']:
+        # choose java-tron version
+        utils.imode_msg('Use latest supported version[' + JAVA_TRON_LASTEST_VERSION + '] of java-tron? [Y(default)/n]')
         _stream = imode_handler.stream()
-        choose_your_poison['version'] = _stream
+        if _stream not in ['Y', 'y', 'yes', 'Yes', 'YES', '']:
+            utils.imode_msg('ok, so which version you want to use?[3.1.3 - ' + JAVA_TRON_LASTEST_VERSION + ']')
+            _stream = imode_handler.stream()
+            choose_your_poison['version'] = _stream
+        else:
+            utils.msg('Y')
+        # choose reset
+        utils.imode_msg('Reset everything? [y/N(default)]')
+        _stream = imode_handler.stream()
+        if _stream not in ['N', 'n', 'no', 'No', 'NO', '']:
+            choose_your_poison['reset'] = 'True'
+        else:
+            utils.msg('N')
+        #
+        # call init
+        init(choose_your_poison['version'], choose_your_poison['reset'])
     else:
-        utils.msg('Y')
-    # choose reset
-    utils.imode_msg('Reset everything? [y/N(default)]')
-    _stream = imode_handler.stream()
-    if _stream not in ['N', 'n', 'no', 'No', 'NO', '']:
-        choose_your_poison['reset'] = 'True'
-    else:
-        utils.msg('N')
-    #
-    # call init
-    init(choose_your_poison['version'], choose_your_poison['reset'])
-
+        utils.imode_msg('Init Skiped!')
     """
         config
     """
@@ -215,10 +222,46 @@ def i():
         choose_your_poison['nettype'] = _stream
     else:
         utils.msg('private')
+    # set task_queue
+    utils.imode_msg('If you already went through configuration, you can skip this(init) step by enter [skip], otherwise press any key to continue.')
+    _stream = imode_handler.stream()
+    if _stream not in ['skip', 'SKIP']:
+        utils.imode_msg('Do you want set up event services (event-node + tron-gird)? [y/n(default)]')
+        _stream = imode_handler.stream()
+        if _stream not in ['N', 'n', 'no', 'No', 'NO', '']:
+            # set db
+            utils.imode_msg('!!! NOTICE: Assume you already installed MongoDB and created user with a role.')
+            utils.imode_msg('Enter your db name:')
+            _stream = imode_handler.stream()
+            choose_your_poison['dbname'] = _stream
+            utils.imode_msg('Enter your db user-name:')
+            _stream = imode_handler.stream()
+            choose_your_poison['dbusername'] = _stream
+            utils.imode_msg('Enter your db user-password:')
+            _stream = imode_handler.stream()
+            choose_your_poison['dbpassword'] = _stream
+            # add to task
+            choose_your_poison['task_queue'].extend(['event', 'grid'])
+            if choose_your_poison['nettype'] == 'private':
+                choose_your_poison['task_queue'].extend(['full'])
+        else:
+            utils.msg('N')
+            choose_your_poison['task_queue'].extend(['full'])
+
+        config(choose_your_poison['nettype'], 0, 0, 0, 0, 0, 0, '', '', '', '', 0, 
+                                  choose_your_poison['dbname'], 
+                                  choose_your_poison['dbusername'], 
+                                  choose_your_poison['dbpassword'],
+                                  choose_your_poison['reset'])
+    else:
+        utils.imode_msg('Config Skiped!')
+    """
+        run
+    """
     print(choose_your_poison)
     #
     # end
-    utils.progress_msg('Left <Interactive Mode>')    
+    utils.progress_msg('Left <Interactive Mode>')
 
 
 

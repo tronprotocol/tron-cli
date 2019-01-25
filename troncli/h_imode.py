@@ -12,5 +12,6 @@ class IMode:
             # utils.debug(_stream)
         except (KeyboardInterrupt):
             utils.progress_msg('Left <Interactive Mode>')
+            exit()
         else:
             return _stream
