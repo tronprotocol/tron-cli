@@ -6,7 +6,7 @@ import sys
 import psutil
 import subprocess
 import re
-from colorama import Fore, Style
+from colorama import Fore, Style, Back
 from tqdm import tqdm
 
 import urllib3
@@ -39,6 +39,10 @@ def logo_shadow():
 
 def progress_msg(content):
     print(Fore.CYAN + '[ TRON-CLI ]: ' + content + '...' + Fore.RESET)
+
+
+def imode_msg(content):
+    print(Back.BLUE + Fore.WHITE + Style.BRIGHT + '[ I-MODE ]: ' + Style.NORMAL + content + Fore.RESET + Back.RESET + Style.RESET_ALL)
 
 
 def success_msg(content):

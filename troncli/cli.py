@@ -8,6 +8,7 @@ import asyncio
 import cbox
 
 from troncli import utils, h_init, h_config, h_worker, h_status, h_log, __version__, h_imode
+from troncli.constants import *
 
 
 @cbox.cmd
@@ -170,16 +171,54 @@ def i():
     """Interactive Mode.
     """
     imode_handler = h_imode.IMode()
+    choose_your_poison = { 'version': 'latest',
+                           'reset':  'False',
+                           'nettype': 'private'
+
+                         }
     # 
     # start
-    utils.progress_msg('Switched to [Interactive Mode]')
+    utils.progress_msg('Switched to <Interactive Mode>')
+    utils.logo_simple()
 
+    utils.imode_msg('Welcome to use troncli interactive mode!')
+    """
+        init
+    """
+    # choose java-tron version
+    utils.imode_msg('Use latest supported version[' + JAVA_TRON_LASTEST_VERSION + '] of java-tron? [Y(default)/n]')
     _stream = imode_handler.stream()
-    print(_stream)
-    
+    if _stream not in ['Y', 'y', 'yes', 'Yes', 'YES', '']:
+        utils.imode_msg('ok, so which version you want to use?[3.1.3 - ' + JAVA_TRON_LASTEST_VERSION + ']')
+        _stream = imode_handler.stream()
+        choose_your_poison['version'] = _stream
+    else:
+        utils.msg('Y')
+    # choose reset
+    utils.imode_msg('Reset everything? [y/N(default)]')
+    _stream = imode_handler.stream()
+    if _stream not in ['N', 'n', 'no', 'No', 'NO', '']:
+        choose_your_poison['reset'] = 'True'
+    else:
+        utils.msg('N')
+    #
+    # call init
+    init(choose_your_poison['version'], choose_your_poison['reset'])
+
+    """
+        config
+    """
+    # choose net type
+    utils.imode_msg('Setting up a private testnet or sync to mainnet? [private(default)/main]')
+    _stream = imode_handler.stream()
+    if _stream == 'main':
+        choose_your_poison['nettype'] = _stream
+    else:
+        utils.msg('private')
+    print(choose_your_poison)
     #
     # end
-    utils.progress_msg('Left [Interactive Mode]')    
+    utils.progress_msg('Left <Interactive Mode>')    
 
 
 
