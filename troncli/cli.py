@@ -106,7 +106,7 @@ def run(nodetype: str = 'full'):
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(worker.run(nodetype))
-    loop.close()
+    # loop.close()
 
 
 @cbox.cmd
@@ -223,42 +223,44 @@ def i():
     else:
         utils.msg('private')
     # set task_queue
-    utils.imode_msg('If you already went through configuration, you can skip this(init) step by enter [skip], otherwise press any key to continue.')
+    utils.imode_msg('Do you want set up event services (event-node + tron-gird)? [y/n(default)]')
     _stream = imode_handler.stream()
-    if _stream not in ['skip', 'SKIP']:
-        utils.imode_msg('Do you want set up event services (event-node + tron-gird)? [y/n(default)]')
+    if _stream not in ['N', 'n', 'no', 'No', 'NO', '']:
+        # set db
+        utils.imode_msg('!!! NOTICE: Assume you already installed MongoDB and created user with a role.')
+        utils.imode_msg('Enter your db name:')
         _stream = imode_handler.stream()
-        if _stream not in ['N', 'n', 'no', 'No', 'NO', '']:
-            # set db
-            utils.imode_msg('!!! NOTICE: Assume you already installed MongoDB and created user with a role.')
-            utils.imode_msg('Enter your db name:')
-            _stream = imode_handler.stream()
-            choose_your_poison['dbname'] = _stream
-            utils.imode_msg('Enter your db user-name:')
-            _stream = imode_handler.stream()
-            choose_your_poison['dbusername'] = _stream
-            utils.imode_msg('Enter your db user-password:')
-            _stream = imode_handler.stream()
-            choose_your_poison['dbpassword'] = _stream
-            # add to task
-            choose_your_poison['task_queue'].extend(['event', 'grid'])
-            if choose_your_poison['nettype'] == 'private':
-                choose_your_poison['task_queue'].extend(['full'])
-        else:
-            utils.msg('N')
+        choose_your_poison['dbname'] = _stream
+        utils.imode_msg('Enter your db user-name:')
+        _stream = imode_handler.stream()
+        choose_your_poison['dbusername'] = _stream
+        utils.imode_msg('Enter your db user-password:')
+        _stream = imode_handler.stream()
+        choose_your_poison['dbpassword'] = _stream
+        # add to task
+        choose_your_poison['task_queue'].extend(['event', 'grid'])
+        if choose_your_poison['nettype'] == 'private':
             choose_your_poison['task_queue'].extend(['full'])
-
-        config(choose_your_poison['nettype'], 0, 0, 0, 0, 0, 0, '', '', '', '', 0, 
-                                  choose_your_poison['dbname'], 
-                                  choose_your_poison['dbusername'], 
-                                  choose_your_poison['dbpassword'],
-                                  choose_your_poison['reset'])
     else:
-        utils.imode_msg('Config Skiped!')
+        utils.msg('N')
+        _node_list = utils.Node()
+        _node_list.reset_config()
+        choose_your_poison['task_queue'].extend(['full'])
+
+    config(choose_your_poison['nettype'], 0, 0, 0, 0, 0, 0, '', '', '', '', 0, 
+                              choose_your_poison['dbname'], 
+                              choose_your_poison['dbusername'], 
+                              choose_your_poison['dbpassword'],
+                              'False')
     """
         run
     """
-    print(choose_your_poison)
+    while choose_your_poison['task_queue']:
+        _nodetype = choose_your_poison['task_queue'].pop(0)
+        utils.imode_msg('Press anykey to start ' + _nodetype + '-node? - Enter [exit] to exit.')
+        _stream = imode_handler.stream()
+        run(_nodetype)
+    # utils.debug(str(choose_your_poison))
     #
     # end
     utils.progress_msg('Left <Interactive Mode>')

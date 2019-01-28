@@ -82,8 +82,8 @@ class Config:
 
             self.full_config[' node'][' http'][' fullNodePort'] = port_num
             if net_type == 'private':
-                self.event_config[' seed.node'][' ip.list'] = [LOCAL_HOST + ':' + str(port_num)]
-                self.event_config[' node'][' active'] = [LOCAL_HOST + ':' + str(port_num)]
+                self.event_config[' seed.node'][' ip.list'] = [LOCAL_HOST + str(port_num)]
+                self.event_config[' node'][' active'] = [LOCAL_HOST + str(port_num)]
             utils.success_msg('full-node http request set to listen: ')
             utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'sol':
