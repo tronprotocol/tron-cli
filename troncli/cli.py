@@ -137,12 +137,13 @@ def status(node: str = 'all'):
 
 
 @cbox.cmd
-def quick(reset: str = 'False'):
-    """Quick start. (run a full private node by one command)
+def quick(reset: str = 'False',
+          nettype: str = 'private'):
+    """Quick start. (run a full private/main node by one command)
     """
     utils.logo_shadow()
     init('latest', reset)
-    config()
+    config(nettype, 0, 0, 0, 0, 0, 0, '', '', '', '', 0, 'Null', 'Null', 'Null', 'False')
     run()
     status()
 
