@@ -156,7 +156,10 @@ class Node(object):
                                          'gridport': 18891,
                                          'dbname': 'Null',
                                          'dbusername': 'Null',
-                                         'dbpassword': 'Null'}}
+                                         'dbpassword': 'Null'},
+                             'init_ed': False,
+                             'config_ed': False
+                             }
 
     def get(self):
         return self.node_list
@@ -181,6 +184,14 @@ class Node(object):
                                     'dbname': 'Null',
                                     'dbusername': 'Null',
                                     'dbpassword': 'Null'}
+        self.save()
+
+    async def update_init_done(self, flag):
+        self.node_list['init_ed'] = flag
+        self.save()
+
+    async def update_config_done(self, flag):
+        self.node_list['config_ed'] = flag
         self.save()
 
     async def update_node_version(self, version):

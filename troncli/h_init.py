@@ -38,11 +38,13 @@ class Init(object):
         """
         if reset != 'False':
             try:
-                # stop running nodes
-                worker = h_worker.Worker()
-                await worker.stop('all')
+                if self.node_list.get()['config_ed']:
+                    # stop running nodes
+                    worker = h_worker.Worker()
+                    await worker.stop('all')
                 # reset config
                 self.node_list.reset_config()
+                # await self.node_list.update_config_done(False)
                 # delete folders
                 shutil.rmtree(path + NODES_DIR)
             except OSError as err:

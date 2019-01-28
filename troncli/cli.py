@@ -20,9 +20,12 @@ def init(version: str = 'latest',
     """
 
     init_handler = h_init.Init()
+    utils_handler = utils.Node()
     utils.progress_msg('Creating folders')
 
     loop = asyncio.get_event_loop()
+    loop.run_until_complete(utils_handler.update_init_done(False))
+    loop.run_until_complete(utils_handler.update_config_done(False))
     loop.run_until_complete(init_handler.env_check())
     loop.run_until_complete(init_handler.create_dirs(reset))
     loop.run_until_complete(init_handler.fetch_jars(version))
@@ -30,6 +33,7 @@ def init(version: str = 'latest',
     # loop.run_until_complete(init_handler.build_eventnode_jar())
     # loop.run_until_complete(init_handler.build_gridapi_jar())
     loop.run_until_complete(init_handler.move_jars())
+    loop.run_until_complete(utils_handler.update_init_done(True))
 
 
 @cbox.cmd
@@ -71,10 +75,11 @@ def config(nettype: str = '',
     """
 
     config_handler = h_config.Config()
-    node_list = utils.Node()
+    utils_handler = utils.Node()
     utils.progress_msg('Setting up config files')
 
     loop = asyncio.get_event_loop()
+    loop.run_until_complete(utils_handler.update_config_done(False))
     loop.run_until_complete(config_handler.init(reset))
     loop.run_until_complete(config_handler.set_net_type(nettype))
     loop.run_until_complete(config_handler.set_http_port(fullhttpport, 'full', nettype))
@@ -89,10 +94,7 @@ def config(nettype: str = '',
     loop.run_until_complete(config_handler.enable_save_history_tx(savehistorytx))
     loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword, gridport))
     loop.run_until_complete(config_handler.export())
-    # loop.run_until_complete(node_list.update_config(nettype, fullhttpport, solhttpport,
-    #                                                          eventhttpport, fullrpcport, solrpcport, eventrpcport,
-    #                                                          enablememdb, dbsyncmode, saveintertx, savehistorytx, 
-    #                                                          gridport, dbname, dbusername, dbpassword))
+    loop.run_until_complete(utils_handler.update_config_done(True))
 
 
 @cbox.cmd
@@ -247,9 +249,9 @@ def i():
         _node_list.reset_config()
         choose_your_poison['task_queue'].extend(['full'])
 
-    config(choose_your_poison['nettype'], 0, 0, 0, 0, 0, 0, '', '', '', '', 0, 
-                              choose_your_poison['dbname'], 
-                              choose_your_poison['dbusername'], 
+    config(choose_your_poison['nettype'], 0, 0, 0, 0, 0, 0, '', '', '', '', 0,
+                              choose_your_poison['dbname'],
+                              choose_your_poison['dbusername'],
                               choose_your_poison['dbpassword'],
                               'False')
     """

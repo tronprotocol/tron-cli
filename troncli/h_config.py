@@ -24,6 +24,13 @@ class Config:
         """
         Load raw json config
         """
+        # check init
+        if not self.node_list.get()['init_ed']:
+            utils.error_msg('Please initialize first!')
+            utils.info_msg('To get more initialize info:')
+            utils.msg('tron-cli init -h')
+            exit()
+
         if reset != 'False':
             self.node_list.reset_config()
         self.full_config = copy.deepcopy(json_store.raw_config)

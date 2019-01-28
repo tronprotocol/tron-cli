@@ -15,6 +15,19 @@ class Worker:
         self.node_list = utils.Node()
 
     async def run(self, node_type):
+        # check init
+        if not self.node_list.get()['init_ed']:
+            utils.error_msg('Please initialize first!')
+            utils.info_msg('To get more initialize info:')
+            utils.msg('tron-cli init -h')
+            exit()
+        # check config
+        if not self.node_list.get()['config_ed']:
+            utils.error_msg('Please config first!')
+            utils.info_msg('To get more config info:')
+            utils.msg('tron-cli config -h')
+            exit()
+
         pid = await self.run_node(node_type)
         utils.success_msg('node running at pid:')
         _config = self.node_list.get()['config']
