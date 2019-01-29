@@ -1,6 +1,7 @@
 import os
 import copy
 import shutil
+import subprocess
 
 from troncli import utils, json_store
 from troncli.constants import *
@@ -23,7 +24,14 @@ class Config:
         """
         Load raw json config
         """
-        if reset in ['True', 'true', '1', 'Yes', 'yes', 'Y', 'y']:
+        # check init
+        if not self.node_list.get()['init_ed']:
+            utils.error_msg('Please initialize first!')
+            utils.info_msg('To get more initialize info:')
+            utils.msg('tron-cli init -h')
+            exit()
+
+        if reset != 'False':
             self.node_list.reset_config()
         self.full_config = copy.deepcopy(json_store.raw_config)
         self.sol_config = copy.deepcopy(json_store.raw_config)
@@ -81,8 +89,8 @@ class Config:
 
             self.full_config[' node'][' http'][' fullNodePort'] = port_num
             if net_type == 'private':
-                self.event_config[' seed.node'][' ip.list'] = [LOCAL_HOST + ':' + str(port_num)]
-                self.event_config[' node'][' active'] = [LOCAL_HOST + ':' + str(port_num)]
+                self.event_config[' seed.node'][' ip.list'] = [LOCAL_HOST + str(port_num)]
+                self.event_config[' node'][' active'] = [LOCAL_HOST + str(port_num)]
             utils.success_msg('full-node http request set to listen: ')
             utils.msg(LOCAL_HOST + str(port_num))
         elif node_type == 'sol':
@@ -263,6 +271,8 @@ class Config:
             gridport = self.config_store['gridport']
         else:
             self.config_store['gridport'] = gridport
+            utils.success_msg('grid api http request set to listen: ')
+            utils.msg(LOCAL_HOST + str(gridport))
         await self.update_config_store()
 
         if dbname == 'Null' and dbusername == 'Null' and dbpassword == 'Null':
@@ -286,6 +296,8 @@ class Config:
             await self.change_eventnode_db_settings()
             await self.change_gridapi_db_settings(gridport)
             await self.build_eventnode_jar()
+            await self.build_gridapi_jar()
+            await self.move_gridapi_jar()
 
     async def change_eventnode_db_settings(self):
         _db = self.node_list.get()
@@ -315,8 +327,20 @@ class Config:
         """
         _target_file_path_sol = self.root_path + NODES_DIR + GRID_API_DIR + '/src/main/resources/application.properties'
         self.phrase.store_json2javabeanconfig_to_file(self.gridapi_db_properties, _target_file_path_sol)
-        utils.success_msg('changed db settings for grid api at: ')
-        utils.msg(_target_file_path_sol)
+        # utils.success_msg('changed db settings for grid api at: ')
+        # utils.msg(_target_file_path_sol)
+
+    async def build_gridapi_jar(self):
+        utils.progress_msg('Build grid api jar')
+        os.chdir(self.root_path + NODES_DIR + GRID_API_DIR)
+        subprocess.call(['mvn', 'package'])
+        os.chdir(self.root_path)
+
+    async def move_gridapi_jar(self):
+        utils.success_msg('grid api jar move to:')
+        shutil.move(self.root_path + NODES_DIR + GRID_API_DIR + '/target/trongrid-' + TRON_GRID_VERSION + '-SNAPSHOT.jar',
+                    self.root_path + NODES_DIR + GRID_API_DIR + GRID_NODE_JAR)
+        utils.msg(self.root_path + NODES_DIR + GRID_API_DIR + GRID_NODE_JAR)
 
     async def build_eventnode_jar(self):
         utils.progress_msg('Build event node jar')

@@ -8,8 +8,8 @@ from setuptools import setup, find_packages
 """
 python version check
 """
-if sys.version_info < (3,7):
-    sys.exit('Sorry, please update python to 3.7+ to avoid unexpected issues.')
+if sys.version_info < (3,6):
+    sys.exit('Sorry, please update python to 3.6+ to avoid unexpected issues.')
 
 def cat(files, join_str=''):
     """Concatenate `files` content with `join_str` between them."""
@@ -20,7 +20,7 @@ def cat(files, join_str=''):
 PKG_NAME = 'troncli'
 PKG_AUTHOR = ', '.join(['Weiyu X'])
 PKG_SCRIPTS = ['tron-cli']
-PKG_VERSION = '0.3.1'
+PKG_VERSION = '1.0.0'
 PKG_REQUIRES = [
     'bleach',
     'cbox',
@@ -61,6 +61,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
     install_requires=PKG_REQUIRES,
