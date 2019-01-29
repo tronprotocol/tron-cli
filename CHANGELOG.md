@@ -20,6 +20,8 @@
 
 [X] quick - support pass in nettype
 
+[X] support python version 3.6
+
 #### Version 0.3.1
 
 [X] config - set a default committee proposal list - enable CreationOfContracts, DelegateResource, SameTokenName, TvmTransferTrc10 for private testnet
