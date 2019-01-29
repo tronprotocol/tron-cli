@@ -6,7 +6,7 @@ import sys
 import psutil
 import subprocess
 import re
-from colorama import Fore, Style
+from colorama import Fore, Style, Back
 from tqdm import tqdm
 
 import urllib3
@@ -39,6 +39,10 @@ def logo_shadow():
 
 def progress_msg(content):
     print(Fore.CYAN + '[ TRON-CLI ]: ' + content + '...' + Fore.RESET)
+
+
+def imode_msg(content):
+    print(Back.BLUE + Fore.WHITE + Style.BRIGHT + '[ I-MODE ]: ' + Style.NORMAL + content + Fore.RESET + Back.RESET + Style.RESET_ALL)
 
 
 def success_msg(content):
@@ -116,11 +120,11 @@ def recommandation():
 
 def log_location(root_path, node_type):
     if node_type == 'full':
-        return (root_path + NODES_DIR + FULL_NODE_DIR + '/logs/tron.log')
+        return root_path + NODES_DIR + FULL_NODE_DIR + '/logs/tron.log'
     elif node_type == 'sol':
-        return (root_path + NODES_DIR + SOLIDITY_NODE_DIR + '/logs/tron.log')
+        return root_path + NODES_DIR + SOLIDITY_NODE_DIR + '/logs/tron.log'
     else:
-        return ('not recording logs')
+        return 'not recording logs'
 
 
 """
@@ -140,43 +144,54 @@ class Node(object):
                               'db': {'dbname': '', 'dbusername': '', 'dbpassword': ''},
                               'config': {'nettype': 'private',
                                          'fullhttpport': 8500,
-                                         'solhttpport': 8600, 
-                                         'eventhttpport': 8400, 
-                                         'fullrpcport': 58500, 
-                                         'solrpcport': 58600, 
-                                         'eventrpcport': 58400, 
-                                         'enablememdb': 'True', 
-                                         'dbsyncmode': 'async', 
-                                         'saveintertx': 'False', 
-                                         'savehistorytx': 'False', 
-                                         'gridport': 18891, 
-                                         'dbname': 'Null', 
-                                         'dbusername': 'Null', 
-                                         'dbpassword': 'Null'}}
+                                         'solhttpport': 8600,
+                                         'eventhttpport': 8400,
+                                         'fullrpcport': 58500,
+                                         'solrpcport': 58600,
+                                         'eventrpcport': 58400,
+                                         'enablememdb': 'True',
+                                         'dbsyncmode': 'async',
+                                         'saveintertx': 'False',
+                                         'savehistorytx': 'False',
+                                         'gridport': 18891,
+                                         'dbname': 'Null',
+                                         'dbusername': 'Null',
+                                         'dbpassword': 'Null'},
+                             'init_ed': False,
+                             'config_ed': False
+                             }
 
     def get(self):
         return self.node_list
 
     def save(self):
         with open(self.root_path + '/' + RUNNING_NODE_LIST_FILE, 'w') as file:
-             file.write(json.dumps(self.node_list))
+            file.write(json.dumps(self.node_list))
 
     def reset_config(self):
         self.node_list['config'] = {'nettype': 'private',
-                                     'fullhttpport': 8500,
-                                     'solhttpport': 8600, 
-                                     'eventhttpport': 8400, 
-                                     'fullrpcport': 58500, 
-                                     'solrpcport': 58600, 
-                                     'eventrpcport': 58400, 
-                                     'enablememdb': 'True', 
-                                     'dbsyncmode': 'async', 
-                                     'saveintertx': 'False', 
-                                     'savehistorytx': 'False', 
-                                     'gridport': 18891, 
-                                     'dbname': 'Null', 
-                                     'dbusername': 'Null', 
-                                     'dbpassword': 'Null'}
+                                    'fullhttpport': 8500,
+                                    'solhttpport': 8600,
+                                    'eventhttpport': 8400,
+                                    'fullrpcport': 58500,
+                                    'solrpcport': 58600,
+                                    'eventrpcport': 58400,
+                                    'enablememdb': 'True',
+                                    'dbsyncmode': 'async',
+                                    'saveintertx': 'False',
+                                    'savehistorytx': 'False',
+                                    'gridport': 18891,
+                                    'dbname': 'Null',
+                                    'dbusername': 'Null',
+                                    'dbpassword': 'Null'}
+        self.save()
+
+    async def update_init_done(self, flag):
+        self.node_list['init_ed'] = flag
+        self.save()
+
+    async def update_config_done(self, flag):
+        self.node_list['config_ed'] = flag
         self.save()
 
     async def update_node_version(self, version):
@@ -291,6 +306,7 @@ async def git_clone(host, branch, tar_path):
     except OSError as err:
         error_msg('OS Error -' + str(err))
         os.sys.exit()
+
 
 async def gradlew_build(task):
     cmd = './gradlew build -x test'

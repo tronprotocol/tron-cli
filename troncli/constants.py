@@ -6,7 +6,8 @@ JAVA_TRON_EVENT_NODE_GIT_URL = 'https://github.com/tronprotocol/java-tron.git'
 JAVA_TRON_EVENT_NODE_BRANCH_NAME = 'event_parser'
 
 TRON_GRID_GIT_URL = 'https://github.com/tronprotocol/tron-grid.git'
-TRON_GRID_BRANCH_NAME = 'master'
+TRON_GRID_BRANCH_NAME = 'dev'
+TRON_GRID_VERSION = '1.0.2'
 
 NODES_DIR = '/tron_nodes'
 
@@ -18,6 +19,7 @@ GRID_API_DIR = '/gridapi'
 FULL_NODE_JAR = '/full.jar'
 SOLIDITY_NODE_JAR = '/solidity.jar'
 EVENT_NODE_JAR = '/event.jar'
+GRID_NODE_JAR = '/grid.jar'
 
 FULL_CONFIG = '/full.conf'
 SOL_CONFIG = '/sol.conf'
