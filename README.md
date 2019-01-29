@@ -1,6 +1,6 @@
 # <img src="./doc/logo.png" alt="logo" width="50"/> TRON-CLI
 
-A command line tool, to quickly set up, manage TRON nodes(full/solidity), and monitor running status.
+TRON-CLI is a command line tool which allows developers quickly set up and manage TRON nodes and service.
 
 ```
  _________  ____  _  __    _______   ____
@@ -25,7 +25,7 @@ A command line tool, to quickly set up, manage TRON nodes(full/solidity), and mo
 
 ## Install
 
-### pip
+### [pip](https://pypi.org/project/troncli/)
 
 > pip install --upgrade pip
 
