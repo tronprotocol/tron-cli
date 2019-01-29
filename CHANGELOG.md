@@ -1,10 +1,24 @@
 # Changelog
 
-#### Version 0.3.2
+#### Version 1.0.0
 
-[ ] build event node and tron-grid in init
+##### highlight:
 
-[ ] get event node and tron-grid config in run command
+* Add interactive mode.
+
+* Check and throw error messages with insturction when tron-cli has not initialized or configed.
+
+* Support python version 3.6.
+
+##### details:
+
+[X] Add check init and config in config and run, throw error and instruction if catched.
+
+[X] Add interactive mode for whole walk through with key selections, which should cover most use cases.
+
+[X] Fix private event node config error on local host port.
+
+[X] quick - support pass in nettype
 
 #### Version 0.3.1
 
