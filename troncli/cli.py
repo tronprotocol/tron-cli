@@ -16,6 +16,7 @@ def init(version: str = 'latest',
          reset: str = 'False'):
     """Init dirs and fetch code.
 
+    :param reset: reset all
     :param version: specify java-tron version
     """
 
@@ -101,7 +102,7 @@ def config(nettype: str = '',
 def run(nodetype: str = 'full'):
     """Run node.
     
-    :param nodetype: specify node type [full, sol, event]
+    :param nodetype: specify node type [full, sol, event, grid]
     """
     worker = h_worker.Worker()
     utils.progress_msg('Starting node(s)')
@@ -140,6 +141,9 @@ def status(node: str = 'all'):
 def quick(reset: str = 'False',
           nettype: str = 'private'):
     """Quick start. (run a full private/main node by one command)
+
+    :param reset: reset all
+    :param nettype: specify net type [main, private]
     """
     utils.logo_shadow()
     init('latest', reset)
@@ -152,6 +156,9 @@ def quick(reset: str = 'False',
 def log(nodetype: str = 'full',
         filter: str = ''):
     """Show filtered log.
+
+    :param nodetype: specify node type [full, sol, event, grid]
+    :param filter: specify filter [number/height]
     """
     log = h_log.Log()
     loop = asyncio.get_event_loop()
