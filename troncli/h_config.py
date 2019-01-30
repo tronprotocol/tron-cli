@@ -242,12 +242,12 @@ class Config:
         if enablememdb == 'disable' or enablememdb == '0' or enablememdb == 'False':
             self.full_config[' storage'][' db.version'] = DB_DISK_ONLY_VERSION
             self.event_config[' storage'][' db.version'] = DB_DISK_ONLY_VERSION
-            utils.success_msg('enable in memeory db:')
+            utils.success_msg('enable in memory db:')
             utils.msg('False')
         else:
             self.full_config[' storage'][' db.version'] = DB_IN_MEMORY_SUPPORT_VERSION
             self.event_config[' storage'][' db.version'] = DB_IN_MEMORY_SUPPORT_VERSION
-            utils.success_msg('enable in memeory db:')
+            utils.success_msg('enable in memory db:')
             utils.msg('True')
 
     async def store_db_settings(self, dbname, dbusername, dbpassword, gridport):
@@ -405,11 +405,11 @@ class Config:
             self.full_config[' vm'][' saveInternalTx'] = 'true'
             self.sol_config[' vm'][' saveInternalTx'] = 'true'
             self.event_config[' vm'][' saveInternalTx'] = 'true'
-            utils.success_msg('save internal transaction: ')
+            utils.success_msg('save history transaction: ')
             utils.msg('enabled')
         else:
             self.full_config[' vm'][' saveInternalTx'] = 'false'
             self.sol_config[' vm'][' saveInternalTx'] = 'false'
             self.event_config[' vm'][' saveInternalTx'] = 'false'
-            utils.success_msg('save internal transaction: ')
+            utils.success_msg('save history transaction: ')
             utils.msg('disabled')
