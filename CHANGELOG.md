@@ -1,5 +1,11 @@
 # Changelog
 
+#### Version 1.0.1
+
+[X] Fix private net broadcast failure and syncing issue.
+
+[X] Fix several typos.
+
 #### Version 1.0.0
 
 ##### highlight:
