@@ -1,5 +1,13 @@
 # Changelog
 
+#### Version 1.0.1
+
+[X] Fix private net broadcast failure and syncing issue.
+
+[X] Fix several typos.
+
+[X] Support java-tron version 3.2.5.
+
 #### Version 1.0.0
 
 ##### highlight:

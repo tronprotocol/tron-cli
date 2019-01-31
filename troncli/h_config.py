@@ -217,20 +217,22 @@ class Config:
                 ' address': TEST_ACCOUNT_ADDRESS,
                 ' url': 'https://github.com/tronprotocol/tron-cli',
                 ' voteCount': 10000}]
-            self.sol_config[' genesis.block'][' witnesses'] = [{
-                ' address': TEST_ACCOUNT_ADDRESS,
-                ' url': 'https://github.com/tronprotocol/tron-cli',
-                ' voteCount': 10000}]
-            self.event_config[' genesis.block'][' witnesses'] = [{
-                ' address': TEST_ACCOUNT_ADDRESS,
-                ' url': 'https://github.com/tronprotocol/tron-cli',
-                ' voteCount': 10000}]
             # add assets
             self.full_config[' genesis.block'][' assets'] = [{
                 ' accountName': 'TRONCLI',
                 ' accountType': 'AssetIssue',
                 ' address': TEST_ACCOUNT_ADDRESS,
-                ' balance': 5000000000000000}]
+                ' balance': 9000000000000000},
+                {
+                ' accountName': 'Sun',
+                ' accountType': 'AssetIssue',
+                ' address': 'TXmVpin5vq5gdZsciyyjdZgKRUju4st1wM',
+                ' balance': 5000000000000000},
+                {
+                ' accountName': 'Blackhole',
+                ' accountType': 'AssetIssue',
+                ' address': 'TLsV52sRDL79HXGGm9yzwKibb6BeruhUzy',
+                ' balance': -9223372036854775808}]
 
     async def set_db_version(self, enablememdb):
         # check void and restore
@@ -242,12 +244,12 @@ class Config:
         if enablememdb == 'disable' or enablememdb == '0' or enablememdb == 'False':
             self.full_config[' storage'][' db.version'] = DB_DISK_ONLY_VERSION
             self.event_config[' storage'][' db.version'] = DB_DISK_ONLY_VERSION
-            utils.success_msg('enable in memeory db:')
+            utils.success_msg('enable in memory db:')
             utils.msg('False')
         else:
             self.full_config[' storage'][' db.version'] = DB_IN_MEMORY_SUPPORT_VERSION
             self.event_config[' storage'][' db.version'] = DB_IN_MEMORY_SUPPORT_VERSION
-            utils.success_msg('enable in memeory db:')
+            utils.success_msg('enable in memory db:')
             utils.msg('True')
 
     async def store_db_settings(self, dbname, dbusername, dbpassword, gridport):
@@ -405,11 +407,11 @@ class Config:
             self.full_config[' vm'][' saveInternalTx'] = 'true'
             self.sol_config[' vm'][' saveInternalTx'] = 'true'
             self.event_config[' vm'][' saveInternalTx'] = 'true'
-            utils.success_msg('save internal transaction: ')
+            utils.success_msg('save history transaction: ')
             utils.msg('enabled')
         else:
             self.full_config[' vm'][' saveInternalTx'] = 'false'
             self.sol_config[' vm'][' saveInternalTx'] = 'false'
             self.event_config[' vm'][' saveInternalTx'] = 'false'
-            utils.success_msg('save internal transaction: ')
+            utils.success_msg('save history transaction: ')
             utils.msg('disabled')
