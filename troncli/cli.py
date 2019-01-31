@@ -198,7 +198,7 @@ def i():
     """
         init
     """
-    utils.imode_msg('If you already initilized and fetched code, you can skip this(init) step by enter [skip], otherwise press any key to continue.')
+    utils.imode_msg('If you already initialized and fetched code, you can skip this(init) step by enter [skip], otherwise press any key to continue.')
     _stream = imode_handler.stream()
     if _stream not in ['skip', 'SKIP']:
         # choose java-tron version

@@ -20,7 +20,7 @@ class Status(object):
         self.node_list = utils.Node()
 
     def overall(self):
-        utils.recommandation()
+        utils.recommendation()
         virt = psutil.virtual_memory()
         swap = psutil.swap_memory()
         templ = '%-7s %10s %10s %10s %10s %10s %10s'

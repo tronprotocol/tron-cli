@@ -110,9 +110,9 @@ def node_cmds(node_id):
     msg('tron-cli stop --node ' + str(node_id))
 
 
-def recommandation():
+def recommendation():
     info_msg_div()
-    info_msg('Hardware recommandation for running a full node: ')
+    info_msg('Hardware recommendation for running a full node: ')
     msg('CPU: 64 cores')
     msg('RAM: 64 GB')
     info_msg_div()
