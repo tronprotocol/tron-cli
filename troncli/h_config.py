@@ -217,20 +217,22 @@ class Config:
                 ' address': TEST_ACCOUNT_ADDRESS,
                 ' url': 'https://github.com/tronprotocol/tron-cli',
                 ' voteCount': 10000}]
-            self.sol_config[' genesis.block'][' witnesses'] = [{
-                ' address': TEST_ACCOUNT_ADDRESS,
-                ' url': 'https://github.com/tronprotocol/tron-cli',
-                ' voteCount': 10000}]
-            self.event_config[' genesis.block'][' witnesses'] = [{
-                ' address': TEST_ACCOUNT_ADDRESS,
-                ' url': 'https://github.com/tronprotocol/tron-cli',
-                ' voteCount': 10000}]
             # add assets
             self.full_config[' genesis.block'][' assets'] = [{
                 ' accountName': 'TRONCLI',
                 ' accountType': 'AssetIssue',
                 ' address': TEST_ACCOUNT_ADDRESS,
-                ' balance': 5000000000000000}]
+                ' balance': 9000000000000000},
+                {
+                ' accountName': 'Sun',
+                ' accountType': 'AssetIssue',
+                ' address': 'TXmVpin5vq5gdZsciyyjdZgKRUju4st1wM',
+                ' balance': 5000000000000000},
+                {
+                ' accountName': 'Blackhole',
+                ' accountType': 'AssetIssue',
+                ' address': 'TLsV52sRDL79HXGGm9yzwKibb6BeruhUzy',
+                ' balance': -9223372036854775808}]
 
     async def set_db_version(self, enablememdb):
         # check void and restore

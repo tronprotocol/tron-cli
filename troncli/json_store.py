@@ -39,7 +39,7 @@ raw_config = {
     " activeConnectFactor": 0.1,
     " maxActiveNodes": 30,
     " maxActiveNodesWithSameIp": 2,
-    " minParticipationRate": 15,
+    " minParticipationRate": 0,
     " disconnectNumberFactor": 0.4,
     " maxConnectNumberFactor": 0.8,
     " receiveTcpMinDataLength": 2048,
@@ -263,7 +263,7 @@ raw_config = {
 
     " timestamp": "0",
 
-    " parentHash": "0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f"
+    " parentHash": "957dc2d350daecc7bb6a38f3938ebde0a0c1cedafe15f0edae4256a2907449f6"
   },
 
   " localwitness": [
