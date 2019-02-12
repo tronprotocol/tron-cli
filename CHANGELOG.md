@@ -1,5 +1,11 @@
 # Changelog
 
+#### Version 1.0.2
+
+[X] fix enable_save_inter_tx and enable_save_history_tx config issue;
+
+[X] simplify interact mode default selection;
+
 #### Version 1.0.1
 
 [X] Fix private net broadcast failure and syncing issue.
