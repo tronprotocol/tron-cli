@@ -384,26 +384,6 @@ class Config:
             self.config_store['saveintertx'] = saveintertx
 
         if saveintertx == 'enable' or saveintertx == '1' or saveintertx == 'True' or saveintertx == 'on':
-            self.full_config[' storage'][' transHistory.switch'] = 'on'
-            self.sol_config[' storage'][' transHistory.switch'] = 'on'
-            self.event_config[' storage'][' transHistory.switch'] = 'on'
-            utils.success_msg('save internal transaction: ')
-            utils.msg('enabled')
-        else:
-            self.full_config[' storage'][' transHistory.switch'] = 'off'
-            self.sol_config[' storage'][' transHistory.switch'] = 'off'
-            self.event_config[' storage'][' transHistory.switch'] = 'off'
-            utils.success_msg('save internal transaction: ')
-            utils.msg('disabled')
-
-    async def enable_save_history_tx(self, savehistorytx):
-        # check void and restore
-        if savehistorytx == '':
-            savehistorytx = self.config_store['savehistorytx']
-        else:
-            self.config_store['savehistorytx'] = savehistorytx
-
-        if savehistorytx == 'enable' or savehistorytx == '1' or savehistorytx == 'True' or savehistorytx == 'on':
             self.full_config[' vm'][' saveInternalTx'] = 'true'
             self.sol_config[' vm'][' saveInternalTx'] = 'true'
             self.event_config[' vm'][' saveInternalTx'] = 'true'
@@ -414,4 +394,24 @@ class Config:
             self.sol_config[' vm'][' saveInternalTx'] = 'false'
             self.event_config[' vm'][' saveInternalTx'] = 'false'
             utils.success_msg('save history transaction: ')
+            utils.msg('disabled')
+
+    async def enable_save_history_tx(self, savehistorytx):
+        # check void and restore
+        if savehistorytx == '':
+            savehistorytx = self.config_store['savehistorytx']
+        else:
+            self.config_store['savehistorytx'] = savehistorytx
+
+        if savehistorytx == 'enable' or savehistorytx == '1' or savehistorytx == 'True' or savehistorytx == 'on':
+            self.full_config[' storage'][' transHistory.switch'] = 'on'
+            self.sol_config[' storage'][' transHistory.switch'] = 'on'
+            self.event_config[' storage'][' transHistory.switch'] = 'on'
+            utils.success_msg('save internal transaction: ')
+            utils.msg('enabled')
+        else:
+            self.full_config[' storage'][' transHistory.switch'] = 'off'
+            self.sol_config[' storage'][' transHistory.switch'] = 'off'
+            self.event_config[' storage'][' transHistory.switch'] = 'off'
+            utils.success_msg('save internal transaction: ')
             utils.msg('disabled')

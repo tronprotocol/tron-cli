@@ -94,8 +94,8 @@ def config(nettype: str = '',
     loop.run_until_complete(config_handler.enable_save_inter_tx(saveintertx))
     loop.run_until_complete(config_handler.enable_save_history_tx(savehistorytx))
     loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword, gridport))
+    # loop.run_until_complete(utils_handler.update_config_done(True))
     loop.run_until_complete(config_handler.export())
-    loop.run_until_complete(utils_handler.update_config_done(True))
 
 
 @cbox.cmd
@@ -202,7 +202,7 @@ def i():
     _stream = imode_handler.stream()
     if _stream not in ['skip', 'SKIP']:
         # choose java-tron version
-        utils.imode_msg('Use latest supported version[' + JAVA_TRON_LASTEST_VERSION + '] of java-tron? [Y(default)/n]')
+        utils.imode_msg('Use latest supported version[' + JAVA_TRON_LASTEST_VERSION + '] of java-tron? ([y]/n)')
         _stream = imode_handler.stream()
         if _stream not in ['Y', 'y', 'yes', 'Yes', 'YES', '']:
             utils.imode_msg('ok, so which version you want to use?[3.1.3 - ' + JAVA_TRON_LASTEST_VERSION + ']')
@@ -211,7 +211,7 @@ def i():
         else:
             utils.msg('Y')
         # choose reset
-        utils.imode_msg('Reset everything? [y/N(default)]')
+        utils.imode_msg('Reset everything? (y/[n]))')
         _stream = imode_handler.stream()
         if _stream not in ['N', 'n', 'no', 'No', 'NO', '']:
             choose_your_poison['reset'] = 'True'
@@ -226,14 +226,14 @@ def i():
         config
     """
     # choose net type
-    utils.imode_msg('Setting up a private testnet or sync to mainnet? [private(default)/main]')
+    utils.imode_msg('Setting up a private testnet or sync to mainnet? ([private]/main)')
     _stream = imode_handler.stream()
     if _stream == 'main':
         choose_your_poison['nettype'] = _stream
     else:
         utils.msg('private')
     # set task_queue
-    utils.imode_msg('Do you want set up event services (event-node + tron-gird)? [y/n(default)]')
+    utils.imode_msg('Do you want set up event services (event-node + tron-gird)? (y/[n]))')
     _stream = imode_handler.stream()
     if _stream not in ['N', 'n', 'no', 'No', 'NO', '']:
         # set db

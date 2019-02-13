@@ -1,6 +1,6 @@
 # <img src="./doc/logo.png" alt="logo" width="50"/> TRON-CLI
 
-TRON-CLI is a command line tool which allows developers quickly set up and manage TRON nodes and service.
+TRON-CLI is a command line tool that allows developers to quickly set up and manage their TRON nodes and grid api service.
 
 ```
  _________  ____  _  __    _______   ____
@@ -43,7 +43,7 @@ pip install troncli
 tron-cli i
 ```
 
-Quickly set up what you want by answerinig few questions.
+Quickly set up what you want by answerinig a few questions.
 
 ![gif](./doc/imode.gif)
 
@@ -55,7 +55,7 @@ tron-cli quick
 
 By default, it will set up a private test-net full node for you. 
 
-* You can also ```--nettype main``` to choose set up a full node sync to main net.
+* You can also ```--nettype main``` to set up a full node which syncs to main net.
 
 * ```--reset True``` to reset all
 
@@ -63,7 +63,7 @@ By default, it will set up a private test-net full node for you.
 
 ### Advanced Set up
 
-You can set up full node, solidity node, event node and grid api service (local tron-grid) with more detailed receipt by provided subcommands. See usage by ```tron-cli -h```, and ```-h``` on each subcommands.
+You can set up a full node, solidity node, event node, and grid api service (local tron-grid) with more detailed configurations via the provided subcommands. See usage by ```tron-cli -h```, and ```-h``` on each subcommands.
 
 #### Manual 
 
