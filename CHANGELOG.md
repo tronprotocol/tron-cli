@@ -1,5 +1,9 @@
 # Changelog
 
+#### Version 1.0.4
+
+[X] fix set up main-net syncing issue;
+
 #### Version 1.0.2
 
 [X] fix enable_save_inter_tx and enable_save_history_tx config issue;
