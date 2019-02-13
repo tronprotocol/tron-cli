@@ -258,6 +258,8 @@ class Node(object):
         self.node_list['config']['dbusername'] = dbusername
         self.node_list['config']['dbpassword'] = dbpassword
 
+        self.node_list['config_ed'] = True
+
         self.save()
 
 

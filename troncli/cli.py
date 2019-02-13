@@ -94,7 +94,7 @@ def config(nettype: str = '',
     loop.run_until_complete(config_handler.enable_save_inter_tx(saveintertx))
     loop.run_until_complete(config_handler.enable_save_history_tx(savehistorytx))
     loop.run_until_complete(config_handler.store_db_settings(dbname, dbusername, dbpassword, gridport))
-    loop.run_until_complete(utils_handler.update_config_done(True))
+    # loop.run_until_complete(utils_handler.update_config_done(True))
     loop.run_until_complete(config_handler.export())
 
 
