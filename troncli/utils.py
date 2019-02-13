@@ -196,6 +196,7 @@ class Node(object):
 
     async def update_node_version(self, version):
         self.node_list['live']['version'] = version
+        self.node_list['config_ed'] = True  # need to move this logic back to cli.py
         self.save()
 
     async def update_running_node(self, node_type, pid, execution):
