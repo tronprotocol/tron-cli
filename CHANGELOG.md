@@ -1,5 +1,9 @@
 # Changelog
 
+#### Version 1.0.5
+
+[X] I'm blushing to say, this is just for fixing a stupid typo;
+
 #### Version 1.0.4
 
 [X] fix set up main-net syncing issue;
