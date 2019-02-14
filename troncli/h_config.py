@@ -210,6 +210,7 @@ class Config:
         if net_type == 'main':
             self.full_config[' genesis.block'][' parentHash'] = '0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f'
             self.sol_config[' genesis.block'][' parentHash'] = '0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f'
+            self.event_config[' genesis.block'][' parentHash'] = '0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f'
         if net_type == 'private':
             # add witnesses
             self.full_config[' genesis.block'][' witnesses'] = [{
