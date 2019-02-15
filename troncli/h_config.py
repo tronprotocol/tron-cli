@@ -56,10 +56,10 @@ class Config:
         utils.success_msg('soliditynode config file exported to: ')
         utils.msg(_target_file_path_sol)
 
-        _target_file_path_sol = self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_CONFIG
-        self.phrase.store_json2properties_to_file(self.event_config, _target_file_path_sol)
+        _target_file_path_event = self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_CONFIG
+        self.phrase.store_json2properties_to_file(self.event_config, _target_file_path_event)
         utils.success_msg('eventnode config file exported to: ')
-        utils.msg(_target_file_path_sol)
+        utils.msg(_target_file_path_event)
         await self.update_config_store()
 
     async def update_config_store(self):
