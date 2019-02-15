@@ -208,9 +208,10 @@ class Config:
             self.event_config[' localwitness'] = [TEST_ACCOUNT_PK]
         # genesis.block
         if net_type == 'main':
-            self.full_config[' genesis.block'][' parentHash'] = '0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f'
-            self.sol_config[' genesis.block'][' parentHash'] = '0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f'
-            self.event_config[' genesis.block'][' parentHash'] = '0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f'
+            genesis_block_parent_hash = '0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f'
+            self.full_config[' genesis.block'][' parentHash'] = genesis_block_parent_hash
+            self.sol_config[' genesis.block'][' parentHash'] = genesis_block_parent_hash
+            self.event_config[' genesis.block'][' parentHash'] = genesis_block_parent_hash
         if net_type == 'private':
             # add witnesses
             self.full_config[' genesis.block'][' witnesses'] = [{
