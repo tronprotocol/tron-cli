@@ -111,6 +111,9 @@ class Init(object):
         elif '3.2.0' <= version <= '3.2.10':
             url += 'Odyssey-v' + version
             await self.node_list.update_node_version(version)
+        elif '3.2.11' <= version <= '3.5.0':
+            url += 'Odyssey-v' + version
+            await self.node_list.update_node_version(version)
         else:
             utils.error_msg('version: ' + version + ' not supported')
             utils.info_msg('current support versions: 3.1.3 - ' + JAVA_TRON_LASTEST_VERSION)
@@ -161,3 +164,11 @@ class Init(object):
         # utils.msg(self.root_path + NODES_DIR + GRID_API_DIR + GRID_NODE_JAR)
         # finished
         utils.success_msg('initialization finished')
+        
+    async def copy_logback(self):
+        shutil.copy(self.root_path + '/logback.xml', 
+            self.root_path + NODES_DIR + FULL_NODE_DIR)
+        shutil.copy(self.root_path + '/logback.xml', 
+            self.root_path + NODES_DIR + SOLIDITY_NODE_DIR)
+
+        utils.success_msg('logback successfully copied')
