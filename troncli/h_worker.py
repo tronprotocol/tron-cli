@@ -74,7 +74,7 @@ class Worker:
         if node_type == 'full':
             os.chdir(self.root_path + NODES_DIR + FULL_NODE_DIR)
 
-            cmd = "java -jar " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR + \
+            cmd = "java -jar " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR + " --log-config logback.xml" + \
                   " -c " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG + " --witness" + \
                   " -d " + self.root_path + NODES_DIR + FULL_NODE_DIR + "/data"
 
@@ -84,7 +84,7 @@ class Worker:
         elif node_type == 'sol':
             os.chdir(self.root_path + NODES_DIR + SOLIDITY_NODE_DIR)
 
-            cmd = "java -jar " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOLIDITY_NODE_JAR + \
+            cmd = "java -jar " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOLIDITY_NODE_JAR + " --log-config logback.xml" + \
                   " -c " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOL_CONFIG + " --witness" + \
                   " -d " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + "/data"
 
@@ -94,7 +94,7 @@ class Worker:
         elif node_type == 'event':
             os.chdir(self.root_path + NODES_DIR + EVENT_NODE_DIR)
 
-            cmd = "java -jar " + self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR + \
+            cmd = "java -jar " + self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR + " --log-config logback.xml" + \
                   " -c " + self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_CONFIG + " --witness" + \
                   " -d " + self.root_path + NODES_DIR + EVENT_NODE_DIR + "/data"
 
