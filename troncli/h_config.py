@@ -171,14 +171,7 @@ class Config:
             self.sol_config[' node'][' p2p'][' version'] = PRIVATENET_P2P_VERSION
             self.event_config[' node'][' p2p'][' version'] = PRIVATENET_P2P_VERSION
         # committee
-        if net_type == 'main':
-            self.full_config[' committee'][' allowCreationOfContracts'] = MAINNET_ALLOW_CREATION_OF_CONTRACTS
-            self.sol_config[' committee'][' allowCreationOfContracts'] = MAINNET_ALLOW_CREATION_OF_CONTRACTS
-            self.event_config[' committee'][' allowCreationOfContracts'] = MAINNET_ALLOW_CREATION_OF_CONTRACTS
-        if net_type == 'private':
-            self.full_config[' committee'][' allowCreationOfContracts'] = PRIVATENET_ALLOW_CREATION_OF_CONTRACTS
-            self.sol_config[' committee'][' allowCreationOfContracts'] = PRIVATENET_ALLOW_CREATION_OF_CONTRACTS
-            self.event_config[' committee'][' allowCreationOfContracts'] = PRIVATENET_ALLOW_CREATION_OF_CONTRACTS
+        
         # vm
         if net_type == 'main':
             self.full_config[' vm'][' supportConstant'] = 'false'
