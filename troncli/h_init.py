@@ -111,7 +111,7 @@ class Init(object):
         elif '3.2.0' <= version <= '3.2.10':
             url += 'Odyssey-v' + version
             await self.node_list.update_node_version(version)
-        elif '3.2.11' <= version <= '3.5.0':
+        elif '3.2.11' <= version < JAVA_TRON_LASTEST_VERSION:
             url += 'Odyssey-v' + version
             await self.node_list.update_node_version(version)
         else:
