@@ -38,7 +38,8 @@ PKG_REQUIRES = [
     'six',
     'tqdm',
     'urllib3',
-    'webencodings'
+    'webencodings',
+    'lxml'
 ]
 
 PKG_DESC = 'A command line tool to monitor and manage tron nodes.'
