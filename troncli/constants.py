@@ -25,6 +25,8 @@ FULL_CONFIG = '/full.conf'
 SOL_CONFIG = '/sol.conf'
 EVENT_CONFIG = '/event.conf'
 
+LOGBACK_XML = '/logback.xml'
+
 LOCAL_HOST = '127.0.0.1:'
 
 MAINNET_P2P_VERSION = 11111
