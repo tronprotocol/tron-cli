@@ -70,7 +70,7 @@ class Config:
         self.phrase.str2xml_to_file(self.logback_config, _target_file_path_full)
 
         _target_file_path_sol = self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + LOGBACK_XML
-        self.phrase.str2xml_to_file(self.logback_config, _target_file_path_full)
+        self.phrase.str2xml_to_file(self.logback_config, _target_file_path_sol)
 
     async def update_config_store(self):
         await self.node_list.update_config(self.config_store['nettype'],
