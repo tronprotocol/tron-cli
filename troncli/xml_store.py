@@ -1,19 +1,18 @@
-logback = r"""
-<?xml version="1.0" encoding="UTF-8"?>
+logback = r"""<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
 
   <!-- Be sure to flush latest logs on exit -->
   <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
 
-  <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
-  <!--<encoder>-->
-  <!--<pattern>%d{HH:mm:ss.SSS} %-5level [%t] [%c{1}]\(%F:%L\) %m%n</pattern>-->
-  <!--</encoder>-->
-  <!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
-  <!--<level>INFO</level>-->
-  <!--</filter>-->
-  <!--</appender>-->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+  <encoder>
+  <pattern>%d{HH:mm:ss.SSS} %-5level [%t] [%c{1}]\(%F:%L\) %m%n</pattern>
+  </encoder>
+  <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+  <level>INFO</level>
+  </filter>
+  </appender>
 
   <appender name="FILE"
     class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -47,7 +46,7 @@ logback = r"""
   </appender>
 
   <root level="INFO">
-    <!--<appender-ref ref="STDOUT"/>-->
+    <appender-ref ref="STDOUT"/>
     <appender-ref ref="ASYNC"/>
   </root>
 
