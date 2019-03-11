@@ -448,5 +448,8 @@ class Phrase(object):
 
     @staticmethod
     def str2xml_to_file(xml_str, target_file_path):
+        """
+        use xml string to create logback xml file
+        """
         f = open(target_file_path, 'w+')
         f.write(xml_str)
