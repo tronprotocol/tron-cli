@@ -77,7 +77,7 @@ class Worker:
             cmd = "java -jar " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR + \
                   " -c " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG + " --witness" + \
                   " -d " + self.root_path + NODES_DIR + FULL_NODE_DIR + "/data" + \
-                  " --log-config logback.xml"
+                  self.root_path + NODES_DIR + FULL_NODE_DIR + " --log-config logback.xml"
 
             _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
@@ -88,7 +88,7 @@ class Worker:
             cmd = "java -jar " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOLIDITY_NODE_JAR + \
                   " -c " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOL_CONFIG + " --witness" + \
                   " -d " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + "/data" + \
-                  " --log-config logback.xml"
+                 self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + " --log-config logback.xml"
 
             _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
@@ -98,8 +98,7 @@ class Worker:
 
             cmd = "java -jar " + self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_NODE_JAR + \
                   " -c " + self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_CONFIG + " --witness" + \
-                  " -d " + self.root_path + NODES_DIR + EVENT_NODE_DIR + "/data" + \
-                  " --log-config logback.xml"
+                  " -d " + self.root_path + NODES_DIR + EVENT_NODE_DIR + "/data"
 
             _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
