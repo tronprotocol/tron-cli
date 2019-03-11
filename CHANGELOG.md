@@ -1,18 +1,24 @@
 # Changelog
 
+#### Version 1.0.6
+
+[X] Support java-tron version 3.5.0.1.
+
+[X] Add support for log config.
+
 #### Version 1.0.5
 
-[X] I'm blushing to say, this is just for fixing a stupid typo;
+[X] I'm blushing to say, this is just for fixing a stupid typo.
 
 #### Version 1.0.4
 
-[X] fix set up main-net syncing issue;
+[X] fix set up main-net syncing issue.
 
 #### Version 1.0.2
 
-[X] fix enable_save_inter_tx and enable_save_history_tx config issue;
+[X] fix enable_save_inter_tx and enable_save_history_tx config issue.
 
-[X] simplify interact mode default selection;
+[X] simplify interact mode default selection.
 
 #### Version 1.0.1
 
