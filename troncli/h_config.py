@@ -66,10 +66,10 @@ class Config:
         """
         Export logback
         """
-        _target_file_path_full = self.root_path + NODES_DIR + FULL_NODE_DIR + LOGBACK_XML
+        _target_file_path_full = self.root_path + NODES_DIR + FULL_NODE_DIR + "/" + LOGBACK_XML
         self.phrase.str2xml_to_file(self.logback_config, _target_file_path_full)
 
-        _target_file_path_sol = self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + LOGBACK_XML
+        _target_file_path_sol = self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + "/" + LOGBACK_XML
         self.phrase.str2xml_to_file(self.logback_config, _target_file_path_sol)
 
     async def update_config_store(self):
