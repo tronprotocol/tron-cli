@@ -1,6 +1,6 @@
 # Changelog
 
-#### Version 1.0.6.10
+#### Version 1.0.6
 
 [X] Support java-tron version 3.5.0.1.
 
