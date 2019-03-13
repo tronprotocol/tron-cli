@@ -6,6 +6,8 @@
 
 [X] Add support for log config.
 
+[X] fix set up main-net syncing issue on event server;
+
 #### Version 1.0.5
 
 [X] I'm blushing to say, this is just for fixing a stupid typo.

@@ -57,10 +57,10 @@ class Config:
         utils.success_msg('soliditynode config file exported to: ')
         utils.msg(_target_file_path_sol)
 
-        _target_file_path_sol = self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_CONFIG
-        self.phrase.store_json2properties_to_file(self.event_config, _target_file_path_sol)
+        _target_file_path_event = self.root_path + NODES_DIR + EVENT_NODE_DIR + EVENT_CONFIG
+        self.phrase.store_json2properties_to_file(self.event_config, _target_file_path_event)
         utils.success_msg('eventnode config file exported to: ')
-        utils.msg(_target_file_path_sol)
+        utils.msg(_target_file_path_event)
         await self.update_config_store()
 
         """
@@ -211,8 +211,10 @@ class Config:
             self.event_config[' localwitness'] = [TEST_ACCOUNT_PK]
         # genesis.block
         if net_type == 'main':
-            self.full_config[' genesis.block'][' parentHash'] = '0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f'
-            self.sol_config[' genesis.block'][' parentHash'] = '0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f'
+            genesis_block_parent_hash = '0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f'
+            self.full_config[' genesis.block'][' parentHash'] = genesis_block_parent_hash
+            self.sol_config[' genesis.block'][' parentHash'] = genesis_block_parent_hash
+            self.event_config[' genesis.block'][' parentHash'] = genesis_block_parent_hash
         if net_type == 'private':
             # add witnesses
             self.full_config[' genesis.block'][' witnesses'] = [{
