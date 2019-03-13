@@ -1,7 +1,7 @@
 """Constants"""
 
 JAVA_TRON_RELEASES_URL = 'https://github.com/tronprotocol/java-tron/releases/download/'
-JAVA_TRON_LASTEST_VERSION = '3.2.5'
+JAVA_TRON_LASTEST_VERSION = '3.5.0.1'
 JAVA_TRON_EVENT_NODE_GIT_URL = 'https://github.com/tronprotocol/java-tron.git'
 JAVA_TRON_EVENT_NODE_BRANCH_NAME = 'event_parser'
 
@@ -24,6 +24,8 @@ GRID_NODE_JAR = '/grid.jar'
 FULL_CONFIG = '/full.conf'
 SOL_CONFIG = '/sol.conf'
 EVENT_CONFIG = '/event.conf'
+
+LOGBACK_XML = 'logback.xml'
 
 LOCAL_HOST = '127.0.0.1:'
 

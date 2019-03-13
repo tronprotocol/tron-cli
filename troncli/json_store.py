@@ -287,7 +287,9 @@ raw_config = {
     " allowCreationOfContracts": 1,
     " allowDelegateResource": 1,
     " allowSameTokenName": 1,
-    " allowTvmTransferTrc10": 1
+    " allowTvmTransferTrc10": 1,
+    " allowMultiSign": 1,
+    " allowAdaptiveEnergy": 1
   },
 
   " log.level": {

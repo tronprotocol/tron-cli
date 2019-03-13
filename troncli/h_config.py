@@ -3,7 +3,7 @@ import copy
 import shutil
 import subprocess
 
-from troncli import utils, json_store
+from troncli import utils, json_store, xml_store
 from troncli.constants import *
 
 
@@ -38,6 +38,7 @@ class Config:
         self.event_config = copy.deepcopy(json_store.raw_config)
         self.eventnode_db_properties = copy.deepcopy(json_store.raw_eventnode_mongodb_properties)
         self.gridapi_db_properties = copy.deepcopy(json_store.raw_gridapi_application_properties)
+        self.logback_config = copy.deepcopy(xml_store.logback)
         _config_store = self.node_list.get()
         self.config_store = _config_store['config']
         utils.success_msg('config initialized')
@@ -61,6 +62,15 @@ class Config:
         utils.success_msg('eventnode config file exported to: ')
         utils.msg(_target_file_path_event)
         await self.update_config_store()
+
+        """
+        Export logback
+        """
+        _target_file_path_full = self.root_path + NODES_DIR + FULL_NODE_DIR + "/" + LOGBACK_XML
+        self.phrase.str2xml_to_file(self.logback_config, _target_file_path_full)
+
+        _target_file_path_sol = self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + "/" + LOGBACK_XML
+        self.phrase.str2xml_to_file(self.logback_config, _target_file_path_sol)
 
     async def update_config_store(self):
         await self.node_list.update_config(self.config_store['nettype'],
@@ -171,14 +181,7 @@ class Config:
             self.sol_config[' node'][' p2p'][' version'] = PRIVATENET_P2P_VERSION
             self.event_config[' node'][' p2p'][' version'] = PRIVATENET_P2P_VERSION
         # committee
-        if net_type == 'main':
-            self.full_config[' committee'][' allowCreationOfContracts'] = MAINNET_ALLOW_CREATION_OF_CONTRACTS
-            self.sol_config[' committee'][' allowCreationOfContracts'] = MAINNET_ALLOW_CREATION_OF_CONTRACTS
-            self.event_config[' committee'][' allowCreationOfContracts'] = MAINNET_ALLOW_CREATION_OF_CONTRACTS
-        if net_type == 'private':
-            self.full_config[' committee'][' allowCreationOfContracts'] = PRIVATENET_ALLOW_CREATION_OF_CONTRACTS
-            self.sol_config[' committee'][' allowCreationOfContracts'] = PRIVATENET_ALLOW_CREATION_OF_CONTRACTS
-            self.event_config[' committee'][' allowCreationOfContracts'] = PRIVATENET_ALLOW_CREATION_OF_CONTRACTS
+        
         # vm
         if net_type == 'main':
             self.full_config[' vm'][' supportConstant'] = 'false'
