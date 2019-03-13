@@ -108,7 +108,7 @@ class Init(object):
             url += 'Odyssey-v' + version
             self.source_full_jar = 'java-tron.jar'
             await self.node_list.update_node_version(version)
-        elif '3.2.0' <= version <= '3.2.10':
+        elif '3.2.0' <= version < JAVA_TRON_LASTEST_VERSION:
             url += 'Odyssey-v' + version
             await self.node_list.update_node_version(version)
         else:
@@ -161,3 +161,11 @@ class Init(object):
         # utils.msg(self.root_path + NODES_DIR + GRID_API_DIR + GRID_NODE_JAR)
         # finished
         utils.success_msg('initialization finished')
+        
+    async def copy_logback(self):
+        shutil.copy(self.root_path + '/logback.xml', 
+            self.root_path + NODES_DIR + FULL_NODE_DIR)
+        shutil.copy(self.root_path + '/logback.xml', 
+            self.root_path + NODES_DIR + SOLIDITY_NODE_DIR)
+
+        utils.success_msg('logback successfully copied')

@@ -76,7 +76,8 @@ class Worker:
 
             cmd = "java -jar " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_NODE_JAR + \
                   " -c " + self.root_path + NODES_DIR + FULL_NODE_DIR + FULL_CONFIG + " --witness" + \
-                  " -d " + self.root_path + NODES_DIR + FULL_NODE_DIR + "/data"
+                  " -d " + self.root_path + NODES_DIR + FULL_NODE_DIR + "/data" + \
+                  self.root_path + NODES_DIR + FULL_NODE_DIR + " --log-config " + LOGBACK_XML
 
             _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
@@ -86,7 +87,8 @@ class Worker:
 
             cmd = "java -jar " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOLIDITY_NODE_JAR + \
                   " -c " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + SOL_CONFIG + " --witness" + \
-                  " -d " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + "/data"
+                  " -d " + self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + "/data" + \
+                 self.root_path + NODES_DIR + SOLIDITY_NODE_DIR + " --log-config " + LOGBACK_XML
 
             _process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
